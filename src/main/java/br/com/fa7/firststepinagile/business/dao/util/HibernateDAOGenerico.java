@@ -1,4 +1,4 @@
-package br.com.fa7.firststepinagile.daos.util;
+package br.com.fa7.firststepinagile.business.dao.util;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

@@ -3,7 +3,7 @@ package br.com.fa7.firststepinagile.business;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.fa7.firststepinagile.daos.ActivityDAO;
+import br.com.fa7.firststepinagile.business.dao.ActivityDAO;
 import br.com.fa7.firststepinagile.entities.Activity;
 
 @Component
