@@ -8,7 +8,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class activity {
+public class Activity {
 	
 	@Id
 	@GeneratedValue
