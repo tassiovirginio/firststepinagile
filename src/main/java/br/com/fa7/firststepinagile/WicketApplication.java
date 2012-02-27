@@ -30,8 +30,6 @@ public class WicketApplication extends WebApplication{
 		
 		System.out.println("----> "+activityBusiness.size());
 		
-		
-		
 		// add your configuration here
 	}
 }
