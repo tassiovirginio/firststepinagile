@@ -1,24 +1,17 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
 	<display-name>firststepinagile</display-name>
 
-	<!--
-		There are three means to configure Wickets configuration mode and they 
-		are tested in the order given.
-		
-		1) A system property: -Dwicket.configuration 
-		2) servlet specific <init-param> 
-		3) context specific <context-param>
-
-		The value might be either "development" (reloading when templates change) or 
-		"deployment". If no configuration is found, "development" is the default. -->
-
 	<filter>
 		<filter-name>wicket.firststepinagile</filter-name>
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+		<init-param>
+            <param-name>applicationFactoryClassName</param-name>
+            <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
+        </init-param>
 		<init-param>
 			<param-name>applicationClassName</param-name>
 			<param-value>br.com.fa7.firststepinagile.WicketApplication</param-value>
@@ -29,4 +22,21 @@
 		<filter-name>wicket.firststepinagile</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <filter>
+        <filter-name>opensessioninview</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+     <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
