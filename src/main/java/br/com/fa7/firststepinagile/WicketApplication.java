@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
-import br.com.fa7.firststepinagile.pages.HomePage;
+import br.com.fa7.firststepinagile.pages.KanbanPage;
 
 @Component
 public class WicketApplication extends WebApplication{
@@ -15,8 +15,8 @@ public class WicketApplication extends WebApplication{
 	private ActivityBusiness activityBusiness;
 	
 	@Override
-	public Class<HomePage> getHomePage(){
-		return HomePage.class;
+	public Class<KanbanPage> getHomePage(){
+		return KanbanPage.class;
 	}
 
 	@Override
