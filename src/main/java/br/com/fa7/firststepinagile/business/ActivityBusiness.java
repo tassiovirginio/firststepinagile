@@ -10,7 +10,7 @@ import br.com.fa7.firststepinagile.entities.Activity;
 public class ActivityBusiness {
 	
 	@Autowired
-	private ActivityDAO activityDAO;
+	private ActivityDAO activityDAO; 
 	
 	public int size(){
 		return activityDAO.listAll().size();

@@ -1,6 +1,7 @@
 package br.com.fa7.firststepinagile.pages;
 
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
@@ -32,7 +33,6 @@ public class PageBase extends WebPage {
     		}
     	};
     	add(lkSobre);
-    	
     	
     }
 }
