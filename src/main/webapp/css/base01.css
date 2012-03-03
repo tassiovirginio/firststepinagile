@@ -15,7 +15,7 @@ div.wicket-modal div.w_left, div.wicket-modal div.w_right {
 		background-image: none  !important;
 }
 
-a.w_close:link,a:visited,a:active {
+#a.w_close:link,a:visited,a:active {
 	border-radius: 10px !important;
 	text-decoration: none !important;
 	color: #333333 !important;
@@ -24,7 +24,7 @@ a.w_close:link,a:visited,a:active {
 	border: solid 0px #ffffff !important;
 }
 
-a.w_close:hover { 
+#a.w_close:hover { 
 	text-decoration: underline !important;
 	color: #666666 !important;
 	background: #666666 !important;
@@ -176,7 +176,7 @@ span {
 	*background-color: #CCCCCC;
 }
 
-a:link,a:visited,a:active {
+#a:link,a:visited,a:active {
 	border-radius: 10px;
 	text-decoration: none;
 	color: #000000;
@@ -187,7 +187,7 @@ a:link,a:visited,a:active {
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#efefef),to(#999999) );
 }
 
-a:hover { 
+#a:hover { 
 	color: #000000;
 	background: #FF9900;
 	font-weight: bolder;
