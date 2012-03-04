@@ -5,6 +5,15 @@ body {
 	margin: 0px;
 	background-color: white;
 	margin-top: 0px;
+	
+	scrollbar-face-color: #ffffff;
+	scrollbar-highlight-color: #ffffff;
+	scrollbar-shadow-color: #ffffff; 
+	scrollbar-3dlight-color: #ffffff;
+	scrollbar-arrow-color: #ffffff; 
+	scrollbar-track-color: #ffffff; 
+	scrollbar-darkshadow-color: #ffffff; 
+	
 }
 
 div.wicket-modal div.w_top, div.wicket-modal div.w_bottom, div.wicket-modal div.w_topleft, div.wicket-modal div.w_topright, div.wicket-modal div.w_bottomright, div.wicket-modal div.w_bottomleft, div.wicket-modal a.w_close{

@@ -11,6 +11,7 @@ import org.junit.Test;
  */
 public class TestHomePage
 {
+	@SuppressWarnings("unused")
 	private WicketTester tester;
 
 	@Before
