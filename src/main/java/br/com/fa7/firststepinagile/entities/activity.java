@@ -1,32 +1,39 @@
 package br.com.fa7.firststepinagile.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class Activity {
+public class Activity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
-	private long id;
+	private Long id;
 	
 	private String name;
 	
 	private String description;
 	
-	private int priority;
+	private Integer priority;
 	
 	private String color;
 	
 	private int state;
 	
-	private String currentResponsible;
+	@ManyToOne
+	private User currentResponsible;
 	
-	private String creator;
+	@ManyToOne
+	private User creator;
 	
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime dateCreation;
@@ -38,12 +45,12 @@ public class Activity {
 	private DateTime dateEnd;
 	
 	private int duration;
-
-	public long getId() {
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,11 +70,11 @@ public class Activity {
 		this.description = description;
 	}
 
-	public int getPriority() {
+	public Integer getPriority() {
 		return priority;
 	}
 
-	public void setPriority(int priority) {
+	public void setPriority(Integer priority) {
 		this.priority = priority;
 	}
 
@@ -87,19 +94,19 @@ public class Activity {
 		this.state = state;
 	}
 
-	public String getCurrentResponsible() {
+	public User getCurrentResponsible() {
 		return currentResponsible;
 	}
 
-	public void setCurrentResponsible(String currentResponsible) {
+	public void setCurrentResponsible(User currentResponsible) {
 		this.currentResponsible = currentResponsible;
 	}
 
-	public String getCreator() {
+	public User getCreator() {
 		return creator;
 	}
 
-	public void setCreator(String creator) {
+	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 
@@ -134,6 +141,6 @@ public class Activity {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	
+
 
 }

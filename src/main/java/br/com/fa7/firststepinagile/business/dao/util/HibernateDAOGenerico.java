@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateDaoSupport{
@@ -39,8 +40,7 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 	@SuppressWarnings("unchecked")
 	public T findById(ID id) {
 		try {
-			return (T) this.getHibernateTemplate()
-					.get(getPersistentClass(), id);
+			return (T) this.getHibernateTemplate().get(getPersistentClass(), id);
 		} catch (final HibernateException ex) {
 			HibernateDAOGenerico.LOG.error(ex);
 			throw convertHibernateAccessException(ex);
@@ -59,7 +59,7 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 
 	public T save(T entity) {
 		try {
-			this.getHibernateTemplate().save(entity);
+			this.getHibernateTemplate().saveOrUpdate(entity);
 			return entity;
 		} catch (final HibernateException ex) {
 			HibernateDAOGenerico.LOG.error(ex);
@@ -67,13 +67,20 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 		}
 	}
 
+	public List<T> findByCriteria(Criterion... criterion) {
+		return findByCriteria(null, criterion);
+	}
+	
 	@SuppressWarnings("unchecked")
-	protected List<T> findByCriteria(Criterion... criterion) {
+	public List<T> findByCriteria(Order order,Criterion... criterion) {
 		try {
 			Criteria crit = this.getHibernateTemplate().getSessionFactory()
 					.getCurrentSession().createCriteria(getPersistentClass());
 			for (Criterion c : criterion) {
 				crit.add(c);
+			}
+			if(order != null){
+				crit.addOrder(order);
 			}
 			return crit.list();
 		} catch (final HibernateException ex) {
