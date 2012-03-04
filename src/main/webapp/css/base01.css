@@ -113,6 +113,23 @@ div.w_blue{
 	box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
 }
 
+#login_state_div {
+	font-weight: bold;
+	font-size: 11px;
+	width: 100%;
+	text-align: right;
+	margin: 0 auto;
+	left: 0%;
+	position: absolute;
+	bottom: 0;
+	position: fixed;
+	background-color: #000000;
+	color: #ffffff;
+	-moz-box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
+	-webkit-box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
+	box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
+}
+
 
 
 div.wicket-mask-dark {
@@ -248,6 +265,19 @@ table {
 	-moz-box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
 	-webkit-box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
 	-moz-box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
+	box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
+}
+
+table.table_login {
+	border: 2px #00468E outset;
+	vertical-align: center;
+	margin: auto;
+	border-color: black;
+	box-shadow: rgba(0, 0, 0, 0.4) 10px 10px;
+	border-radius: 10px;
+	background-color: #000000;
+	-moz-box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
+	-webkit-box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
 	box-shadow: 0 10px 30px hsla(0, 0%, 0%, .8);
 }
 
