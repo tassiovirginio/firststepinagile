@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.StringValidator;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
 import br.com.fa7.firststepinagile.business.UserBusiness;
@@ -51,11 +52,9 @@ public class LoginPage extends WebPage {
 			}
 		};
 		
-		TextField<String> loginTF = new TextField<String>("login");
-		loginTF.setRequired(true);
-		form.add(loginTF);
+		form.add(new TextField<String>("login").setRequired(true));
 
-		form.add(new PasswordTextField("password"));
+		form.add(new PasswordTextField("password").add(StringValidator.lengthBetween(2,6)));
 
 		form.add(new FeedbackPanel("feedback"));
 		
