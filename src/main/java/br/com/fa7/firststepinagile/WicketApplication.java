@@ -31,7 +31,7 @@ public class WicketApplication extends WebApplication{
 		super.init();
 
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-		getDebugSettings().setAjaxDebugModeEnabled(false);
+		getDebugSettings().setAjaxDebugModeEnabled(true);
 		
 		System.out.println("----> "+activityBusiness.size());
 		
