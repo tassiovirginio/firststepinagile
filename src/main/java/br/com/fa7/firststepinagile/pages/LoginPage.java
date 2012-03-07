@@ -5,8 +5,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.protocol.http.request.WebClientInfo;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
@@ -22,14 +21,15 @@ public class LoginPage extends WebPage {
 	@SpringBean
 	private ActivityBusiness activityBusiness;
 
-	private User user;
+	private String login;
 	
-	@SuppressWarnings({ "rawtypes", "serial" })
+	private String password;
+	
 	public LoginPage() {
 		
-		user = new User();
+		setDefaultModel(new CompoundPropertyModel<LoginPage>(this));
 
-		WebClientInfo info2 = (WebClientInfo) getSession().getClientInfo();
+//		WebClientInfo info2 = (WebClientInfo) getSession().getClientInfo();
 
 		getSession().clear();
 
@@ -39,22 +39,23 @@ public class LoginPage extends WebPage {
 
 			protected void onSubmit() {
 
-				boolean login = userBusiness.login(user);
+				boolean login = userBusiness.login(LoginPage.this.login,LoginPage.this.password);
 
 				if (login) {
-					user = userBusiness.findForLogin(user.getLogin());
+					User user = userBusiness.findForLogin(LoginPage.this.login);
 					setResponsePage(new KanbanPage(user));
 				} else {
 					info("Login Incorretor!");
 				}
+				
 			}
 		};
 		
-		TextField<String> login = new TextField<String>("login", new PropertyModel<String>(user, "login"));
-		login.setRequired(true);
-		form.add(login);
+		TextField<String> loginTF = new TextField<String>("login");
+		loginTF.setRequired(true);
+		form.add(loginTF);
 
-		form.add(new PasswordTextField("senha", new PropertyModel<String>(user, "password")));
+		form.add(new PasswordTextField("password"));
 
 		form.add(new FeedbackPanel("feedback"));
 		

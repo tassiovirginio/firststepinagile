@@ -53,18 +53,22 @@ public class ActivityStatePanel extends Panel {
 				item.add(new Link("lkNext"){
 					@Override
 					public void onClick() {
-						activity.setState(activity.getState()+1);
-						activityBusiness.save(activity);
-						setResponsePage(new KanbanPage(user));
+						if(activity.getState() < 3){
+							activity.setState(activity.getState()+1);
+							activityBusiness.save(activity);
+							setResponsePage(new KanbanPage(user));
+						}
 					}
 				});
 				
 				item.add(new Link("lkPrev"){
 					@Override
 					public void onClick() {
-						activity.setState(activity.getState()-1);
-						activityBusiness.save(activity);
-						setResponsePage(new KanbanPage(user));
+						if(activity.getState() > 1){
+							activity.setState(activity.getState()-1);
+							activityBusiness.save(activity);
+							setResponsePage(new KanbanPage(user));
+						}
 					}
 				});
 				

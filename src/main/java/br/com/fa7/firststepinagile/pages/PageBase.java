@@ -19,7 +19,7 @@ public class PageBase extends WebPage {
 	
 	@SuppressWarnings({ "rawtypes", "serial" })
     public PageBase(final User user) {
-
+		
 		Link linkKanban = new Link("lkKanban"){
 			@Override
     		public void onClick() {

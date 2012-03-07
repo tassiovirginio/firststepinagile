@@ -1,5 +1,7 @@
 package br.com.fa7.firststepinagile.business;
 
+import java.util.List;
+
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,15 @@ public class UserBusiness {
 
 	public boolean login(User user) {
 		return true;
+	}
+	
+	
+	public boolean login(String login, String password) {
+		List<User> listUser = userDAO.findByCriteria(Restrictions.eq("login", login),Restrictions.eq("password", password));
+		if(listUser.size() > 0){
+			return true;
+		}
+		return false;
 	}
 	
 	
