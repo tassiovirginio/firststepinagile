@@ -1,0 +1,24 @@
+<wicket:head> 
+</wicket:head> 
+
+<TABLE>
+<TBODY>
+	<TR>
+		<TH>Atividade</TH>
+	</TR>
+	<TR>
+		<TD>
+			<form wicket:id="form" action="">
+				Nome:<input type="text" wicket:id="name" /><br>
+				Descrição:<textarea rows="3" cols="20" wicket:id="description"></textarea><br>
+				Data Inicio:<input type="text" wicket:id="dateStart" />
+				<input type="submit" /><br>
+			</form>
+			Data de Criação: <span wicket:id="dateCreation"></span><br>
+			creator: <span wicket:id="creator.name"></span><br>
+			responsible: <span wicket:id="currentResponsible.name"></span><br>
+		</TD>
+	</TR>
+</TBODY>
+</TABLE>
+

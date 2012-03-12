@@ -59,6 +59,9 @@ public class LoginPage extends WebPage {
 		form.add(new FeedbackPanel("feedback"));
 		
 		add(form);
+		
+		User user = userBusiness.findForLogin("test01");
+		setResponsePage(new KanbanPage(user));
 
 	}
 }

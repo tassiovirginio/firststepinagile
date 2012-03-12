@@ -2,7 +2,8 @@ package br.com.fa7.firststepinagile.pages.panels;
 
 import java.util.List;
 
-import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -14,6 +15,7 @@ import br.com.fa7.firststepinagile.business.ActivityBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.KanbanPage;
+import br.com.fa7.firststepinagile.pages.PageBase;
 
 public class ActivityStatePanel extends Panel {
 	
@@ -22,11 +24,12 @@ public class ActivityStatePanel extends Panel {
 	@SpringBean
 	private ActivityBusiness activityBusiness;
 
-	public ActivityStatePanel(String id, String stateName, final User user,Integer state, final Page pageResponse) {
+	public ActivityStatePanel(String id, String stateName, final User user,Integer state, final PageBase pageResponse) {
 		super(id);
 		
 		Label lbStateName = new Label("lbStateName", stateName);
 		add(lbStateName);
+		
 		
 		List<Activity> activities = activityBusiness.findActivityForUserAndState(user, state);
 		
@@ -36,7 +39,15 @@ public class ActivityStatePanel extends Panel {
 			protected void populateItem(ListItem<Activity> item) {
 				final Activity activity = item.getModelObject();
 				
-				item.add(new Label("lbId", activity.getId().toString()));
+				AjaxLink ajaxLink = new AjaxLink("lkEditActivity") {
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						pageResponse.getActivityModal(activity).show(target);
+					}
+				};
+				ajaxLink.add(new Label("lbId", activity.getId().toString()));
+				item.add(ajaxLink);
+				
 				item.add(new Label("lbDesc", activity.getDescription()));
 				item.add(new Label("lbDateCreate", activity.getDateCreation().toString()));
 				item.add(new Label("lbPrio", activity.getPriority().toString()));
