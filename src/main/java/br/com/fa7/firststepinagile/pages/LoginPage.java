@@ -1,5 +1,6 @@
 package br.com.fa7.firststepinagile.pages;
 
+import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -44,6 +45,7 @@ public class LoginPage extends WebPage {
 
 				if (login) {
 					User user = userBusiness.findForLogin(LoginPage.this.login);
+					getSession().setAttribute("user.login", user.getLogin());
 					setResponsePage(new KanbanPage(user));
 				} else {
 					info("Login Incorretor!");
@@ -61,6 +63,7 @@ public class LoginPage extends WebPage {
 		add(form);
 		
 		User user = userBusiness.findForLogin("test01");
+		getSession().setAttribute("user", user);
 		setResponsePage(new KanbanPage(user));
 
 	}
