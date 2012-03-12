@@ -28,6 +28,10 @@ public class ActivityBusiness {
 		activityDAO.save(activity);
 	}
 	
+	public Activity findById(Long id){
+		return activityDAO.findById(id);
+	}
+	
 	public List<Activity> findActivityForUserAndState(User user, Integer state){
 		return activityDAO.findByCriteria(
 				Order.desc("priority"),

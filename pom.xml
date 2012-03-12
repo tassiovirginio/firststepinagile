@@ -8,7 +8,7 @@
 
 	<name>First Step In Agile</name>
 	<description>First Step In Agile</description>
-	
+
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -21,8 +21,8 @@
 		<jetty.version>7.5.0.v20110901</jetty.version>
 	</properties>
 	<dependencies>
-	
-		<!--  WICKET DEPENDENCIES -->
+
+		<!-- WICKET DEPENDENCIES -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-core</artifactId>
@@ -48,7 +48,7 @@
 			<artifactId>wicket-extensions</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
-		
+
 		<!-- HIBERNATE DEPENDENCIES -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -70,7 +70,7 @@
 			<artifactId>spring</artifactId>
 			<version>2.5.6</version>
 		</dependency>
-		
+
 		<!-- DATABASE DEPENDENCIES - HSQLDB -->
 		<dependency>
 			<groupId>hsqldb</groupId>
@@ -83,7 +83,7 @@
 			<artifactId>postgresql</artifactId>
 			<version>8.4-701.jdbc4</version>
 		</dependency>
-		
+
 		<!-- JODA TIME -->
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -103,7 +103,7 @@
 			<version>1.2.16</version>
 		</dependency>
 
-		<!--  JUNIT DEPENDENCY FOR TESTING -->
+		<!-- JUNIT DEPENDENCY FOR TESTING -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -111,12 +111,19 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--  JETTY DEPENDENCIES FOR TESTING  -->
+		<!-- JETTY DEPENDENCIES FOR TESTING -->
 		<dependency>
 			<groupId>org.eclipse.jetty.aggregate</groupId>
 			<artifactId>jetty-all-server</artifactId>
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- JQWICKET -->
+		<dependency>
+			<groupId>com.google.code.jqwicket</groupId>
+			<artifactId>jqwicket</artifactId>
+			<version>0.8</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -207,6 +214,10 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>googlecode</id>
+			<url>http://jqwicket.googlecode.com/svn/m2-repo/releases/</url>
+		</repository>
 	</repositories>
 
-	</project>
+</project>

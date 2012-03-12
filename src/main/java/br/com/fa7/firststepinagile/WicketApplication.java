@@ -1,6 +1,7 @@
 package br.com.fa7.firststepinagile;
 
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.LoginPage;
+
+import com.google.code.jqwicket.JQComponentOnBeforeRenderListener;
+import com.google.code.jqwicket.JQContributionConfig;
 
 @Component
 public class WicketApplication extends WebApplication{
@@ -28,8 +32,10 @@ public class WicketApplication extends WebApplication{
 
 	@Override
 	public void init(){
-		super.init();
-
+		
+		JQContributionConfig config = new JQContributionConfig().withDefaultJQueryUi(); 
+		getComponentPreOnBeforeRenderListeners().add(new JQComponentOnBeforeRenderListener(config));
+		
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getDebugSettings().setAjaxDebugModeEnabled(true);
 		
