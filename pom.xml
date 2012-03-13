@@ -16,10 +16,13 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	
 	<properties>
 		<wicket.version>1.5.4</wicket.version>
 		<jetty.version>7.5.0.v20110901</jetty.version>
-	</properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+	
 	<dependencies>
 
 		<!-- WICKET DEPENDENCIES -->
@@ -126,6 +129,8 @@
 			<version>0.8</version>
 		</dependency>
 	</dependencies>
+	
+	
 	<build>
 		<resources>
 			<resource>
