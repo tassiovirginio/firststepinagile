@@ -51,13 +51,21 @@ public class PageBase extends WebPage {
 		};
 		add(lkSobre);
 		
+		AjaxLink ajaxLink = new AjaxLink("lkNewActivity") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				getActivityModal(new Activity()).show(target);
+			}
+		};
+		add(ajaxLink);
+		
 		
 		activityModal = new ModalWindow("activityModal");
 		add(activityModal);
 		activityModal.setCookieName("Editar Atividade");
 		activityModal.setResizable(false);
-		activityModal.setInitialWidth(60);
-		activityModal.setInitialHeight(30);
+		activityModal.setInitialWidth(120);
+		activityModal.setInitialHeight(40);
 		activityModal.setWidthUnit("em");
 		activityModal.setHeightUnit("em");
 		activityModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);

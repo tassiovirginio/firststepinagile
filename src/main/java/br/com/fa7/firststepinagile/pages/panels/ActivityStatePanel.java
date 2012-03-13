@@ -48,8 +48,12 @@ public class ActivityStatePanel extends Panel {
 				ajaxLink.add(new Label("lbId", activity.getId().toString()));
 				item.add(ajaxLink);
 				
-				item.add(new Label("lbDesc", activity.getDescription()));
-				item.add(new Label("lbDateCreate", activity.getDateCreation().toString()));
+				String descriptionStr = activity.getDescription().replace("<p>","").replace("</p>","");
+				if(descriptionStr.length() > 41){
+					descriptionStr = descriptionStr.substring(0,41);
+				}
+				item.add(new Label("lbDesc",descriptionStr+"..."));
+				item.add(new Label("lbDateCreate", activity.getDateCreation().toString("HH:mm:ss dd/MM/yyyy")));
 				item.add(new Label("lbPrio", activity.getPriority().toString()));
 				
 				item.add(new Link("lkUp"){

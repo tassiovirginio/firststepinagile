@@ -4,20 +4,20 @@
 <TABLE>
 <TBODY>
 	<TR>
-		<TH>Atividade</TH>
+		<TH>Atividade: <span wicket:id="id"></span></TH>
 	</TR>
 	<TR>
 		<TD>
+			Data de Criação: <span wicket:id="dateCreation"></span><br>
+			Criado por: <span wicket:id="creator.name"></span><br>
+			Responsavel atual: <span wicket:id="currentResponsible.name"></span><br>
 			<form wicket:id="form" action="">
-				Nome:<input type="text" wicket:id="name" /><br>
-				Descrição:<textarea rows="10" cols="80" wicket:id="description"></textarea><br>
-				Data Inicio:<input type="text" wicket:id="dateStart" /><br>
+				Nome:<input type="text" wicket:id="name" max="120" maxlength="120"/><br>
+				Descrição:<textarea rows="10" cols="120" wicket:id="description"></textarea><br>
+				Data Inicio:<input type="text" wicket:id="dateStart" /> - 
 				Cor:<input type="text" wicket:id="colorpicker" /><br>
 				<input type="submit" /><br>
 			</form>
-			Data de Criação: <span wicket:id="dateCreation"></span><br>
-			creator: <span wicket:id="creator.name"></span><br>
-			responsible: <span wicket:id="currentResponsible.name"></span><br>
 		</TD>
 	</TR>
 </TBODY>
