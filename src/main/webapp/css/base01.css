@@ -28,6 +28,7 @@ body {
 }
 
 
+
 #menu_div {
 	font-weight: bold;
 	font-size: 11px;
@@ -49,11 +50,14 @@ body {
 
 a:link,a:visited,a:active {
 	border-radius: 4px;
-	text-decoration: none;
-	color: red;
+/* 	text-decoration: none; */
+	text-decoration: underline;
+	
+	color: #000000;
 /*  	background-color: #000000; */
 /* 	font-weight: bolder; */
 	border: solid 0px;
+	
 /* 	background-image: -moz-linear-gradient(100% 100% 90deg, #333, #efefef); */
 /* 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#efefef),to(#999999) ); */
 }

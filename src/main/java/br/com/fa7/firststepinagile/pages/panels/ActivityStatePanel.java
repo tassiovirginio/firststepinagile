@@ -44,7 +44,10 @@ public class ActivityStatePanel extends Panel {
 				final Activity activity = item.getModelObject();
 				
 				WebMarkupContainer container = new WebMarkupContainer("color");
-				container.add(new SimpleAttributeModifier("style", "background-color: #" + activity.getColor() +" !important;background-image: none!important;"));
+				container.add(new SimpleAttributeModifier("style", 
+//						"background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#" + activity.getColor() +"),to(#FFFFFF) );"
+						"background-color: #" + activity.getColor() +" !important;background-image: none!important;"
+						));
 				item.add(container);
 				
 				String nameStr = activity.getName();

@@ -33,6 +33,9 @@ public class WicketApplication extends WebApplication{
 	@Override
 	public void init(){
 		
+		getRequestCycleSettings().setResponseRequestEncoding("UTF-8"); 
+        getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
+		
 		JQContributionConfig config = new JQContributionConfig().withDefaultJQueryUi(); 
 		getComponentPreOnBeforeRenderListeners().add(new JQComponentOnBeforeRenderListener(config));
 		
