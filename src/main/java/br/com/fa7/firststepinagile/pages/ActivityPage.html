@@ -1,25 +1,15 @@
 <wicket:head> 
+<link rel="stylesheet" href="css/base01.css" type="text/css" media="screen" title="Stylesheet" />
 </wicket:head> 
 
-<TABLE>
-<TBODY>
-	<TR>
-		<TH>Atividade: <span wicket:id="id"></span></TH>
-	</TR>
-	<TR>
-		<TD>
-			Data de Criação: <span wicket:id="dateCreation"></span><br>
-			Criado por: <span wicket:id="creator.name"></span><br>
-			Responsavel atual: <span wicket:id="currentResponsible.name"></span><br>
-			<form wicket:id="form" action="">
-				Nome:<input type="text" wicket:id="name" max="120" maxlength="120"/><br>
-				Descrição:<textarea rows="10" cols="120" wicket:id="description"></textarea><br>
-				Data Inicio:<input type="text" wicket:id="dateStart" /> - 
-				Cor:<input type="text" wicket:id="colorpicker" /><br>
-				<input type="submit" /><br>
-			</form>
-		</TD>
-	</TR>
-</TBODY>
-</TABLE>
+<b>#<span wicket:id="id"></span>-<span wicket:id="dateCreation"></span>-<span wicket:id="creator.name"></span><br>
+</b><br>
+<form wicket:id="form" action="">
+	Responsavel atual: <select wicket:id="currentResponsible"></select><br>
+	Nome:<input type="text" wicket:id="name" max="120" maxlength="120"/><br>
+	Data Inicio:<input type="text" wicket:id="dateStart" /><br>
+	Cor:<input type="text" wicket:id="color" /><br>
+	Descrição:<textarea rows="8" cols="120" wicket:id="description"></textarea><br>
+	<input type="submit" /><br>
+</form>
 

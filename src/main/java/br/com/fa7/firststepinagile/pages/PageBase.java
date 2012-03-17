@@ -63,11 +63,12 @@ public class PageBase extends WebPage {
 		activityModal = new ModalWindow("activityModal");
 		add(activityModal);
 		activityModal.setCookieName("Editar Atividade");
-		activityModal.setResizable(false);
+		activityModal.setResizable(true);
 		activityModal.setInitialWidth(120);
 		activityModal.setInitialHeight(40);
-		activityModal.setWidthUnit("em");
-		activityModal.setHeightUnit("em");
+		activityModal.setWidthUnit("px");
+		activityModal.setHeightUnit("px");
+		activityModal.setTitle("Editar Atividade");
 		activityModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
 
 
@@ -76,7 +77,7 @@ public class PageBase extends WebPage {
 	public ModalWindow getActivityModal(final Activity activity){
 		activityModal.setPageCreator(new ModalWindow.PageCreator() {
 			public Page createPage() {
-				return new ActivityPage(activityModal, activity);
+				return new ActivityPage(activityModal, activity, PageBase.this);
 			}
 		});
 		return activityModal;

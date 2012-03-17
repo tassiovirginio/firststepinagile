@@ -44,4 +44,8 @@ public class UserBusiness {
 	public User findForLogin(String login){
 		return userDAO.findByCriteria(Restrictions.eq("login", login)).get(0);
 	}
+	
+	public List<User> loadAllUser(){
+		return userDAO.listAll();
+	}
 }

@@ -2,12 +2,16 @@ package br.com.fa7.firststepinagile.pages;
 
 import java.util.Date;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.datetime.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -16,6 +20,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
+import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.User;
 
@@ -29,12 +34,15 @@ public class ActivityPage extends WebPage {
 
 	@SpringBean
 	private ActivityBusiness activityBusiness;
+	
+	@SpringBean
+	private UserBusiness userBusiness;
 
 	private Date startDate;
 
 	private Activity activity;
 
-	public ActivityPage(final ModalWindow modalWindow, Activity activityId) {
+	public ActivityPage(final ModalWindow modalWindow, Activity activityId, final Page pageOrigen) {
 
 		final User user = (User) getSession().getAttribute("user");
 		
@@ -54,19 +62,23 @@ public class ActivityPage extends WebPage {
 		if (this.activity.getDateStart() != null) {
 			startDate = this.activity.getDateStart().toDate();
 		}
+		
+		add(new Label("id"));
+		add(new Label("dateCreation", this.activity.getDateCreation().toString("HH:mm:ss dd/MM/yyyy")));
+		add(new Label("creator.name"));
 
-		Form form = new Form("form") {
+		Form<Activity> form = new Form<Activity>("form") {
+			private static final long serialVersionUID = 1L;
 			protected void onSubmit() {
-				ActivityPage.this.activity
-						.setDateStart(new DateTime(startDate));
+				ActivityPage.this.activity.setDateStart(new DateTime(startDate));
 				activityBusiness.save(ActivityPage.this.activity);
-				modalWindow.close(new AjaxRequestTarget(new KanbanPage(user)));
+//				modalWindow.close(new AjaxRequestTarget(pageOrigen));
+//				modalWindow.setResponsePage(pageOrigen);
 			};
 		};
 		add(form);
 
-		TextField<String> tfName = new TextField<String>("name");
-		form.add(tfName);
+		form.add(new TextField<String>("name"));
 
 		form.add(new CKEditorTextArea<String>("description",new CKEditorOptions()
 				.dialog_backgroundCoverColor("red").language("pt")
@@ -74,18 +86,17 @@ public class ActivityPage extends WebPage {
 				{ "Bold", "Italic", "-","NumberedList", "BulletedList","-", "Link", "Unlink" },{ "UIColor" } })));
 
 
-		DateTextField dfDateStart = DateTextField.forDateStyle("dateStart",
-				new PropertyModel<Date>(this, "startDate"), "M-");
+		DateTextField dfDateStart = DateTextField.forDateStyle("dateStart",new PropertyModel<Date>(this, "startDate"), "M-");
 		dfDateStart.add(new DatePicker());
 		form.add(dfDateStart);
 
-		form.add(new ColorPickerTextField<String>("colorpicker",
-				new PropertyModel<String>(this.activity, "color")));
-
-		add(new Label("id"));
-		add(new Label("dateCreation", this.activity.getDateCreation().toString("HH:mm:ss dd/MM/yyyy")));
-		add(new Label("creator.name"));
-		add(new Label("currentResponsible.name"));
+		
+		ColorPickerTextField<String> colorPickerTextField = new ColorPickerTextField<String>("color");
+		colorPickerTextField.add(new SimpleAttributeModifier("style", "color: #" + activity.getColor() +" !important;"));
+		form.add(colorPickerTextField);
+		
+		
+		form.add(new DropDownChoice<User>("currentResponsible",userBusiness.loadAllUser(),new ChoiceRenderer("name","id")));
 
 	}
 
