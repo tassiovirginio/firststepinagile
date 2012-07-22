@@ -1,11 +1,22 @@
-<wicket:extend>
-	<BR><BR>
-<TABLE width="72%" height="90%" >
-<TR><TH align="left">KABAN - Iteração: <SELECT></SELECT> - <span wicket:id="lbName">Tassio Virginio</span></TH></TR><TR><TD>
+<wicket:head>
+    <link rel="stylesheet" type="text/css" href="css/kanban.css"/>
+</wicket:head>
 
-<div wicket:id="statePanelStop"></div>
-<div wicket:id="statePanelRunning"></div>
-<div wicket:id="statePanelCompleted"></div>
-	
-</TD></TR></TABLE>
+<wicket:extend>
+
+	<div id="kanban_manager">
+		<div id="kanban_manager2">
+		KABAN <br>
+		Iteração: <SELECT></SELECT> <br>
+		Nome: <span wicket:id="lbName">Teste</span>
+		</div>
+		<div id="kanban_tutor">
+		Kanban de Movimentação, também chamado de Kanban de Transporte, é o sinal (usualmente um cartão diferente do Kanban de Produção) que autoriza a movimentação física de peças entre o supermercado do processo fornecedor e o supermercado do processo cliente (se houver). Os cartões são afixados nos produtos (em geral, o cartão de movimentação é afixado em substituição ao cartão de produção) e levados a outro processo ou local, sendo retirados após o consumo e estando liberados para realizar novas compras no supermercado do processo fornecedor.O kanban puxa a produção e dita o ritmo de produção para atender as demandas.
+		</div>
+	</div>
+	<div id="kanban">
+		<div id="stateKaban" wicket:id="statePanelStop"></div>
+		<div id="stateKaban" wicket:id="statePanelRunning"></div>
+		<div id="stateKaban" wicket:id="statePanelCompleted"></div>
+	</div>
 </wicket:extend>
