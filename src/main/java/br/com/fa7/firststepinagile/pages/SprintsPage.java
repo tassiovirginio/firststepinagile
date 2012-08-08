@@ -1,12 +1,13 @@
 package br.com.fa7.firststepinagile.pages;
 
 import br.com.fa7.firststepinagile.entities.User;
+import br.com.fa7.firststepinagile.pages.base.PageBase;
 
-public class ManagerPage extends PageBase {
-	
+public class SprintsPage extends PageBase {
+
 	private static final long serialVersionUID = 1L;
-	
-	public ManagerPage(User user) {
+
+	public SprintsPage(User user) {
 		super(user);
 	}
 

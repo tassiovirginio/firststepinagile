@@ -3,45 +3,44 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="favicon2.png" />
 <title>First Step In Agile</title>
-<LINK href="css/base01.css" rel="stylesheet" type="text/css">
+<LINK href="css/LoginPage.css" rel="stylesheet" type="text/css">
 </HEAD>
 <BODY>
-<img src="imagens/wallpaper.jpg" class="bg">
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<form wicket:id="form">
-<TABLE class="table_login">
-	<TR>
-		<TH colspan="2">First Step In Agile 0.0.1</TH>
-	</TR>
-	<TR>
-		<TD colspan="2"><span wicket:id="feedback"></span></TD>
-	</TR>
-	<TR>
-		<TD align="right">Login:</TD>
-		<TD><input type="text" wicket:id="login" /></TD>
-	</TR>
-	<TR>
-		<TD align="right">Senha:</TD>
-		<TD><input type="password" wicket:id="password" /></TD>
-	</TR>
-	<TR>
-		<TD colspan="2" align="center" ><input type="submit" /></TD>
-	</TR>
-</TABLE>
-</form>
+	<img src="imagens/wallpaper.jpg" class="bg">
+	
+	<img id="logo_top" src="favicon.png" />
+	
+	<div id="top_div">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		First Step In Agile 
+	</div>
+	<div id="menu_div">
+<!-- 		&nbsp;TESTE1&nbsp;TESTE1&nbsp;TESTE1&nbsp;TESTE1&nbsp;TESTE1&nbsp; -->
+	</div>
+	
+		<form wicket:id="form">
+			<TABLE id="div_login">
+				<TR>
+					<TH class="login" colspan="2">First Step In Agile</TH>
+				</TR>
+				<TR>
+					<TD class="login" colspan="2"><span wicket:id="feedback"></span></TD>
+				</TR>
+				<TR>
+					<TD class="login" >Login:</TD>
+					<TD class="login" ><input type="text" wicket:id="login" /></TD>
+				</TR>
+				<TR>
+					<TD class="login">Senha:</TD>
+					<TD class="login"><input type="password" wicket:id="password" /></TD>
+				</TR>
+				<TR>
+					<TD class="login" colspan="2"><input type="submit" /></TD>
+				</TR>
+			</TABLE>
+		</form>
 
-	<div id="login_state_div">
+	<div id="status_div">
 		<span>Power by: Wicket, Hibernate and Spring. </span>
 	</div>
 

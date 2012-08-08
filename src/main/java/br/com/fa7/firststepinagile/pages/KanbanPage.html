@@ -1,22 +1,486 @@
 <wicket:head>
-    <link rel="stylesheet" type="text/css" href="css/kanban.css"/>
+    <link rel="stylesheet" type="text/css" href="css/KanbanPage.css"/>
 </wicket:head>
 
 <wicket:extend>
+	<TABLE id="table_sprints">
+		<TR>
+			<TH class="title" colspan="2">Kanban - Quadro de Atividades</TH>
+		</TR>
+		<TR>
+			<TH class="menu" colspan="2">Sprint: Nome do Sprint - Estado:
+				Aberto - 01-01-2012 
+				<a class="busca" href="#">adicionar</a>-
+				<a class="busca" href="#">editar</a>-
+				<a class="busca" href="#">buscar</a>
+			</TH>
+		</TR>
+		<TR>
+			<TD valign="top" align="left">
 
-	<div id="kanban_manager">
-		<div id="kanban_manager2">
-		KABAN <br>
-		Iteração: <SELECT></SELECT> <br>
-		Nome: <span wicket:id="lbName">Teste</span>
-		</div>
-		<div id="kanban_tutor">
-		Kanban de Movimentação, também chamado de Kanban de Transporte, é o sinal (usualmente um cartão diferente do Kanban de Produção) que autoriza a movimentação física de peças entre o supermercado do processo fornecedor e o supermercado do processo cliente (se houver). Os cartões são afixados nos produtos (em geral, o cartão de movimentação é afixado em substituição ao cartão de produção) e levados a outro processo ou local, sendo retirados após o consumo e estando liberados para realizar novas compras no supermercado do processo fornecedor.O kanban puxa a produção e dita o ritmo de produção para atender as demandas.
-		</div>
-	</div>
-	<div id="kanban">
-		<div id="stateKaban" wicket:id="statePanelCompleted"></div>		
-		<div id="stateKaban" wicket:id="statePanelRunning"></div>
-		<div id="stateKaban" wicket:id="statePanelStop"></div>
-	</div>
+				<TABLE id="table_kanban_top">
+					<TR>
+						<TH width="19.5%" >Historia</TH>
+						<TH width="19.5%" >Parado</TH>
+						<TH width="19.5%" >Fazendo</TH>
+						<TH width="19.5%" >Teste</TH>
+						<TH width="19.5%" >Feito</TH>
+						<TH width="1.5%" ></TH>
+					</TR>
+					<TR>
+						<TH class="menu">
+							<a href="#">adicionar</a>
+						</TH>
+						<TH class="menu" >
+							<a href="#">adicionar</a>
+						</TH>
+						<TH class="menu">
+							<a href="#">adicionar</a>
+						</TH>
+						<TH class="menu" >
+							<a href="#">adicionar</a>
+						</TH>
+						<TH class="menu" >
+							<a href="#">adicionar</a>
+						</TH>
+						<TH class="menu" >
+						</TH>
+					</TR>
+				</TABLE>
+				
+				<div class="barra_rolagem">
+				
+				<TABLE id="table_linha_history">
+					<TR>
+						<TD class="linha">
+							<TABLE class="story">
+								<TR>
+									<TD><b>5432</b> <br>Problema na <br>Abertura de Viagem...<br>
+										12:00:00 01/01/2012<br> <a href="#">editar</a>-<a
+										href="#">deletar</a>
+										</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha">
+							
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+					</TR>
+				</TABLE>
+				
+				
+				
+				
+				<TABLE id="table_linha_history">
+					<TR>
+						<TD class="linha">
+							<TABLE class="story">
+								<TR>
+									<TD><b>5432</b> <br>Problema na <br>Abertura de Viagem...<br>
+										12:00:00 01/01/2012<br> <a href="#">editar</a>-<a
+										href="#">deletar</a>
+										</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha">
+							
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+					</TR>
+				</TABLE>
+				
+				
+				
+				
+				<TABLE id="table_linha_history">
+					<TR>
+						<TD class="linha">
+							<TABLE class="story">
+								<TR>
+									<TD><b>5432</b> <br>Problema na <br>Abertura de Viagem...<br>
+										12:00:00 01/01/2012<br> <a href="#">editar</a>-<a
+										href="#">deletar</a>
+										</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha">
+							
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+					</TR>
+				</TABLE>
+				
+				
+				
+				<TABLE id="table_linha_history">
+					<TR>
+						<TD class="linha">
+							<TABLE class="story">
+								<TR>
+									<TD><b>5432</b> <br>Problema na <br>Abertura de Viagem...<br>
+										12:00:00 01/01/2012<br> <a href="#">editar</a>-<a
+										href="#">deletar</a>
+										</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha">
+							
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+						<TD class="linha" >
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+					</TR>
+				</TABLE>
+				
+				
+				</div>
+				
+
+			</TD>
+
+		</TR>
+	</TABLE>
+	
 </wicket:extend>

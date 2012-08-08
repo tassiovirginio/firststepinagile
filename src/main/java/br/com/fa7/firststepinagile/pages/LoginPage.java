@@ -1,6 +1,5 @@
 package br.com.fa7.firststepinagile.pages;
 
-import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -10,7 +9,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
 
-import br.com.fa7.firststepinagile.business.ActivityBusiness;
 import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.User;
 
@@ -20,9 +18,6 @@ public class LoginPage extends WebPage {
 	@SpringBean
 	private UserBusiness userBusiness;
 
-	@SpringBean
-	private ActivityBusiness activityBusiness;
-
 	private String login;
 	
 	private String password;
@@ -30,8 +25,6 @@ public class LoginPage extends WebPage {
 	public LoginPage() {
 		
 		setDefaultModel(new CompoundPropertyModel<LoginPage>(this));
-
-//		WebClientInfo info2 = (WebClientInfo) getSession().getClientInfo();
 
 		getSession().clear();
 
@@ -46,7 +39,7 @@ public class LoginPage extends WebPage {
 				if (login) {
 					User user = userBusiness.findForLogin(LoginPage.this.login);
 					getSession().setAttribute("user.login", user.getLogin());
-					setResponsePage(new KanbanPage(user));
+					setResponsePage(new StartPage(user));
 				} else {
 					info("Login Incorretor!");
 				}
@@ -62,9 +55,9 @@ public class LoginPage extends WebPage {
 		
 		add(form);
 		
-		User user = userBusiness.findForLogin("test01");
-		getSession().setAttribute("user", user);
-		setResponsePage(new KanbanPage(user));
+//		User user = userBusiness.findForLogin("test01");
+//		getSession().setAttribute("user", user);
+//		setResponsePage(new KanbanPage(user));
 
 	}
 }

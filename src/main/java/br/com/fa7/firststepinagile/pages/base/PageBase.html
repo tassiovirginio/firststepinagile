@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>First Step In Agile</title>
+		<link rel="shortcut icon" href="favicon2.png" />
+		<link rel="stylesheet" href="css/PageBase.css" type="text/css" media="screen" title="Stylesheet" />
+			
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" />
+		
+	</head>
+	<body>
+	<img src="imagens/wallpaper.jpg" class="bg">
+	
+	<img id="logo_top" src="favicon2.png" />
+	
+	<div id="top_div">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		First Step In Agile 
+	</div>
+	
+	<div id="menu_div">
+		<A class="menu" wicket:id="lkStart" href="">&nbsp;1-Start </A>
+		<A class="menu" wicket:id="lkStorys" href="">&nbsp;2-Historias </A>
+		<A class="menu" wicket:id="lkSprints" href="">&nbsp;3-Sprints </A>
+		<A class="menu" wicket:id="lkKanban" href="">&nbsp;4-Kaban </A>
+		<A class="menu" wicket:id="lkSobre" href="">&nbsp;|&nbsp;Sobre&nbsp;</A>
+	</div>
+	
+	<div id="div_child">
+		<wicket:child/>
+	</div>
+	
+	<div id="status_div">
+		<span class="labelusuario" ></span>
+		<A class="menu"  href="http://127.0.0.1:8080/ponto/pages/sair.jsp">&nbsp;Sair&nbsp;</A>
+	</div>
+	
+	</body>
+</html>

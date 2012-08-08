@@ -1,7 +1,6 @@
 package br.com.fa7.firststepinagile;
 
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +59,26 @@ public class WicketApplication extends WebApplication{
 		activity01.setPriority(1000);
 		activity01.setState(1);
 		activityBusiness.save(activity01);
+		
+		Activity activity01_2 = new Activity();
+		activity01_2.setName("Teste1");
+		activity01_2.setDescription("bla bla bla bla bla bla bla bla bla bla");
+		activity01_2.setCreator(userTest01);
+		activity01_2.setCurrentResponsible(userTest01);
+		activity01_2.setDateCreation(new DateTime());
+		activity01_2.setPriority(1000);
+		activity01_2.setState(1);
+		activityBusiness.save(activity01_2);
+		
+		Activity activity01_3 = new Activity();
+		activity01_3.setName("Teste1");
+		activity01_3.setDescription("bla bla bla bla bla bla bla bla bla bla");
+		activity01_3.setCreator(userTest01);
+		activity01_3.setCurrentResponsible(userTest01);
+		activity01_3.setDateCreation(new DateTime());
+		activity01_3.setPriority(1000);
+		activity01_3.setState(1);
+		activityBusiness.save(activity01_3);
 		
 		Activity activity02 = new Activity();
 		activity02.setName("Teste2");
