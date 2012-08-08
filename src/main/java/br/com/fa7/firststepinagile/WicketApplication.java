@@ -48,6 +48,7 @@ public class WicketApplication extends WebApplication{
 		userTest01.setName("Test01");
 		userTest01.setLogin("test01");
 		userTest01.setPassword("test01");
+		userTest01.setAdmin(true);
 		userBusiness.save(userTest01);
 		
 		Activity activity01 = new Activity();
