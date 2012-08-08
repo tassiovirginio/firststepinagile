@@ -1,19 +1,25 @@
 package br.com.fa7.firststepinagile.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class Activity implements Serializable{
+public class Sprint implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	public enum States {
+		OK, RUN, STOP ;
+	}
 
 	@Id
 	@GeneratedValue
@@ -23,12 +29,7 @@ public class Activity implements Serializable{
 	
 	private String description;
 	
-	private Integer priority;
-	
-	private int state;
-	
-	@ManyToOne
-	private User currentResponsible;
+	private States state;
 	
 	@ManyToOne
 	private User creator;
@@ -42,12 +43,9 @@ public class Activity implements Serializable{
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime dateEnd;
 	
-	private int duration;
-	
-	@ManyToOne
-	private Story story;
-	
-	
+	@OneToMany
+	private Set<Story> storys;
+
 	public Long getId() {
 		return id;
 	}
@@ -72,28 +70,12 @@ public class Activity implements Serializable{
 		this.description = description;
 	}
 
-	public Integer getPriority() {
-		return priority;
-	}
-
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
-
-	public int getState() {
+	public States getState() {
 		return state;
 	}
 
-	public void setState(int state) {
+	public void setState(States state) {
 		this.state = state;
-	}
-
-	public User getCurrentResponsible() {
-		return currentResponsible;
-	}
-
-	public void setCurrentResponsible(User currentResponsible) {
-		this.currentResponsible = currentResponsible;
 	}
 
 	public User getCreator() {
@@ -128,14 +110,6 @@ public class Activity implements Serializable{
 		this.dateEnd = dateEnd;
 	}
 
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -152,7 +126,7 @@ public class Activity implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Activity other = (Activity) obj;
+		Sprint other = (Sprint) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -161,12 +135,12 @@ public class Activity implements Serializable{
 		return true;
 	}
 
-	public Story getStory() {
-		return story;
+	public Set<Story> getStorys() {
+		return storys;
 	}
 
-	public void setStory(Story story) {
-		this.story = story;
+	public void setStorys(Set<Story> storys) {
+		this.storys = storys;
 	}
 
 

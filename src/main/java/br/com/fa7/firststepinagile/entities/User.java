@@ -23,6 +23,8 @@ public class User implements Serializable{
 	
 	private String login;
 	
+	private boolean admin;
+	
 	public String getName() {
 		return name;
 	}
@@ -86,6 +88,14 @@ public class User implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 	
 	

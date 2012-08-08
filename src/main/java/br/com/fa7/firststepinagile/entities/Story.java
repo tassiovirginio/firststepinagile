@@ -1,17 +1,19 @@
 package br.com.fa7.firststepinagile.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
-public class Activity implements Serializable{
+public class Story implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +27,9 @@ public class Activity implements Serializable{
 	
 	private Integer priority;
 	
-	private int state;
+	private String color;
+	
+	private Long value;
 	
 	@ManyToOne
 	private User currentResponsible;
@@ -36,17 +40,11 @@ public class Activity implements Serializable{
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime dateCreation;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateStart;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateEnd;
-	
-	private int duration;
+	@OneToMany
+	private Set<Activity> activitys;
 	
 	@ManyToOne
-	private Story story;
-	
+	private Sprint sprint;
 	
 	public Long getId() {
 		return id;
@@ -80,12 +78,12 @@ public class Activity implements Serializable{
 		this.priority = priority;
 	}
 
-	public int getState() {
-		return state;
+	public String getColor() {
+		return color;
 	}
 
-	public void setState(int state) {
-		this.state = state;
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public User getCurrentResponsible() {
@@ -112,28 +110,12 @@ public class Activity implements Serializable{
 		this.dateCreation = dateCreation;
 	}
 
-	public DateTime getDateStart() {
-		return dateStart;
+	public Long getValue() {
+		return value;
 	}
 
-	public void setDateStart(DateTime dateStart) {
-		this.dateStart = dateStart;
-	}
-
-	public DateTime getDateEnd() {
-		return dateEnd;
-	}
-
-	public void setDateEnd(DateTime dateEnd) {
-		this.dateEnd = dateEnd;
-	}
-
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setValue(Long value) {
+		this.value = value;
 	}
 
 	@Override
@@ -152,7 +134,7 @@ public class Activity implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Activity other = (Activity) obj;
+		Story other = (Story) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -161,12 +143,20 @@ public class Activity implements Serializable{
 		return true;
 	}
 
-	public Story getStory() {
-		return story;
+	public Set<Activity> getActivitys() {
+		return activitys;
 	}
 
-	public void setStory(Story story) {
-		this.story = story;
+	public void setActivitys(Set<Activity> activitys) {
+		this.activitys = activitys;
+	}
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
 	}
 
 
