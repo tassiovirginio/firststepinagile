@@ -20,9 +20,10 @@ public class UserBusiness {
 	public int size(){
 		return userDAO.listAll().size();
 	}
-	
+
 	
 	public void save(User user){
+		System.out.println("Salvando Usuario");
 		userDAO.save(user);
 	}
 

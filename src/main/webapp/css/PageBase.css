@@ -89,6 +89,15 @@ span.feedbackPanelINFO{
 	background-image: -moz-linear-gradient(100% 100% 90deg, #404040, #000000);
 }
 
+#top_div_user {
+	top: 0%;
+	position: absolute;
+	right: 1%;
+	font-weight: bold;
+	font-size: 11px;
+	color: #FFFFFF;
+}
+
 #menu_div {
 	background-image: -webkit-gradient(linear, 0% 100%,0% 0%, from(#909090),to(#404040) );
 	line-height: 20px;

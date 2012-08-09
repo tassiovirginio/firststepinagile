@@ -16,7 +16,10 @@ public class StorysPage extends PageBase {
 
 	public StorysPage(final User user) {
 		super(user);
+		createStoryModal(user);
+	}
 
+	private void createStoryModal(final User user) {
 		final ModalWindow storyModal;
 		add(storyModal = new ModalWindow("storyModal"));
 		storyModal.setCookieName("storyModal-cookie");
