@@ -95,7 +95,7 @@ public class PageBase extends WebPage {
 			}
 		};
 		
-		Label lbUser = new Label("lbUser",user.getLogin());
+		Label lbUser = new Label("lbUser",user.getName());
 		ajLkUser.add(lbUser);
 		add(ajLkUser);
 	}

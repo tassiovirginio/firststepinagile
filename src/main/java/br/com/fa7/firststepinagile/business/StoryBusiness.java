@@ -1,5 +1,7 @@
 package br.com.fa7.firststepinagile.business;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,10 @@ public class StoryBusiness {
 	public void save(Story story){
 		System.out.println("Salvando a Story");
 		storyDAO.save(story);
+	}
+	
+	public List<Story> all(){
+		return storyDAO.listAll();
 	}
 
 }

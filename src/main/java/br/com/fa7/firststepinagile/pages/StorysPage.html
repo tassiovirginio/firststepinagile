@@ -11,9 +11,10 @@
 			<TH class="title" colspan="2">Historias</TH>
 		</TR>
 		<TR>
-			<TH class="menu" colspan="2">Sprint: Nome do Sprints - Estado:
+			<TH class="menu" colspan="2">
+			<a class="busca" href="#"><img width="18px" height="18px" src="imagens/search.png" /></a>
+				Sprint: Nome do Sprints - Estado:
 				Aberto - 01-01-2012 
-				<a class="busca" href="#">buscar</a>
 			    <br/>
 			</TH>
 		</TR>
@@ -26,84 +27,31 @@
 					</TR>
 					<TR>
 						<TH class="menu" colspan="2">
-    						<a wicket:id="showStoryModal">adicionar</a>
+    						<a wicket:id="showStoryModal"><img src="imagens/plus.png" /></a>
 						</TH>
 					</TR>
 					<TR>
 						<TD class="barra_rolagem">
+							<div wicket:id="lvStory">
 
 								<TABLE class="story" width="100%" height="50px">
 									<TR>
-										<TD>
-											<b>5432</b>-<a href="#">selecionar</a>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
+										<TD><b>#<span wicket:id="lbId">1234</span></b>
+										- <span wicket:id="lbName">Nome</span> - <a href="#">selecionar</a> <br>
+										<span wicket:id="lbDescription">Nome</span> <br>
+										<span wicket:id="lbDateCreate">Date</span> <br>
+											<a href="#"><img src="imagens/edit.png" /></a>
+											<a href="#"><img src="imagens/delete.png" /></a>
 										</TD>
 										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
+										<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
+										<a href="#"><img src="imagens/rnd_br_down.png" /></a>
 										</TD>
 									</TR>
 								</TABLE>
 								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>-<a href="#">selecionar</a>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
-										</TD>
-									</TR>
-								</TABLE>
-
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>-<a href="#">selecionar</a>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>-<a href="#">selecionar</a>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
+								
+							</div>
 						</TD>
 					</TR>
 				</TABLE>

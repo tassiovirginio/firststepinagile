@@ -35,7 +35,7 @@ table.story {
 
 th.title {
 	background-color: #000000 !important;
-	background: none;
+/* 	background: none; */
 }
 
 th.menu {

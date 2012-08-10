@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
+import br.com.fa7.firststepinagile.business.StoryBusiness;
 import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.LoginPage;
 
@@ -23,6 +25,9 @@ public class WicketApplication extends WebApplication{
 	
 	@Autowired
 	private UserBusiness userBusiness;
+	
+	@Autowired
+	private StoryBusiness storyBusiness;
 	
 	@Override
 	public Class<LoginPage> getHomePage(){
@@ -41,6 +46,12 @@ public class WicketApplication extends WebApplication{
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getDebugSettings().setAjaxDebugModeEnabled(true);
 		
+		criarDadosTeste();
+		
+		// add your configuration here
+	}
+	
+	private void criarDadosTeste(){
 		System.out.println("----> "+activityBusiness.size());
 		
 		User userTest01 = new User();
@@ -51,6 +62,27 @@ public class WicketApplication extends WebApplication{
 		userTest01.setAdmin(true);
 		userBusiness.save(userTest01);
 		
+		Story story1 = new Story();
+		story1.setName("Estoria 01");
+		story1.setCreator(userTest01);
+		story1.setDateCreation(new DateTime());
+		story1.setDescription("Teste Story.........");
+		storyBusiness.save(story1);
+		
+		Story story2 = new Story();
+		story2.setName("Estoria 02");
+		story2.setCreator(userTest01);
+		story2.setDateCreation(new DateTime());
+		story2.setDescription("Teste Story.........");
+		storyBusiness.save(story2);
+		
+		Story story3 = new Story();
+		story3.setName("Estoria 03");
+		story3.setCreator(userTest01);
+		story3.setDateCreation(new DateTime());
+		story3.setDescription("Teste Story.... asdas asda  asda sda .....");
+		storyBusiness.save(story3);
+		
 		Activity activity01 = new Activity();
 		activity01.setName("Teste1");
 		activity01.setDescription("bla bla bla bla bla bla bla bla bla bla");
@@ -59,6 +91,7 @@ public class WicketApplication extends WebApplication{
 		activity01.setDateCreation(new DateTime());
 		activity01.setPriority(1000);
 		activity01.setState(1);
+		activity01.setStory(story1);
 		activityBusiness.save(activity01);
 		
 		Activity activity01_2 = new Activity();
@@ -118,7 +151,5 @@ public class WicketApplication extends WebApplication{
 		userBusiness.save(userTest03);
 		
 		System.out.println("----> "+activityBusiness.size());
-		
-		// add your configuration here
 	}
 }
