@@ -50,7 +50,7 @@ public class StoryModalPage extends WebPage {
 		
 		LWRTETextArea tfDescription = new LWRTETextArea<String>("tfDescription", new PropertyModel<String>(this.story, "description"));
 		
-		form.add(tfDescription.setRequired(true));
+		form.add(tfDescription);
 		
 		form.add(new TextField("tfValue", new PropertyModel(this.story,"value")).setRequired(true));
 		

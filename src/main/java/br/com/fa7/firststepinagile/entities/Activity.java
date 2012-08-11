@@ -10,6 +10,10 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+/**
+ * @author tassio
+ *
+ */
 @Entity
 public class Activity implements Serializable{
 	
@@ -169,5 +173,15 @@ public class Activity implements Serializable{
 		this.story = story;
 	}
 
+	@Override
+	public String toString() {
+		return "Activity [id=" + id + ", name=" + name + ", description="
+				+ description + ", priority=" + priority + ", state=" + state
+				+ ", currentResponsible=" + currentResponsible + ", creator="
+				+ creator + ", dateCreation=" + dateCreation + ", dateStart="
+				+ dateStart + ", dateEnd=" + dateEnd + ", duration=" + duration
+				+ ", story=" + story + "]";
+	}
+	
 
 }

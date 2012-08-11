@@ -18,6 +18,7 @@ import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
+import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
 public class StorysPage extends PageBase {
@@ -32,6 +33,10 @@ public class StorysPage extends PageBase {
 	
 	private ModalWindow storyModal;
 	
+	private ModalWindow activityModal;
+	
+	private Story storySelected;
+	
 	public StorysPage(final User user) {
 		this(user,null);
 	}
@@ -39,7 +44,11 @@ public class StorysPage extends PageBase {
 	public StorysPage(final User user, Story story) {
 		super(user);
 		
+		storySelected = story;
+		
 		createStoryModal(user);
+		
+		createActivityModal(user);
 		
 		createPanelBacklog(user);
 		
@@ -54,6 +63,19 @@ public class StorysPage extends PageBase {
 					}
 				});
 				storyModal.show(target);
+			}
+		});
+		
+		
+		add(new AjaxLink<Void>("showActivityModal") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				activityModal.setPageCreator(new ModalWindow.PageCreator() {
+					public Page createPage() {
+						return new ActivityModalPage(StorysPage.this.getPageReference(), activityModal, user, storySelected, new Activity());
+					}
+				});
+				activityModal.show(target);
 			}
 		});
 		
@@ -94,6 +116,12 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						System.out.println("activity Edit -> " + activity.getId());
+						activityModal.setPageCreator(new ModalWindow.PageCreator() {
+							public Page createPage() {
+								return new ActivityModalPage(StorysPage.this.getPageReference(), storyModal, user, story, activity);
+							}
+						});
+						activityModal.show(target);
 					}
 				});
 				
@@ -196,6 +224,27 @@ public class StorysPage extends PageBase {
 		storyModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 			public void onClose(AjaxRequestTarget target) {
 				setResponsePage(new StorysPage(user));
+			}
+		});
+
+	}
+	
+	private void createActivityModal(final User user) {
+		add(activityModal = new ModalWindow("activityModal"));
+		activityModal.setCookieName("activityModal-cookie");
+		activityModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
+		activityModal.setWidthUnit("600px");
+		activityModal.setHeightUnit("400px");
+		
+		activityModal.setPageCreator(new ModalWindow.PageCreator() {
+			public Page createPage() {
+				return new ActivityModalPage(StorysPage.this.getPageReference(), activityModal, user,storySelected, new Activity());
+			}
+		});
+		
+		activityModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			public void onClose(AjaxRequestTarget target) {
+				setResponsePage(new StorysPage(user,storySelected));
 			}
 		});
 

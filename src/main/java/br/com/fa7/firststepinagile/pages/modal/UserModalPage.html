@@ -2,17 +2,29 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <head>
 <meta charset="utf-8" />
-<title>Usuario</title>
+<title>Usuário</title>
 </head>
 <body>
-<span wicket:id="user.name"></span>
+Login: <span wicket:id="user.name"></span>
 <br>
 <form wicket:id="form">
-<input type="text" wicket:id="tfName" />
-<input type="submit" value="submit via ajax" wicket:id="ajax-button"/>
+<table>
+<tr>
+<td>Nome:</td><td><input type="text" wicket:id="tfName" /></td>
+</tr>
+<tr>
+<td>Email:</td><td><input type="text" wicket:id="tfEmail" /></td>
+</tr>
+<tr>
+<td>Senha:</td><td><input type="password" wicket:id="tfPassword" /></td>
+</tr>
+<tr>
+<td colspan="2"><input type="submit" value="Salvar" wicket:id="ajax-button"/></td>
+</tr>
+</table>
 </form>
 <br>
-<a wicket:id="closeOK">OK</a>
-<a wicket:id="closeCancel">Cancelar</a>
+<!-- <a wicket:id="closeOK">OK</a> -->
+<!-- <a wicket:id="closeCancel">Cancelar</a> -->
 </body>
 </html>
