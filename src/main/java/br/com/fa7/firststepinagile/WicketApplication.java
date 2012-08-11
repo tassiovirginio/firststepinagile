@@ -44,7 +44,7 @@ public class WicketApplication extends WebApplication{
 		getComponentPreOnBeforeRenderListeners().add(new JQComponentOnBeforeRenderListener(config));
 		
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-		getDebugSettings().setAjaxDebugModeEnabled(true);
+		getDebugSettings().setAjaxDebugModeEnabled(false);
 		
 		criarDadosTeste();
 		

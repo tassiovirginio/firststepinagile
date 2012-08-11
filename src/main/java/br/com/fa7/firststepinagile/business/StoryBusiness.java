@@ -2,6 +2,7 @@ package br.com.fa7.firststepinagile.business;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,10 +21,14 @@ public class StoryBusiness {
 		return storyDAO.listAll().size();
 	}
 	
-	
 	public void save(Story story){
 		System.out.println("Salvando a Story");
 		storyDAO.save(story);
+	}
+	
+	public void delete(Story story){
+		System.out.println("Deletando a Story");
+		storyDAO.delete(story);
 	}
 	
 	public List<Story> all(){

@@ -3,6 +3,7 @@ package br.com.fa7.firststepinagile.entities;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -40,7 +41,7 @@ public class Story implements Serializable{
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime dateCreation;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Activity> activitys;
 	
 	@ManyToOne
