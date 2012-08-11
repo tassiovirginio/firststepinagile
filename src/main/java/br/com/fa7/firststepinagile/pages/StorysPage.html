@@ -8,7 +8,7 @@
 
 	<TABLE id="table_storys">
 		<TR>
-			<TH class="title" colspan="2">Historias</TH>
+			<TH class="title" colspan="2">Estorias</TH>
 		</TR>
 		<TR>
 			<TH class="menu" colspan="2">
@@ -19,7 +19,7 @@
 			</TH>
 		</TR>
 		<TR>
-			<TD valign="top" align="left">
+			<TD valign="top" align="left" width="50%">
 
 				<TABLE id="table_storys_backlog">
 					<TR>
@@ -37,7 +37,7 @@
 								<TABLE class="story" width="100%" height="50px">
 									<TR>
 										<TD><b>#<span wicket:id="lbId">1234</span></b>
-										- <span wicket:id="lbName">Nome</span> - <a wicket:id="lkSelect" href="#">selecionar</a> <br>
+										- <span wicket:id="lbName">Nome</span> - <a class="select" wicket:id="lkSelect" href="#">&nbsp;selecionar&nbsp;</a> <br>
 										<span wicket:id="lbDescription">Nome</span> <br>
 										<span wicket:id="lbDateCreate">Date</span> <br>
 											<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
@@ -64,7 +64,7 @@
 			<TD valign="top" align="left">
 				<TABLE id="table_tasks">
 					<TR>
-						<TH>Tarefas da Historia: 5432</TH>
+						<TH>Tarefas da Historia: <span wicket:id="lbStoryId">1234</span></TH>
 					</TR>
 					<TR>
 						<TH class="menu" colspan="2">
@@ -73,13 +73,16 @@
 					</TR>
 					<TR>
 						<TD class="barra_rolagem">
-
+							
+							<div wicket:id="listViewActivity">
+							
 								<TABLE class="story" width="100%" height="50px">
 									<TR>
 										<TD>
-											<b>5432</b> - Atividade tal tal tal tal tal <br>
-											Estimativa: 10<br>
-											Responsavel: Tassio<br>
+											<b>#<span wicket:id="lbId">1234</span></b>
+										- <span wicket:id="lbName">Nome</span> <br>
+										<span wicket:id="lbDescription">Nome</span> <br>
+										<span wicket:id="lbDateCreate">Date</span> <br>
 											<a href="#">editar</a>-<a href="#">deletar</a>
 										</TD>
 										<TD class="bt_fluxo">
@@ -91,61 +94,8 @@
 									</TR>
 								</TABLE>
 								<br>
+							</div>
 
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b> - Atividade tal tal tal tal tal <br>
-											Estimativa: 10<br>
-											Responsavel: Tassio<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
-										</TD>
-									</TR>
-								</TABLE>
-
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b> - Atividade tal tal tal tal tal <br>
-											Estimativa: 10<br>
-											Responsavel: Tassio<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b> - Atividade tal tal tal tal tal <br>
-											Estimativa: 10<br>
-											Responsavel: Tassio<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
 						</TD>
 					</TR>
 				</TABLE>

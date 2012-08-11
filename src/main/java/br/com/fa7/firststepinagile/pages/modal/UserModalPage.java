@@ -36,8 +36,8 @@ public class UserModalPage extends WebPage {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form)
             {
             	System.out.println(user.getName());
-				userBusiness.save(user);
-				window.close(target);
+							userBusiness.save(user);
+							window.close(target);
             }
 
             @Override

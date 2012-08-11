@@ -1,4 +1,18 @@
 
+a.select:link,a.select:visited,a.select:active {
+	text-decoration: none !important;
+	color: #FFFFFF;
+	border-radius: 5px  !important;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#404040),to(#000000) ) !important;
+	background-image: -moz-linear-gradient(100% 100% 90deg, #404040, #000000) !important;
+}
+a.select:hover {
+	color: yellow;
+	font-weight: bolder;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#404040),to(#000000) );
+	background-image: -moz-linear-gradient(100% 100% 90deg, #404040, #000000);
+}
+
 #table_storys {
 	position: fixed;
 	top: 8%;

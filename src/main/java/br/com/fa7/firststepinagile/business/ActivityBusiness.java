@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fa7.firststepinagile.business.dao.ActivityDAO;
 import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 
 @Component
@@ -37,6 +38,13 @@ public class ActivityBusiness {
 				Order.desc("priority"),
 				Restrictions.eq("currentResponsible", user),
 				Restrictions.eq("state", state)
+				);
+	}
+	
+	public List<Activity> findActivityByStory(Story story){
+		return activityDAO.findByCriteria(
+				Order.desc("priority"),
+				Restrictions.eq("story", story)
 				);
 	}
 }
