@@ -43,7 +43,7 @@ public class StorysPage extends PageBase {
 		
 		createPanelBacklog(user);
 		
-		createPanelTasks(story);
+		createPanelTasks(user,story);
 		
 		add(new AjaxLink<Void>("showStoryModal") {
 			@Override
@@ -59,7 +59,7 @@ public class StorysPage extends PageBase {
 		
 	}
 	
-	private void createPanelTasks(final Story story) {
+	private void createPanelTasks(final User user, final Story story) {
 		List<Activity> listActivity = activityBusiness.findActivityByStory(story);
 		
 		if(story != null){
@@ -71,17 +71,45 @@ public class StorysPage extends PageBase {
 		ListView<Activity> listViewActivity = new ListView<Activity>("listViewActivity", listActivity) {
 			@Override
 			protected void populateItem(ListItem<Activity> item) {
-				System.out.println("Teste");
 				final Activity activity = (Activity)item.getModelObject();
 				Label lbName = new Label("lbName", activity.getName());
 				Label lbDescription = new Label("lbDescription", activity.getDescription());
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", activity.getId().toString());
-				Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("HH:mm - dd/MM/yyyy"));
+				Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
 				item.add(lbName);
 				item.add(lbDescription);
 				item.add(lbId);
 				item.add(lbDateCreate);
+				
+				item.add(new Link("lkDelete") {
+					@Override
+					public void onClick() {
+						activityBusiness.delete(activity);
+						setResponsePage(new StorysPage(user,story));
+					}
+				});
+				
+				item.add(new AjaxLink<Void>("lkEdit") {
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						System.out.println("activity Edit -> " + activity.getId());
+					}
+				});
+				
+				item.add(new Link("lkUp") {
+					@Override
+					public void onClick() {
+						System.out.println("activity UP -> " + activity.getId());
+					}
+				});
+				
+				item.add(new Link("lkDown") {
+					@Override
+					public void onClick() {
+						System.out.println("activity DOWN -> " + activity.getId());
+					}
+				});
 			}
 		};
 		
@@ -99,7 +127,7 @@ public class StorysPage extends PageBase {
 				Label lbDescription = new Label("lbDescription", story.getDescription());
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
-				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("HH:mm - dd/MM/yyyy"));
+				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
 				item.add(lbName);
 				item.add(lbDescription);
 				item.add(lbId);
@@ -109,7 +137,6 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick() {
 						setResponsePage(new StorysPage(user,story));
-						System.out.println("Selecionando Story -> " + story.getId());
 					}
 				};
 				item.add(lkSelect);

@@ -68,7 +68,7 @@
 					</TR>
 					<TR>
 						<TH class="menu" colspan="2">
-							<a class="busca" href="#">adicionar</a>
+							<a><img src="imagens/plus.png" /></a>
 						</TH>
 					</TR>
 					<TR>
@@ -83,13 +83,12 @@
 										- <span wicket:id="lbName">Nome</span> <br>
 										<span wicket:id="lbDescription">Nome</span> <br>
 										<span wicket:id="lbDateCreate">Date</span> <br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
+										<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
+										<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
 										</TD>
 										<TD class="bt_fluxo">
-											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_down.png" /></a>
+											<a wicket:id="lkUp" href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
+											<a wicket:id="lkDown" href="#"><img src="imagens/rnd_br_down.png" /></a>
 										</TD>
 									</TR>
 								</TABLE>

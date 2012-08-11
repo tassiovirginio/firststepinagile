@@ -24,9 +24,12 @@ public class ActivityBusiness {
 		return activityDAO.listAll().size();
 	}
 	
-	
 	public void save(Activity activity){
 		activityDAO.save(activity);
+	}
+	
+	public void delete(Activity activity){
+		activityDAO.delete(activity);
 	}
 	
 	public Activity findById(Long id){
