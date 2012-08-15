@@ -145,7 +145,7 @@ public class StorysPage extends PageBase {
 	}
 
 	private void createPanelBacklog(final User user) {
-		List<Story> listAllStory = storyBusiness.all();
+		List<Story> listAllStory = storyBusiness.allOrderByDescPrioridade();
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
 			@Override
@@ -194,14 +194,18 @@ public class StorysPage extends PageBase {
 				item.add(new Link("lkUp") {
 					@Override
 					public void onClick() {
-						System.out.println("Story UP -> " + story.getId());
+						story.setPriority(story.getPriority()+1);
+						storyBusiness.save(story);
+						setResponsePage(new StorysPage(user));
 					}
 				});
 				
 				item.add(new Link("lkDown") {
 					@Override
 					public void onClick() {
-						System.out.println("Story DOWN -> " + story.getId());
+						story.setPriority(story.getPriority()-1);
+						storyBusiness.save(story);
+						setResponsePage(new StorysPage(user));
 					}
 				});
 			}

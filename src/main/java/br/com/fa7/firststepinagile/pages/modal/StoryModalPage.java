@@ -7,6 +7,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -15,10 +16,6 @@ import org.joda.time.DateTime;
 import br.com.fa7.firststepinagile.business.StoryBusiness;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
-
-import com.google.code.jqwicket.ui.ckeditor.CKEditorOptions;
-import com.google.code.jqwicket.ui.ckeditor.CKEditorTextArea;
-import com.google.code.jqwicket.ui.lwrte.LWRTETextArea;
 
 public class StoryModalPage extends WebPage {
 
@@ -46,13 +43,15 @@ public class StoryModalPage extends WebPage {
 		
 		Form<Story> form = new Form<Story>("form");
 		form.add(new TextField("tfName", new PropertyModel(this.story,"name")).setRequired(true));
-		
-		
-		LWRTETextArea tfDescription = new LWRTETextArea<String>("tfDescription", new PropertyModel<String>(this.story, "description"));
-		
+		TextArea tfDescription = new TextArea<String>("tfDescription", new PropertyModel<String>(this.story, "description"));
 		form.add(tfDescription);
-		
 		form.add(new TextField("tfValue", new PropertyModel(this.story,"value")).setRequired(true));
+		
+		if(story.getPriority() != null){
+			form.add(new Label("story.priority", story.getPriority().toString()));
+		}else{
+			form.add(new Label("story.priority",""));
+		}
 		
 		form.add(new AjaxButton("ajax-button", form)
         {

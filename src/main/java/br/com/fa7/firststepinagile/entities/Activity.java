@@ -27,7 +27,7 @@ public class Activity implements Serializable{
 	
 	private String description;
 	
-	private Integer priority;
+	private Double priority;
 	
 	private int state;
 	
@@ -76,11 +76,11 @@ public class Activity implements Serializable{
 		this.description = description;
 	}
 
-	public Integer getPriority() {
+	public Double getPriority() {
 		return priority;
 	}
 
-	public void setPriority(Integer priority) {
+	public void setPriority(Double priority) {
 		this.priority = priority;
 	}
 

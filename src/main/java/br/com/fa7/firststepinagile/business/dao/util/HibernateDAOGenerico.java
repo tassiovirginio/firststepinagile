@@ -88,4 +88,19 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 			throw convertHibernateAccessException(ex);
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> findByCriteria(Order order) {
+		try {
+			Criteria crit = this.getHibernateTemplate().getSessionFactory()
+					.getCurrentSession().createCriteria(getPersistentClass());
+			if(order != null){
+				crit.addOrder(order);
+			}
+			return crit.list();
+		} catch (final HibernateException ex) {
+			HibernateDAOGenerico.LOG.error(ex);
+			throw convertHibernateAccessException(ex);
+		}
+	}
 }
