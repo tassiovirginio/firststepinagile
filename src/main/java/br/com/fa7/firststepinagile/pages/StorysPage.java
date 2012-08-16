@@ -108,7 +108,7 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick() {
 						activityBusiness.delete(activity);
-						setResponsePage(new StorysPage(user,story));
+						setResponsePage(new StorysPage(user,storySelected));
 					}
 				});
 				
@@ -128,14 +128,16 @@ public class StorysPage extends PageBase {
 				item.add(new Link("lkUp") {
 					@Override
 					public void onClick() {
-						System.out.println("activity UP -> " + activity.getId());
+						activityBusiness.upActivityPriority(activity,story);
+						setResponsePage(new StorysPage(user,storySelected));
 					}
 				});
 				
 				item.add(new Link("lkDown") {
 					@Override
 					public void onClick() {
-						System.out.println("activity DOWN -> " + activity.getId());
+						activityBusiness.downActivityPriority(activity,story);
+						setResponsePage(new StorysPage(user,storySelected));
 					}
 				});
 			}
@@ -164,6 +166,7 @@ public class StorysPage extends PageBase {
 				Link lkSelect = new Link("lkSelect") {
 					@Override
 					public void onClick() {
+						storySelected = story;
 						setResponsePage(new StorysPage(user,story));
 					}
 				};
@@ -195,7 +198,7 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.upStoryPriority(story);
-						setResponsePage(new StorysPage(user));
+						setResponsePage(new StorysPage(user,storySelected));
 					}
 				});
 				
@@ -203,7 +206,7 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.downStoryPriority(story);
-						setResponsePage(new StorysPage(user));
+						setResponsePage(new StorysPage(user,storySelected));
 					}
 				});
 			}

@@ -53,23 +53,18 @@ public class StoryModalPage extends WebPage {
 			form.add(new Label("story.priority",""));
 		}
 		
-		form.add(new AjaxButton("ajax-button", form)
-        {
+		form.add(new AjaxButton("ajax-button", form){
             @Override
-            protected void onSubmit(AjaxRequestTarget target, Form<?> form)
-            {
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form){
             	storyBusiness.save(StoryModalPage.this.story);
 				window.close(target);
             }
 
             @Override
-            protected void onError(AjaxRequestTarget target, Form<?> form)
-            {
+            protected void onError(AjaxRequestTarget target, Form<?> form){
 				window.close(target);
             }
         });
-		
-		
 		
 		add(form);
 		

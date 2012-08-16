@@ -85,8 +85,8 @@ public class WicketApplication extends WebApplication{
 		activity01.setDescription("bla bla bla bla bla bla bla bla bla bla");
 		activity01.setCreator(userTest01);
 		activity01.setCurrentResponsible(userTest01);
-		activity01.setDateCreation(new DateTime());
-		activity01.setPriority(1000.0);
+//		activity01.setDateCreation(new DateTime());
+//		activity01.setPriority(1000.0);
 		activity01.setState(1);
 		activity01.setStory(story1);
 		activityBusiness.save(activity01);
@@ -96,8 +96,8 @@ public class WicketApplication extends WebApplication{
 		activity01_2.setDescription("bla bla bla bla bla bla bla bla bla bla");
 		activity01_2.setCreator(userTest01);
 		activity01_2.setCurrentResponsible(userTest01);
-		activity01_2.setDateCreation(new DateTime());
-		activity01_2.setPriority(1000.0);
+//		activity01_2.setDateCreation(new DateTime());
+//		activity01_2.setPriority(1000.0);
 		activity01_2.setState(1);
 		activityBusiness.save(activity01_2);
 		
@@ -106,8 +106,8 @@ public class WicketApplication extends WebApplication{
 		activity01_3.setDescription("bla bla bla bla bla bla bla bla bla bla");
 		activity01_3.setCreator(userTest01);
 		activity01_3.setCurrentResponsible(userTest01);
-		activity01_3.setDateCreation(new DateTime());
-		activity01_3.setPriority(1000.0);
+//		activity01_3.setDateCreation(new DateTime());
+//		activity01_3.setPriority(1000.0);
 		activity01_3.setState(1);
 		activityBusiness.save(activity01_3);
 		
@@ -116,8 +116,8 @@ public class WicketApplication extends WebApplication{
 		activity02.setDescription("bla bla bla bla bla bla bla bla bla bla");
 		activity02.setCreator(userTest01);
 		activity02.setCurrentResponsible(userTest01);
-		activity02.setDateCreation(new DateTime());
-		activity02.setPriority(1000.0);
+//		activity02.setDateCreation(new DateTime());
+//		activity02.setPriority(1000.0);
 		activity02.setState(2);
 		activityBusiness.save(activity02);
 		
@@ -127,8 +127,8 @@ public class WicketApplication extends WebApplication{
 		activity03.setDescription("bla bla bla bla bla bla bla bla bla bla");
 		activity03.setCreator(userTest01);
 		activity03.setCurrentResponsible(userTest01);
-		activity03.setDateCreation(new DateTime());
-		activity03.setPriority(1000.0);
+//		activity03.setDateCreation(new DateTime());
+//		activity03.setPriority(1000.0);
 		activity03.setState(3);
 		activityBusiness.save(activity03);
 		
