@@ -65,25 +65,19 @@ public class WicketApplication extends WebApplication{
 		Story story1 = new Story();
 		story1.setName("Estoria 01");
 		story1.setCreator(userTest01);
-		story1.setDateCreation(new DateTime());
 		story1.setDescription("Teste Story.........");
-		story1.setPriority(1000.0);
 		storyBusiness.save(story1);
 		
 		Story story2 = new Story();
 		story2.setName("Estoria 02");
 		story2.setCreator(userTest01);
-		story2.setDateCreation(new DateTime());
 		story2.setDescription("Teste Story.........");
-		story2.setPriority(1000.0);
 		storyBusiness.save(story2);
 		
 		Story story3 = new Story();
 		story3.setName("Estoria 03");
 		story3.setCreator(userTest01);
-		story3.setDateCreation(new DateTime());
 		story3.setDescription("Teste Story.... asdas asda  asda sda .....");
-		story3.setPriority(1000.0);
 		storyBusiness.save(story3);
 		
 		Activity activity01 = new Activity();

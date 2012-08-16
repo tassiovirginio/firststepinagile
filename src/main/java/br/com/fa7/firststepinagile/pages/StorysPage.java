@@ -194,8 +194,7 @@ public class StorysPage extends PageBase {
 				item.add(new Link("lkUp") {
 					@Override
 					public void onClick() {
-						story.setPriority(story.getPriority()+1);
-						storyBusiness.save(story);
+						storyBusiness.upStoryPriority(story);
 						setResponsePage(new StorysPage(user));
 					}
 				});
@@ -203,8 +202,7 @@ public class StorysPage extends PageBase {
 				item.add(new Link("lkDown") {
 					@Override
 					public void onClick() {
-						story.setPriority(story.getPriority()-1);
-						storyBusiness.save(story);
+						storyBusiness.downStoryPriority(story);
 						setResponsePage(new StorysPage(user));
 					}
 				});
