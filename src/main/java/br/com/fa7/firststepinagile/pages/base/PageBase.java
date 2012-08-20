@@ -8,7 +8,10 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 
-import br.com.fa7.firststepinagile.entities.Story;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
+
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.KanbanPage;
 import br.com.fa7.firststepinagile.pages.SobrePage;
@@ -25,6 +28,8 @@ public class PageBase extends WebPage {
 	public PageBase(final User user) {
 		
 		createUserModal(user);
+		
+		createTutorial();
 		
 		Link linkStart = new Link("lkStart") {
 			@Override
@@ -66,6 +71,14 @@ public class PageBase extends WebPage {
 		};
 		add(lkSobre);
 
+	}
+	
+	private void createTutorial(){
+		add(new ExtruderWebMarkupContainer("extruderLeft1",  
+                new ExtruderOptions("Tutorial",  
+                        "_static/extruder/extruderLeft1.html")  
+                        .position(Position.LEFT).width(300)  
+                        .extruderOpacity(0.8f)));
 	}
 	
 	private void createUserModal(final User user) {
