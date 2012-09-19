@@ -8,17 +8,18 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
-
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.KanbanPage;
 import br.com.fa7.firststepinagile.pages.SobrePage;
 import br.com.fa7.firststepinagile.pages.SprintsPage;
 import br.com.fa7.firststepinagile.pages.StartPage;
 import br.com.fa7.firststepinagile.pages.StorysPage;
+import br.com.fa7.firststepinagile.pages.TaskPage;
 import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
+
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
 
 @SuppressWarnings({ "rawtypes", "serial" })
 public class PageBase extends WebPage {
@@ -54,6 +55,14 @@ public class PageBase extends WebPage {
 			}
 		};
 		add(lkSprints);
+		
+		Link lkTasks = new Link("lkTasks") {
+			@Override
+			public void onClick() {
+				setResponsePage(new TaskPage(user));
+			}
+		};
+		add(lkTasks);
 		
 		Link linkKanban = new Link("lkKanban") {
 			@Override

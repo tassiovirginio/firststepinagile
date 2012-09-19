@@ -1,5 +1,5 @@
 <wicket:head>
-	<link rel="stylesheet" type="text/css" href="css/StorysPage.css" />
+	<link rel="stylesheet" type="text/css" href="css/TaskPage.css" />
 </wicket:head>
 
 <wicket:extend>
@@ -10,7 +10,7 @@
 
 	<TABLE id="table_storys">
 		<TR>
-			<TH class="title" colspan="2">Estorias</TH>
+			<TH class="title" colspan="2">Atividades</TH>
 		</TR>
 		<TR>
 			<TH class="menu" colspan="2">
@@ -40,7 +40,7 @@
 								<TABLE class="story" width="100%" height="50px">
 									<TR>
 										<TD><b>#<span wicket:id="lbId">1234</span></b>
-										- <span wicket:id="lbName">Nome</span> <br>
+										- <span wicket:id="lbName">Nome</span> - <a class="select" wicket:id="lkSelect" href="#">&nbsp;selecionar&nbsp;</a> <br>
 										<span wicket:id="lbDescription">Nome</span> <br>
 										<span wicket:id="lbDateCreate">Date</span> <br>
 											<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
@@ -61,7 +61,51 @@
 				</TABLE>
 
 			</TD>
-		
+
+			<!--                      Atividades                           -->
+
+
+			<TD valign="top" align="left">
+				<TABLE id="table_tasks">
+					<TR>
+						<TH>Tarefas da Historia: <span wicket:id="lbStoryId">1234</span></TH>
+					</TR>
+					<TR>
+						<TH class="menu" colspan="2">
+							<a wicket:id="showActivityModal"><img src="imagens/plus.png" /></a>
+						</TH>
+					</TR>
+					<TR>
+						<TD>
+						<div class="barra_rolagem">
+							<div wicket:id="listViewActivity">
+							
+								<TABLE class="story" width="100%" height="50px">
+									<TR>
+										<TD>
+											<b>#<span wicket:id="lbId">1234</span></b>
+										- <span wicket:id="lbName">Nome</span> <br>
+										<span wicket:id="lbDescription">Nome</span> <br>
+										<span wicket:id="lbDateCreate">Date</span> <br>
+										<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
+										<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
+										</TD>
+										<TD class="bt_fluxo">
+											<a wicket:id="lkUp" href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
+											<a wicket:id="lkDown" href="#"><img src="imagens/rnd_br_down.png" /></a>
+										</TD>
+									</TR>
+								</TABLE>
+								<br>
+							</div>
+						
+						</div>
+
+						</TD>
+					</TR>
+				</TABLE>
+
+			</TD>
 		</TR>
 	</TABLE>
 </wicket:extend>
