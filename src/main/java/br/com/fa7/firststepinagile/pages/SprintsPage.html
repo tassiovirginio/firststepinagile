@@ -3,18 +3,21 @@
 </wicket:head>
 
 <wicket:extend>
+
+<div wicket:id="sprintModal"></div>
+
 	<TABLE id="table_sprints">
 		<TR>
 			<TH class="title" colspan="2">Sprints</TH>
 		</TR>
 		<TR>
-			<TH class="menu" colspan="2">Sprint: Nome do Sprint - Estado:
-				Aberto - 01-01-2012 
-				<a class="busca" href="#">adicionar</a>-
-				<a class="busca" href="#">editar</a>-
-				<a class="busca" href="#">buscar</a>
+			<TH class="menu" colspan="2">
+			<a wicket:id="lkSprintModal" class="busca" href="#"><img width="18px" height="18px" src="imagens/search.png" /></a>
+			Sprint: Nome do Sprint - Estado:Aberto - 01-01-2012 
 			</TH>
 		</TR>
+		
+		
 		<TR>
 			<TD valign="top" align="left">
 
@@ -23,85 +26,30 @@
 						<TH>Backlog</TH>
 					</TR>
 					<TR>
-						<TH class="menu" colspan="2">
-							<a class="busca" href="#">adicionar</a>
+						<TH class="menu" colspan="2"><a class="busca" href="#">adicionar</a>
 						</TH>
 					</TR>
 					<TR>
-						<TD class="barra_rolagem">
+						<TD>
+							<div class="barra_rolagem">
+								<div wicket:id="lvStory">
+									<TABLE class="story" width="100%" height="50px">
+										<TR>
+											<TD><b>#<span wicket:id="lbId">1234</span></b> - <span
+												wicket:id="lbName">Nome</span> <br> <span
+												wicket:id="lbDescription">Nome</span> <br> <span
+												wicket:id="lbDateCreate">Date</span> <br> <a
+												wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
+												<a wicket:id="lkDelete" href="#"><img
+													src="imagens/delete.png" /></a></TD>
+											<TD class="bt_fluxo"><a wicket:id="lkRight" href="#"><img
+													src="imagens/rnd_br_next.png" /></a></TD>
+										</TR>
+									</TABLE>
+									<br>
 
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br>
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br>
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br>
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br>
-<!-- 											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
+								</div>
+							</div>
 						</TD>
 					</TR>
 				</TABLE>
@@ -110,97 +58,45 @@
 
 			<!--                      Atividades                           -->
 
-
 			<TD valign="top" align="left">
-				<TABLE id="table_tasks">
+
+				<TABLE id="table_storys_backlog">
 					<TR>
-						<TH>Backlog do Sprint: Nome do Sprint</TH>
+						<TH>Backlog Sprint</TH>
 					</TR>
 					<TR>
-						<TH class="menu" colspan="2">
-							<a class="busca" href="#">adicionar</a>
+						<TH class="menu" colspan="2"><a class="busca" href="#">adicionar</a>
 						</TH>
 					</TR>
 					<TR>
-						<TD class="barra_rolagem">
+						<TD>
+							<div class="barra_rolagem">
+								<div wicket:id="lvStorySprint">
+									<TABLE class="story" width="100%" height="50px">
+										<TR>
+											<TD><b>#<span wicket:id="lbId">1234</span></b> - <span
+												wicket:id="lbName">Nome</span> <br> <span
+												wicket:id="lbDescription">Nome</span> <br> <span
+												wicket:id="lbDateCreate">Date</span> <br> <a
+												wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
+												<a wicket:id="lkDelete" href="#"><img
+													src="imagens/delete.png" /></a></TD>
+											<TD class="bt_fluxo"><a wicket:id="lkRight" href="#"><img
+													src="imagens/rnd_br_prev.png" /></a></TD>
+										</TR>
+									</TABLE>
+									<br>
 
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
-
-								<TABLE class="story" width="100%" height="50px">
-									<TR>
-										<TD>
-											<b>5432</b>
-											<br>Problema na Abertura de Viagem...<br>
-											12:00:00 01/01/2012<br>
-											<a href="#">editar</a>-<a href="#">deletar</a>
-										</TD>
-										<TD class="bt_fluxo">
-<!-- 											<a href="#"><img src="imagens/rnd_br_up.png" /></a><br>  -->
-<!-- 											<a href="#"><img src="imagens/rnd_br_next.png" /></a><br> -->
-											<a href="#"><img src="imagens/rnd_br_prev.png" /></a><br> 
-<!-- 											<a href="#"><img src="imagens/rnd_br_down.png" /></a> -->
-										</TD>
-									</TR>
-								</TABLE>
-								<br>
+								</div>
+							</div>
 						</TD>
 					</TR>
 				</TABLE>
 
 			</TD>
+
+			
 		</TR>
+		
 	</TABLE>
 </wicket:extend>
