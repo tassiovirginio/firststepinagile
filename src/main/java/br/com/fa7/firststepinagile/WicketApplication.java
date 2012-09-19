@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
+import br.com.fa7.firststepinagile.business.SprintBusiness;
 import br.com.fa7.firststepinagile.business.StoryBusiness;
 import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.LoginPage;
@@ -28,6 +30,9 @@ public class WicketApplication extends WebApplication{
 	
 	@Autowired
 	private StoryBusiness storyBusiness;
+	
+	@Autowired
+	private SprintBusiness sprintBusiness;
 	
 	@Override
 	public Class<LoginPage> getHomePage(){
@@ -61,6 +66,14 @@ public class WicketApplication extends WebApplication{
 		userTest01.setPassword("test01");
 		userTest01.setAdmin(true);
 		userBusiness.save(userTest01);
+
+		Sprint sprint1 = new Sprint();
+		sprint1.setCreator(userTest01);
+		sprint1.setDateCreation(new DateTime());
+		sprint1.setDateStart(new DateTime());
+		sprint1.setDescription("Teste...");
+		sprint1.setName("Sprint Test01");
+		sprintBusiness.save(sprint1);
 		
 		Story story1 = new Story();
 		story1.setName("Estoria 01");
