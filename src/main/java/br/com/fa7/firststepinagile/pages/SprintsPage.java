@@ -33,7 +33,7 @@ public class SprintsPage extends PageBase {
 		
 		createSprintModal(user);
 		
-		createBarSprintMdal(user);
+		createBarSprintModal(user);
 		
 		createPanelBacklog(user);
 		
@@ -41,7 +41,7 @@ public class SprintsPage extends PageBase {
 		
 	}
 	
-	private void createBarSprintMdal(final User user) {
+	private void createBarSprintModal(final User user) {
 		
 		add(new AjaxLink<Void>("lkSprintModal") {
 			@Override
@@ -98,6 +98,7 @@ public class SprintsPage extends PageBase {
 				Link lkStorys = new Link("lkDelete") {
 					@Override
 					public void onClick() {
+						System.out.println("Delete");
 					}
 				};
 				item.add(lkStorys);
@@ -106,12 +107,14 @@ public class SprintsPage extends PageBase {
 				item.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
+						System.out.println("Edit");
 					}
 				});
 				
 				item.add(new Link("lkRight") {
 					@Override
 					public void onClick() {
+						System.out.println("Direita");
 					}
 				});
 				

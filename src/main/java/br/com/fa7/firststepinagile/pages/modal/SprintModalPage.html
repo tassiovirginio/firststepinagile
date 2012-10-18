@@ -14,14 +14,17 @@
 				<TABLE id="table_storys_backlog">
 					<TR>
 						<TD>
+						
 							<div class="barra_rolagem">
-								<div>
-
+								<div wicket:id="listViewSprint">
 									<TABLE class="story" width="100%" height="50px">
 										<TR>
-											<TD><b>#1234</b> - <span>Nome Sprint 123</span> <a href="#"><img
-													src="imagens/delete.png" /></a> <a href="#"><img
-													src="imagens/rnd_br_next.png" /></a></TD>
+											<TD>
+											<b>#<span wicket:id="lbId">1234</span></b> -
+											<span wicket:id="lbName">Nome</span>
+											<a href="#"><img src="imagens/delete.png" /></a>
+											<a wicket:id="lkRight" href="#"><img src="imagens/rnd_br_next.png" /></a> 
+											</TD>
 										</TR>
 									</TABLE>
 									<br>
