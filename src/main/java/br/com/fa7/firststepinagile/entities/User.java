@@ -25,6 +25,8 @@ public class User implements Serializable{
 	
 	private boolean admin;
 	
+	private Sprint sprint;
+	
 	public String getName() {
 		return name;
 	}
@@ -96,6 +98,14 @@ public class User implements Serializable{
 
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
 	}
 	
 	

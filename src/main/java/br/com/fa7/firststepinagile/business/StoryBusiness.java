@@ -3,12 +3,14 @@ package br.com.fa7.firststepinagile.business;
 import java.util.List;
 
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fa7.firststepinagile.business.dao.StoryDAO;
+import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 
 @Component
@@ -40,6 +42,13 @@ public class StoryBusiness {
 	
 	public List<Story> allOrderByDescPrioridade(){
 		return storyDAO.findByCriteria(	Order.asc("priority"));
+	}
+	
+	public List<Story> getStoryBySprint(Sprint sprint){
+		return storyDAO.findByCriteria(
+				Order.desc("priority"),
+				Restrictions.eq("sprint", sprint)
+				);
 	}
 	
 	public double lastStoryPriority(){

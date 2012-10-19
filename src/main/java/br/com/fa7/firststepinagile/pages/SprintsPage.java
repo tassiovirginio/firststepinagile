@@ -1,5 +1,6 @@
 package br.com.fa7.firststepinagile.pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Page;
@@ -11,13 +12,16 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.StringValue;
 
+import br.com.fa7.firststepinagile.business.SprintBusiness;
 import br.com.fa7.firststepinagile.business.StoryBusiness;
+import br.com.fa7.firststepinagile.business.UserBusiness;
+import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
 import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
-import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
 public class SprintsPage extends PageBase {
 
@@ -26,18 +30,31 @@ public class SprintsPage extends PageBase {
 	@SpringBean
 	private StoryBusiness storyBusiness;
 	
+	@SpringBean
+	private SprintBusiness sprintBusiness;
+	
+	@SpringBean
+	private UserBusiness userBusiness;
+	
+	
 	private ModalWindow storyModal;
-
+	
 	public SprintsPage(User user) {
+		this(user,null);
+	}
+
+	public SprintsPage(User user, Sprint sprint) {
 		super(user);
+		
+		System.out.println(sprint);
 		
 		createSprintModal(user);
 		
 		createBarSprintModal(user);
 		
-		createPanelBacklog(user);
+		createPanelBacklog(user,sprint);
 		
-		createPanelSprint(user);
+		createPanelSprint(user,sprint);
 		
 	}
 	
@@ -69,16 +86,22 @@ public class SprintsPage extends PageBase {
 			}
 		});
 		
+		
 		storyModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			@Override
 			public void onClose(AjaxRequestTarget target) {
-				setResponsePage(new SprintsPage(user));
+				StringValue sprintId = SprintsPage.this.getPageParameters().get("sprintId");
+				Sprint sprint = sprintBusiness.findById(sprintId.toLong());;
+				user.setSprint(sprint);
+				userBusiness.save(user);
+				setResponsePage(new SprintsPage(user,sprint));
 			}
 		});
 
 	}
 	
 	
-	private void createPanelBacklog(final User user) {
+	private void createPanelBacklog(final User user, final Sprint sprint) {
 		List<Story> listAllStory = storyBusiness.allOrderByDescPrioridade();
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
@@ -114,7 +137,8 @@ public class SprintsPage extends PageBase {
 				item.add(new Link("lkRight") {
 					@Override
 					public void onClick() {
-						System.out.println("Direita");
+						sprintBusiness.addStoryInSprint(story,sprint);
+						setResponsePage(new SprintsPage(user,sprint));
 					}
 				});
 				
@@ -124,8 +148,13 @@ public class SprintsPage extends PageBase {
 	}
 	
 	
-	private void createPanelSprint(final User user) {
-		List<Story> listAllStory = storyBusiness.allOrderByDescPrioridade();
+	private void createPanelSprint(final User user, final Sprint sprint) {
+		
+		List<Story> listAllStory = new ArrayList<Story>();
+		
+		if(sprint != null){
+			listAllStory = storyBusiness.getStoryBySprint(sprint);
+		}
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStorySprint", listAllStory) {
 			@Override
@@ -144,6 +173,8 @@ public class SprintsPage extends PageBase {
 				Link lkStorys = new Link("lkDelete") {
 					@Override
 					public void onClick() {
+						sprintBusiness.delete(sprint);
+						setResponsePage(new SprintsPage(user,sprint));
 					}
 				};
 				item.add(lkStorys);
@@ -158,6 +189,7 @@ public class SprintsPage extends PageBase {
 				item.add(new Link("lkRight") {
 					@Override
 					public void onClick() {
+						
 					}
 				});
 				

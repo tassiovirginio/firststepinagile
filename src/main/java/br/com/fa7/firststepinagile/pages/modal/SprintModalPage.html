@@ -22,7 +22,7 @@
 											<TD>
 											<b>#<span wicket:id="lbId">1234</span></b> -
 											<span wicket:id="lbName">Nome</span>
-											<a href="#"><img src="imagens/delete.png" /></a>
+											<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
 											<a wicket:id="lkRight" href="#"><img src="imagens/rnd_br_next.png" /></a> 
 											</TD>
 										</TR>
@@ -38,22 +38,25 @@
 			</TD>
 			<TD valign="top" align="left" width="50%">
 
-				<form>
+				<form wicket:id="form">
 					<table>
 						<tr>
-							<td>Nome:<input type="text" /></td>
+							<td>Nome:<input wicket:id="tfName" type="text" /></td>
 						</tr>
 						<tr>
-							<td>Desc:<input type="text" /></td>
+							<td>Desc:<textarea wicket:id="tfDescription" cols="40" rows="10"></textarea></td>
 						</tr>
 						<tr>
-							<td>Data Inicio:<input type="text" /></td>
+							<td>Data Inicio:<div wicket:id="dfStart"></div></td>
 						</tr>
 						<tr>
-							<td>Data Fim:<input type="text" /></td>
+							<td>Data Fim:<div wicket:id="dfEnd" ></div></td>
 						</tr>
 						<tr>
-							<td colspan="2"><input type="submit" value="Salvar" /></td>
+							<td colspan="2">
+								<input wicket:id="btSalvar" type="submit" value="Salvar" />
+								<input wicket:id="btSelecionar" type="submit" value="Selecionar" />
+							</td>
 						</tr>
 					</table>
 				</form>

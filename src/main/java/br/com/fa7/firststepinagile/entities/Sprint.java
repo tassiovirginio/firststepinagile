@@ -97,7 +97,7 @@ public class Sprint implements Serializable{
 	public DateTime getDateStart() {
 		return dateStart;
 	}
-
+	
 	public void setDateStart(DateTime dateStart) {
 		this.dateStart = dateStart;
 	}
