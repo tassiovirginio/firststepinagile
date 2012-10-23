@@ -183,109 +183,102 @@ public class KanbanPage extends PageBase {
 					}
 				});
 				
-				List<Activity> listActivityStop = activityBusiness.findActivityForSprintAndState(story,1);
-				List<Activity> listActivityStarted = activityBusiness.findActivityForSprintAndState(story,2);
-				List<Activity> listActivityTest = activityBusiness.findActivityForSprintAndState(story,3);
-				List<Activity> listActivityDone = activityBusiness.findActivityForSprintAndState(story,4);
 				
-				item.add(new ListView<Activity>("listActivityStop", listActivityStop) {
-					@Override
-					protected void populateItem(ListItem<Activity> item) {
-						
-						final Activity activity = (Activity)item.getModelObject();
-						
-						Label lbId = new Label("lbId", activity.getId().toString());
-						Label lbName = new Label("lbName", activity.getName());
-						Label lbDescription = new Label("lbDescription", activity.getDescription());
-						Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("HH:mm dd/MM/yyyy"));
-						
-						item.add(lbId);
-						item.add(lbName);
-						item.add(lbDescription);
-						item.add(lbDateCreate);
-						
-						item.add(new Link("lkDelete") {
-							@Override
-							public void onClick() {
-								activityBusiness.delete(activity);
-								setResponsePage(new KanbanPage(user));
-							}
-						});
-						
-						item.add(new AjaxLink<Void>("lkEdit") {
-							@Override
-							public void onClick(AjaxRequestTarget target) {
-								System.out.println("activity Edit -> " + activity.getId());
-								activityModal.setPageCreator(new ModalWindow.PageCreator() {
-									public Page createPage() {
-										return new ActivityModalPage(KanbanPage.this.getPageReference(), storyModal, user, story, activity);
-									}
-								});
-								activityModal.show(target);
-							}
-						});
-						
-						item.add(new Link("lkUp") {
-							@Override
-							public void onClick() {
-								activityBusiness.upActivityPriority(activity,story,1);
-								setResponsePage(new KanbanPage(user));
-							}
-						});
-						
-						item.add(new Link("lkDown") {
-							@Override
-							public void onClick() {
-								activityBusiness.downActivityPriority(activity,story,1);
-								setResponsePage(new KanbanPage(user));
-							}
-						});
-						
-						item.add(new Link("lkR") {
-							@Override
-							public void onClick() {
-								activityBusiness.setActivityState(activity,2);
-								setResponsePage(new KanbanPage(user));
-							}
-						});
-						
-						item.add(new Link("lkL") {
-							@Override
-							public void onClick() {
-								activityBusiness.setActivityState(activity,1);
-								setResponsePage(new KanbanPage(user));
-							}
-						});
-						
-						
-						
-					}
-				});
+				createListActivity("listActivityStop",user,item,story,1);
 				
-				item.add(new ListView<Activity>("listActivityStarted", listActivityStarted) {
-					@Override
-					protected void populateItem(ListItem<Activity> item) {
-						
-					}
-				});
+				createListActivity("listActivityStarted",user,item,story,2);
+
+				createListActivity("listActivityTest",user,item,story,3);
 				
-				item.add(new ListView<Activity>("listActivityTest", listActivityTest) {
-					@Override
-					protected void populateItem(ListItem<Activity> item) {
-						
-					}
-				});
+				createListActivity("listActivityDone",user,item,story,4);
 				
-				item.add(new ListView<Activity>("listActivityDone", listActivityDone) {
-					@Override
-					protected void populateItem(ListItem<Activity> item) {
-						
-					}
-				});
 				
 			}
 		};
 		add(listViewStoryBacklog);
+	}
+	
+	
+	
+	private void createListActivity(String name,final User user, ListItem<Story> item, final Story story, final Integer state){
+		
+		List<Activity> listActivityStop = activityBusiness.findActivityForSprintAndState(story,state);
+		
+		item.add(new ListView<Activity>(name, listActivityStop) {
+			@Override
+			protected void populateItem(ListItem<Activity> item) {
+				
+				final Activity activity = (Activity)item.getModelObject();
+				
+				Label lbId = new Label("lbId", activity.getId().toString());
+				Label lbName = new Label("lbName", activity.getName());
+				Label lbDescription = new Label("lbDescription", activity.getDescription());
+				Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("HH:mm dd/MM/yyyy"));
+				
+				item.add(lbId);
+				item.add(lbName);
+				item.add(lbDescription);
+				item.add(lbDateCreate);
+				
+				item.add(new Link("lkDelete") {
+					@Override
+					public void onClick() {
+						activityBusiness.delete(activity);
+						setResponsePage(new KanbanPage(user));
+					}
+				});
+				
+				item.add(new AjaxLink<Void>("lkEdit") {
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						System.out.println("activity Edit -> " + activity.getId());
+						activityModal.setPageCreator(new ModalWindow.PageCreator() {
+							public Page createPage() {
+								return new ActivityModalPage(KanbanPage.this.getPageReference(), storyModal, user, story, activity);
+							}
+						});
+						activityModal.show(target);
+					}
+				});
+				
+				item.add(new Link("lkUp") {
+					@Override
+					public void onClick() {
+						activityBusiness.upActivityPriority(activity,story,state);
+						setResponsePage(new KanbanPage(user));
+					}
+				});
+				
+				item.add(new Link("lkDown") {
+					@Override
+					public void onClick() {
+						activityBusiness.downActivityPriority(activity,story,state);
+						setResponsePage(new KanbanPage(user));
+					}
+				});
+				
+				item.add(new Link("lkR") {
+					@Override
+					public void onClick() {
+						if(state+1 <= 4)
+						activityBusiness.setActivityState(activity,state+1);
+						setResponsePage(new KanbanPage(user));
+					}
+				});
+				
+				item.add(new Link("lkL") {
+					@Override
+					public void onClick() {
+						if(state-1 >= 1)
+						activityBusiness.setActivityState(activity,state-1);
+						setResponsePage(new KanbanPage(user));
+					}
+				});
+				
+				
+				
+			}
+		});
 	}
 	
 	private void createActivityModal(final User user) {
