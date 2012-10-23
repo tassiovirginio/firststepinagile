@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fa7.firststepinagile.business.dao.ActivityDAO;
 import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 
@@ -49,6 +50,14 @@ public class ActivityBusiness {
 				);
 	}
 	
+	public List<Activity> findActivityForSprintAndState(Story story, Integer state){
+		return activityDAO.findByCriteria(
+				Order.desc("priority"),
+				Restrictions.eq("story", story),
+				Restrictions.eq("state", state)
+				);
+	}
+	
 	public List<Activity> findActivityByStory(Story story){
 		return activityDAO.findByCriteria(
 				Order.asc("priority"),
@@ -81,6 +90,8 @@ public class ActivityBusiness {
 			double index2 = activity.getPriority();
 			activity2.setPriority(index2);
 			activity.setPriority(index1);
+			System.out.println("1->"+activity.getPriority());
+			System.out.println("2->"+activity2.getPriority());
 			save(activity);
 			save(activity2);
 		}
@@ -100,4 +111,45 @@ public class ActivityBusiness {
 			save(activity2);
 		}
 	}
+	
+	public void upActivityPriority(Activity activity, Story story, Integer state){
+		activity = activityDAO.findById(activity.getId());
+		List<Activity> list = findActivityForSprintAndState(story, state);
+		int index = list.indexOf(activity);
+		if(index != 0){
+			Activity activity2 = list.get(index-1);
+			double index1 = activity2.getPriority();
+			double index2 = activity.getPriority();
+			activity2.setPriority(index2);
+			activity.setPriority(index1);
+			System.out.println("1->"+activity.getPriority());
+			System.out.println("2->"+activity2.getPriority());
+			save(activity);
+			save(activity2);
+		}
+	}
+	
+	public void downActivityPriority(Activity activity, Story story, Integer state){
+		activity = activityDAO.findById(activity.getId());
+		List<Activity> list = findActivityForSprintAndState(story, state);
+		int index = list.indexOf(activity);
+		if(list.size() > index+1){
+			Activity activity2 = list.get(index+1);
+			double index1 = activity2.getPriority();
+			double index2 = activity.getPriority();
+			activity2.setPriority(index2);
+			activity.setPriority(index1);
+			save(activity);
+			save(activity2);
+		}
+	}
+	
+	
+	public void setActivityState(Activity activity,Integer state){
+		activity = activityDAO.findById(activity.getId());
+		activity.setState(state);
+		activityDAO.save(activity);
+	}
+	
+	
 }

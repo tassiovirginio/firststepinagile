@@ -1,5 +1,6 @@
 package br.com.fa7.firststepinagile.pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Page;
@@ -11,16 +12,20 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.StringValue;
 
+import br.com.fa7.firststepinagile.business.ActivityBusiness;
+import br.com.fa7.firststepinagile.business.SprintBusiness;
 import br.com.fa7.firststepinagile.business.StoryBusiness;
+import br.com.fa7.firststepinagile.business.UserBusiness;
+import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
+import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
+import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
-
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
 
 public class KanbanPage extends PageBase {
 	
@@ -29,15 +34,117 @@ public class KanbanPage extends PageBase {
 	@SpringBean
 	private StoryBusiness storyBusiness;
 	
+	@SpringBean
+	private SprintBusiness sprintBusiness;
+	
+	@SpringBean
+	private UserBusiness userBusiness;
+	
+	@SpringBean
+	private ActivityBusiness activityBusiness;
+
+	private ModalWindow sprintModal;
+	
+	private ModalWindow storyModal;
+	
+	private ModalWindow activityModal;
+	
 	public KanbanPage(User user) {
 		super(user);
 		
 		createPanelBacklog(user);
+		createSprintModal(user);
+		createBarSprintModal(user);
+		createStoryModal(user);
+		createActivityModal(user);
+		
+	}
+	
+	private void createSprintModal(final User user) {
+		add(sprintModal = new ModalWindow("sprintModal"));
+		sprintModal.setCookieName("storyModal-cookie");
+		sprintModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
+		sprintModal.setResizable(false);
+
+		sprintModal.setPageCreator(new ModalWindow.PageCreator() {
+			public Page createPage() {
+				return new SprintModalPage(KanbanPage.this.getPageReference(), sprintModal, user);
+			}
+		});
+		
+		
+		sprintModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			@Override
+			public void onClose(AjaxRequestTarget target) {
+				StringValue sprintId = KanbanPage.this.getPageParameters().get("sprintId");
+				if(!sprintId.isNull()){
+					Sprint sprint = sprintBusiness.findById(sprintId.toLong());;
+					user.setSprint(sprint);
+					userBusiness.save(user);
+					setResponsePage(new KanbanPage(user));
+				}
+				setResponsePage(new KanbanPage(user));
+			}
+		});
+
+	}
+	
+	private void createBarSprintModal(final User user) {
+		
+		String dateEnd = "";
+		
+		if(user.getSprint() != null && user.getSprint().getDateEnd() != null)
+		dateEnd = user.getSprint().getDateEnd().toString("dd/MM/yyyy");
+		
+		if(user.getSprint() != null){
+			add(new Label("lbSprintName",user.getSprint().getName() + " - " + user.getSprint().getDateStart().toString("dd/MM/yyyy") 
+					+ " - " + dateEnd));
+		}else{
+			add(new Label("lbSprintName",""));	
+		}
+		
+		add(new AjaxLink<Void>("lkSprintModal") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				sprintModal.setPageCreator(new ModalWindow.PageCreator() {
+					public Page createPage() {
+						return new SprintModalPage(KanbanPage.this.getPageReference(), sprintModal, user);
+					}
+				});
+				sprintModal.show(target);
+			}
+		});
+		
+	}
+	
+	private void createStoryModal(final User user) {
+		add(storyModal = new ModalWindow("storyModal"));
+		storyModal.setCookieName("storyModal-cookie");
+		storyModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
+		storyModal.setResizable(false);
+
+		storyModal.setPageCreator(new ModalWindow.PageCreator() {
+			public Page createPage() {
+				return new StoryModalPage(KanbanPage.this.getPageReference(), storyModal, user, new Story());
+			}
+		});
+		
+		storyModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			public void onClose(AjaxRequestTarget target) {
+				setResponsePage(new KanbanPage(user));
+			}
+		});
+
 	}
 	
 	
 	private void createPanelBacklog(final User user) {
-		List<Story> listAllStory = storyBusiness.allOrderByDescPrioridade();
+		
+		List<Story> listAllStory = new ArrayList<Story>();
+		
+		if(user.getSprint() != null){
+			listAllStory = storyBusiness.getStoryBySprint(user.getSprint());
+		}
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
 			@Override
@@ -53,9 +160,153 @@ public class KanbanPage extends PageBase {
 				item.add(lbName);
 				item.add(lbDescription);
 				item.add(lbDateCreate);
+				
+				Link lkStorys = new Link("lkDelete") {
+					@Override
+					public void onClick() {
+						storyBusiness.delete(story);
+						setResponsePage(new StorysPage(user));
+					}
+				};
+				item.add(lkStorys);
+				
+				
+				item.add(new AjaxLink<Void>("lkEdit") {
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						storyModal.setPageCreator(new ModalWindow.PageCreator() {
+							public Page createPage() {
+								return new StoryModalPage(KanbanPage.this.getPageReference(), storyModal, user, story);
+							}
+						});
+						storyModal.show(target);
+					}
+				});
+				
+				List<Activity> listActivityStop = activityBusiness.findActivityForSprintAndState(story,1);
+				List<Activity> listActivityStarted = activityBusiness.findActivityForSprintAndState(story,2);
+				List<Activity> listActivityTest = activityBusiness.findActivityForSprintAndState(story,3);
+				List<Activity> listActivityDone = activityBusiness.findActivityForSprintAndState(story,4);
+				
+				item.add(new ListView<Activity>("listActivityStop", listActivityStop) {
+					@Override
+					protected void populateItem(ListItem<Activity> item) {
+						
+						final Activity activity = (Activity)item.getModelObject();
+						
+						Label lbId = new Label("lbId", activity.getId().toString());
+						Label lbName = new Label("lbName", activity.getName());
+						Label lbDescription = new Label("lbDescription", activity.getDescription());
+						Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("HH:mm dd/MM/yyyy"));
+						
+						item.add(lbId);
+						item.add(lbName);
+						item.add(lbDescription);
+						item.add(lbDateCreate);
+						
+						item.add(new Link("lkDelete") {
+							@Override
+							public void onClick() {
+								activityBusiness.delete(activity);
+								setResponsePage(new KanbanPage(user));
+							}
+						});
+						
+						item.add(new AjaxLink<Void>("lkEdit") {
+							@Override
+							public void onClick(AjaxRequestTarget target) {
+								System.out.println("activity Edit -> " + activity.getId());
+								activityModal.setPageCreator(new ModalWindow.PageCreator() {
+									public Page createPage() {
+										return new ActivityModalPage(KanbanPage.this.getPageReference(), storyModal, user, story, activity);
+									}
+								});
+								activityModal.show(target);
+							}
+						});
+						
+						item.add(new Link("lkUp") {
+							@Override
+							public void onClick() {
+								activityBusiness.upActivityPriority(activity,story,1);
+								setResponsePage(new KanbanPage(user));
+							}
+						});
+						
+						item.add(new Link("lkDown") {
+							@Override
+							public void onClick() {
+								activityBusiness.downActivityPriority(activity,story,1);
+								setResponsePage(new KanbanPage(user));
+							}
+						});
+						
+						item.add(new Link("lkR") {
+							@Override
+							public void onClick() {
+								activityBusiness.setActivityState(activity,2);
+								setResponsePage(new KanbanPage(user));
+							}
+						});
+						
+						item.add(new Link("lkL") {
+							@Override
+							public void onClick() {
+								activityBusiness.setActivityState(activity,1);
+								setResponsePage(new KanbanPage(user));
+							}
+						});
+						
+						
+						
+					}
+				});
+				
+				item.add(new ListView<Activity>("listActivityStarted", listActivityStarted) {
+					@Override
+					protected void populateItem(ListItem<Activity> item) {
+						
+					}
+				});
+				
+				item.add(new ListView<Activity>("listActivityTest", listActivityTest) {
+					@Override
+					protected void populateItem(ListItem<Activity> item) {
+						
+					}
+				});
+				
+				item.add(new ListView<Activity>("listActivityDone", listActivityDone) {
+					@Override
+					protected void populateItem(ListItem<Activity> item) {
+						
+					}
+				});
+				
 			}
 		};
 		add(listViewStoryBacklog);
+	}
+	
+	private void createActivityModal(final User user) {
+		add(activityModal = new ModalWindow("activityModal"));
+		activityModal.setCookieName("activityModal-cookie");
+		activityModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
+		activityModal.setWidthUnit("600px");
+		activityModal.setHeightUnit("400px");
+		
+		activityModal.setPageCreator(new ModalWindow.PageCreator() {
+			public Page createPage() {
+				return new KanbanPage(user);
+			}
+		});
+		
+		activityModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			public void onClose(AjaxRequestTarget target) {
+				setResponsePage(new KanbanPage(user));
+			}
+		});
+
 	}
 
 }

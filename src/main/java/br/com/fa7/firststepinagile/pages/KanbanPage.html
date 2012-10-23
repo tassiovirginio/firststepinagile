@@ -4,16 +4,20 @@
 
 <wicket:extend>
 
+<div wicket:id="storyModal"></div>
+
+<div wicket:id="sprintModal"></div>
+
+<div wicket:id="activityModal"></div>
+
 	<TABLE id="table_sprints">
 		<TR>
 			<TH class="title" colspan="2">Kanban - Quadro de Atividades</TH>
 		</TR>
 		<TR>
-			<TH class="menu" colspan="2">Sprint: Nome do Sprint - Estado:
-				Aberto - 01-01-2012 
-				<a class="busca" href="#">adicionar</a>-
-				<a class="busca" href="#">editar</a>-
-				<a class="busca" href="#">buscar</a>
+			<TH class="menu" colspan="2">
+				<a wicket:id="lkSprintModal" class="busca" href="#"><img width="18px" height="18px" src="imagens/search.png" /></a>
+				Sprint atual -> <spam wicket:id="lbSprintName">Sprint: Nome do Sprint - Estado:Aberto - 01-01-2012</spam> 
 			</TH>
 		</TR>
 		<TR>
@@ -28,6 +32,7 @@
 						<TH width="19.5%" >Feito</TH>
 						<TH width="1.5%" ></TH>
 					</TR>
+					<!--
 					<TR>
 						<TH class="menu">
 							<a href="#">adicionar</a>
@@ -47,6 +52,7 @@
 						<TH class="menu" >
 						</TH>
 					</TR>
+					-->
 				</TABLE>
 				
 				<div class="barra_rolagem">
@@ -65,9 +71,9 @@
 									<span wicket:id="lbName">Nome</span><br>
 									<span wicket:id="lbDescription">Nome</span> <br>
 									<span wicket:id="lbDateCreate">Date</span> <br>
-										<a href="#">editar</a>-
-										<a href="#">deletar</a>
-										</TD>
+										<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
+										<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
+											</TD>
 								</TR>
 							</TABLE>
 						</TD>
@@ -75,43 +81,49 @@
 						
 						<!-- LSITA ATIVIDADES- INICIO -->
 						
-							<TABLE class="story" width="100%" height="50px">
-								<TR>
-									<TD><b>#5432</b> - Atividade Blabla...<br>
-										Resp: Tassio<br>
-										Est: 10 <br> 
-										<a href="#">editar</a>-<a
-										href="#">deletar</a></TD>
-									<TD class="bt_fluxo">
-									<a href="#"><img
-											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_down.png" /></a>
-									</TD>
-								</TR>
-							</TABLE>
-							<TABLE class="story" width="100%" height="50px">
-								<TR>
-									<TD><b>#5432</b> - Atividade Blabla...<br>
-										Resp: Tassio<br>
-										Est: 10 <br> 
-										<a href="#">editar</a>-<a
-										href="#">deletar</a></TD>
-									<TD class="bt_fluxo">
-									<a href="#"><img
-											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_down.png" /></a>
-									</TD>
-								</TR>
-							</TABLE>
+							<div wicket:id="listActivityStop">
+								<TABLE class="story" width="100%" height="50px">
+									<TR>
+										<TD>
+										<b>#<span wicket:id="lbId">1234</span></b><br>
+										<span wicket:id="lbName">Nome</span><br>
+										<span wicket:id="lbDescription">Nome</span> <br>
+										<span wicket:id="lbDateCreate">Date</span> <br>
+											<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
+										<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
+											</TD>
+										<TD class="bt_fluxo">
+										<a wicket:id="lkUp" href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
+										<a wicket:id="lkR" href="#"><img src="imagens/rnd_br_next.png" /></a><br> 
+										<a wicket:id="lkL" href="#"><img src="imagens/rnd_br_prev.png" /></a><br> 
+										<a wicket:id="lkDown" href="#"><img src="imagens/rnd_br_down.png" /></a>
+										</TD>
+									</TR>
+								</TABLE>
+							</div>
 						</TD>
 						<TD class="linha">
-							
+						<div wicket:id="listActivityStarted">
+							<TABLE class="story" width="100%" height="50px">
+								<TR>
+									<TD><b>#5432</b> - Atividade Blabla...<br>
+										Resp: Tassio<br>
+										Est: 10 <br> 
+										<a href="#">editar</a>-<a
+										href="#">deletar</a></TD>
+									<TD class="bt_fluxo">
+									<a href="#"><img
+											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
+											src="imagens/rnd_br_down.png" /></a>
+									</TD>
+								</TR>
+							</TABLE>
+						</div>
 						</TD>
 						<TD class="linha" >
+							<div wicket:id="listActivityTest">
 							<TABLE class="story" width="100%" height="50px">
 								<TR>
 									<TD><b>#5432</b> - Atividade Blabla...<br>
@@ -128,8 +140,10 @@
 									</TD>
 								</TR>
 							</TABLE>
+							</div>
 						</TD>
 						<TD class="linha" >
+						<div wicket:id="listActivityDone">
 							<TABLE class="story" width="100%" height="50px">
 								<TR>
 									<TD><b>#5432</b> - Atividade Blabla...<br>
@@ -146,22 +160,7 @@
 									</TD>
 								</TR>
 							</TABLE>
-							<TABLE class="story" width="100%" height="50px">
-								<TR>
-									<TD><b>#5432</b> - Atividade Blabla...<br>
-										Resp: Tassio<br>
-										Est: 10 <br> 
-										<a href="#">editar</a>-<a
-										href="#">deletar</a></TD>
-									<TD class="bt_fluxo">
-									<a href="#"><img
-											src="imagens/rnd_br_up.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_next.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_prev.png" /></a><br> <a href="#"><img
-											src="imagens/rnd_br_down.png" /></a>
-									</TD>
-								</TR>
-							</TABLE>
+						</div>
 						</TD>
 					</TR>
 				</TABLE>

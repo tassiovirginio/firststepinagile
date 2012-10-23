@@ -50,7 +50,10 @@ public class Activity implements Serializable{
 	
 	@ManyToOne
 	private Story story;
-	
+
+	public Activity() {
+		state = 1;
+	}
 	
 	public Long getId() {
 		return id;
