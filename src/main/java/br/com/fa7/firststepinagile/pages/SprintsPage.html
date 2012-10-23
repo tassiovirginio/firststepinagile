@@ -6,6 +6,8 @@
 
 <div wicket:id="sprintModal"></div>
 
+<div wicket:id="storyModal"></div>
+
 	<TABLE id="table_sprints">
 		<TR>
 			<TH class="title" colspan="2">Sprints</TH>
@@ -13,7 +15,7 @@
 		<TR>
 			<TH class="menu" colspan="2">
 			<a wicket:id="lkSprintModal" class="busca" href="#"><img width="18px" height="18px" src="imagens/search.png" /></a>
-			Sprint: Nome do Sprint - Estado:Aberto - 01-01-2012 
+			Sprint atual -> <spam wicket:id="lbSprintName">Sprint: Nome do Sprint - Estado:Aberto - 01-01-2012</spam> 
 			</TH>
 		</TR>
 		
@@ -26,7 +28,8 @@
 						<TH>Backlog</TH>
 					</TR>
 					<TR>
-						<TH class="menu" colspan="2"><a class="busca" href="#">adicionar</a>
+						<TH class="menu" colspan="2">
+						<a wicket:id="showStoryModal"><img src="imagens/plus.png" /></a>
 						</TH>
 					</TR>
 					<TR>
@@ -65,7 +68,8 @@
 						<TH>Backlog Sprint</TH>
 					</TR>
 					<TR>
-						<TH class="menu" colspan="2"><a class="busca" href="#">adicionar</a>
+						<TH class="menu" colspan="2">
+							<a wicket:id="showStoryModal2"><img src="imagens/plus.png" /></a>
 						</TH>
 					</TR>
 					<TR>

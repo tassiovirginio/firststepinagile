@@ -32,6 +32,12 @@ public class Story implements Serializable{
 	
 	private Long value;
 	
+	public Story() {}
+	
+	public Story(Sprint sprint) {
+		this.sprint = sprint;
+	}
+	
 	@ManyToOne
 	private User currentResponsible;
 	

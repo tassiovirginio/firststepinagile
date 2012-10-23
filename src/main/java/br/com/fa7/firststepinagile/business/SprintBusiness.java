@@ -59,5 +59,14 @@ public class SprintBusiness {
 		story.setSprint(sprint);
 		sprintDAO.save(sprint);
 	}
+	
+	public void removeStoryInSprint(Story story, Sprint sprint){
+		sprint = sprintDAO.findById(sprint.getId());
+		story = storyDAO.findById(story.getId());
+		sprint.getStorys().remove(story);
+		story.setSprint(null);
+		sprintDAO.save(sprint);
+		storyDAO.save(story);
+	}
 
 }

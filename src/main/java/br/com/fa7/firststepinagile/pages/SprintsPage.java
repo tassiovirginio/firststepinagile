@@ -8,6 +8,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -22,6 +23,7 @@ import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
 import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
+import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
 public class SprintsPage extends PageBase {
 
@@ -35,12 +37,13 @@ public class SprintsPage extends PageBase {
 	
 	@SpringBean
 	private UserBusiness userBusiness;
-	
+
+	private ModalWindow sprintModal;
 	
 	private ModalWindow storyModal;
 	
 	public SprintsPage(User user) {
-		this(user,null);
+		this(user,user.getSprint());	
 	}
 
 	public SprintsPage(User user, Sprint sprint) {
@@ -56,45 +59,107 @@ public class SprintsPage extends PageBase {
 		
 		createPanelSprint(user,sprint);
 		
+		createStoryModal(user);
+		
 	}
 	
-	private void createBarSprintModal(final User user) {
+	private void createStoryModal(final User user) {
 		
-		add(new AjaxLink<Void>("lkSprintModal") {
+		add(new AjaxLink<Void>("showStoryModal") {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				storyModal.setPageCreator(new ModalWindow.PageCreator() {
 					public Page createPage() {
-						return new SprintModalPage(SprintsPage.this.getPageReference(), storyModal, user);
+						return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, new Story());
 					}
 				});
 				storyModal.show(target);
 			}
 		});
 		
-	}
-
-	private void createSprintModal(final User user) {
-		add(storyModal = new ModalWindow("sprintModal"));
+		add(new AjaxLink<Void>("showStoryModal2") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				storyModal.setPageCreator(new ModalWindow.PageCreator() {
+					public Page createPage() {
+						return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, new Story(user.getSprint()));
+					}
+				});
+				storyModal.show(target);
+			}
+		});
+		
+		add(storyModal = new ModalWindow("storyModal"));
 		storyModal.setCookieName("storyModal-cookie");
 		storyModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
 		storyModal.setResizable(false);
 
 		storyModal.setPageCreator(new ModalWindow.PageCreator() {
 			public Page createPage() {
-				return new SprintModalPage(SprintsPage.this.getPageReference(), storyModal, user);
+				return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, new Story());
+			}
+		});
+		
+		storyModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			public void onClose(AjaxRequestTarget target) {
+				setResponsePage(new SprintsPage(user));
+			}
+		});
+
+	}
+	
+	private void createBarSprintModal(final User user) {
+		
+		String dateEnd = "";
+		
+		if(user.getSprint() != null && user.getSprint().getDateEnd() != null)
+		dateEnd = user.getSprint().getDateEnd().toString("dd/MM/yyyy");
+		
+		if(user.getSprint() != null){
+			add(new Label("lbSprintName",user.getSprint().getName() + " - " + user.getSprint().getDateStart().toString("dd/MM/yyyy") 
+					+ " - " + dateEnd));
+		}else{
+			add(new Label("lbSprintName",""));	
+		}
+		
+		add(new AjaxLink<Void>("lkSprintModal") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				sprintModal.setPageCreator(new ModalWindow.PageCreator() {
+					public Page createPage() {
+						return new SprintModalPage(SprintsPage.this.getPageReference(), sprintModal, user);
+					}
+				});
+				sprintModal.show(target);
+			}
+		});
+		
+	}
+
+	private void createSprintModal(final User user) {
+		add(sprintModal = new ModalWindow("sprintModal"));
+		sprintModal.setCookieName("storyModal-cookie");
+		sprintModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
+		sprintModal.setResizable(false);
+
+		sprintModal.setPageCreator(new ModalWindow.PageCreator() {
+			public Page createPage() {
+				return new SprintModalPage(SprintsPage.this.getPageReference(), sprintModal, user);
 			}
 		});
 		
 		
-		storyModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+		sprintModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 			@Override
 			public void onClose(AjaxRequestTarget target) {
 				StringValue sprintId = SprintsPage.this.getPageParameters().get("sprintId");
-				Sprint sprint = sprintBusiness.findById(sprintId.toLong());;
-				user.setSprint(sprint);
-				userBusiness.save(user);
-				setResponsePage(new SprintsPage(user,sprint));
+				if(!sprintId.isNull()){
+					Sprint sprint = sprintBusiness.findById(sprintId.toLong());;
+					user.setSprint(sprint);
+					userBusiness.save(user);
+					setResponsePage(new SprintsPage(user,sprint));
+				}
+				setResponsePage(new SprintsPage(user));
 			}
 		});
 
@@ -121,7 +186,8 @@ public class SprintsPage extends PageBase {
 				Link lkStorys = new Link("lkDelete") {
 					@Override
 					public void onClick() {
-						System.out.println("Delete");
+						storyBusiness.delete(story);
+						setResponsePage(new SprintsPage(user));
 					}
 				};
 				item.add(lkStorys);
@@ -130,7 +196,12 @@ public class SprintsPage extends PageBase {
 				item.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						System.out.println("Edit");
+						storyModal.setPageCreator(new ModalWindow.PageCreator() {
+							public Page createPage() {
+								return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
+							}
+						});
+						storyModal.show(target);
 					}
 				});
 				
@@ -183,13 +254,21 @@ public class SprintsPage extends PageBase {
 				item.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
+						storyModal.setPageCreator(new ModalWindow.PageCreator() {
+							public Page createPage() {
+								return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
+							}
+						});
+						storyModal.show(target);
 					}
 				});
 				
 				item.add(new Link("lkRight") {
 					@Override
 					public void onClick() {
-						
+						story.setSprint(null);
+						sprintBusiness.removeStoryInSprint(story,sprint);
+						setResponsePage(new SprintsPage(user,sprint));
 					}
 				});
 				

@@ -8,16 +8,16 @@
 
 <div wicket:id="activityModal"></div>
 
+<div wicket:id="sprintModal"></div>
+
 	<TABLE id="table_storys">
 		<TR>
 			<TH class="title" colspan="2">Atividades</TH>
 		</TR>
 		<TR>
 			<TH class="menu" colspan="2">
-			<a class="busca" href="#"><img width="18px" height="18px" src="imagens/search.png" /></a>
-				Sprint: Nome do Sprints - Estado:
-				Aberto - 01-01-2012 
-			    <br/>
+				<a wicket:id="lkSprintModal" class="busca" href="#"><img width="18px" height="18px" src="imagens/search.png" /></a>
+				Sprint atual -> <spam wicket:id="lbSprintName">Sprint: Nome do Sprint - Estado:Aberto - 01-01-2012</spam> 
 			</TH>
 		</TR>
 		<TR>
