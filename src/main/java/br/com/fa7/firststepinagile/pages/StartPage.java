@@ -8,7 +8,7 @@ public class StartPage extends PageBase {
 	private static final long serialVersionUID = 1L;
 	
 	public StartPage(User user) {
-		super(user);
+		super(user,"/tutorial/tutorial1.html");
 	}
 
 }

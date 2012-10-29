@@ -1,0 +1,14 @@
+First Step In Agile
+
+para rodar a aplicação:
+
+git clone git@github.com:tassiovirginio/firststepinagile.git
+
+cd firststepinagile
+
+mvn jetty:run
+
+acesse: 127.0.0.1:9999
+
+login: admin
+senha: admin

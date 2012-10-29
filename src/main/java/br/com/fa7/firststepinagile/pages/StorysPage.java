@@ -51,7 +51,7 @@ public class StorysPage extends PageBase {
 	}
 	
 	public StorysPage(final User user, Story story) {
-		super(user);
+		super(user,"/tutorial/tutorial2.html");
 		
 		storySelected = story;
 		

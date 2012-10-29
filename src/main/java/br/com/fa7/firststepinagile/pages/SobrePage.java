@@ -8,7 +8,7 @@ public class SobrePage extends PageBase {
 	private static final long serialVersionUID = 1L;
 	
 	public SobrePage(User user) {
-		super(user);
+		super(user,"");
 	}
 
 }

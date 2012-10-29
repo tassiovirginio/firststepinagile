@@ -25,12 +25,12 @@ import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
 public class PageBase extends WebPage {
 	
 	private static final long serialVersionUID = 1L;
-
-	public PageBase(final User user) {
+	
+	public PageBase(final User user, String tutorial) {
 		
 		createUserModal(user);
 		
-		createTutorial();
+		createTutorial(tutorial);
 		
 		Link linkStart = new Link("lkStart") {
 			@Override
@@ -82,10 +82,9 @@ public class PageBase extends WebPage {
 
 	}
 	
-	private void createTutorial(){
+	private void createTutorial(String tutorial){
 		add(new ExtruderWebMarkupContainer("extruderLeft1",  
-                new ExtruderOptions("Tutorial",  
-                        "_static/extruder/extruderLeft1.html")  
+                new ExtruderOptions("Tutorial",tutorial)  
                         .position(Position.LEFT).width(300)  
                         .extruderOpacity(0.8f)));
 	}
@@ -110,7 +109,6 @@ public class PageBase extends WebPage {
 		});
 
 		AjaxLink ajLkUser = new AjaxLink<Void>("ajLkUser") {
-			
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				userModal.show(target);
