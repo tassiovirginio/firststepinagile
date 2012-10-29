@@ -1,5 +1,7 @@
 First Step In Agile
 
+pre-requisitos: Java, Maven e Git.
+
 para rodar a aplicação:
 
 git clone git@github.com:tassiovirginio/firststepinagile.git
