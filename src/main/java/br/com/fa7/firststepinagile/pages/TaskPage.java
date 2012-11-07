@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -173,12 +175,17 @@ public class TaskPage extends PageBase {
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", activity.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
-				item.add(lbName);
-				item.add(lbDescription);
-				item.add(lbId);
-				item.add(lbDateCreate);
 				
-				item.add(new Link("lkDelete") {
+				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
+				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+				item.add(webContainer);
+				
+				webContainer.add(lbName);
+				webContainer.add(lbDescription);
+				webContainer.add(lbId);
+				webContainer.add(lbDateCreate);
+				
+				webContainer.add(new Link("lkDelete") {
 					@Override
 					public void onClick() {
 						activityBusiness.delete(activity);
@@ -186,7 +193,7 @@ public class TaskPage extends PageBase {
 					}
 				});
 				
-				item.add(new AjaxLink<Void>("lkEdit") {
+				webContainer.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						activityModal.setPageCreator(new ModalWindow.PageCreator() {
@@ -198,7 +205,7 @@ public class TaskPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkUp") {
+				webContainer.add(new Link("lkUp") {
 					@Override
 					public void onClick() {
 						activityBusiness.upActivityPriority(activity,story);
@@ -206,7 +213,7 @@ public class TaskPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkDown") {
+				webContainer.add(new Link("lkDown") {
 					@Override
 					public void onClick() {
 						activityBusiness.downActivityPriority(activity,story);
@@ -232,10 +239,15 @@ public class TaskPage extends PageBase {
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
-				item.add(lbName);
-				item.add(lbDescription);
-				item.add(lbId);
-				item.add(lbDateCreate);
+				
+				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
+				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+				item.add(webContainer);
+				
+				webContainer.add(lbName);
+				webContainer.add(lbDescription);
+				webContainer.add(lbId);
+				webContainer.add(lbDateCreate);
 				
 				Link lkSelect = new Link("lkSelect") {
 					@Override
@@ -244,7 +256,7 @@ public class TaskPage extends PageBase {
 						setResponsePage(new TaskPage(user,story));
 					}
 				};
-				item.add(lkSelect);
+				webContainer.add(lkSelect);
 				
 				Link lkStorys = new Link("lkDelete") {
 					@Override
@@ -253,10 +265,10 @@ public class TaskPage extends PageBase {
 						setResponsePage(new TaskPage(user));
 					}
 				};
-				item.add(lkStorys);
+				webContainer.add(lkStorys);
 				
 				
-				item.add(new AjaxLink<Void>("lkEdit") {
+				webContainer.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						storyModal.setPageCreator(new ModalWindow.PageCreator() {
@@ -268,7 +280,7 @@ public class TaskPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkUp") {
+				webContainer.add(new Link("lkUp") {
 					@Override
 					public void onClick() {
 						storyBusiness.upStoryPriority(story);
@@ -276,7 +288,7 @@ public class TaskPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkDown") {
+				webContainer.add(new Link("lkDown") {
 					@Override
 					public void onClick() {
 						storyBusiness.downStoryPriority(story);

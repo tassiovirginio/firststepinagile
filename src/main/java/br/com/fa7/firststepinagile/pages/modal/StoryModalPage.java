@@ -17,6 +17,8 @@ import br.com.fa7.firststepinagile.business.StoryBusiness;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 
+import com.google.code.jqwicket.ui.colorpicker.ColorPickerTextField;
+
 public class StoryModalPage extends WebPage {
 
 	private static final long serialVersionUID = 1L;
@@ -45,7 +47,9 @@ public class StoryModalPage extends WebPage {
 		form.add(new TextField("tfName", new PropertyModel(this.story,"name")).setRequired(true));
 		TextArea tfDescription = new TextArea<String>("tfDescription", new PropertyModel<String>(this.story, "description"));
 		form.add(tfDescription);
-		form.add(new TextField("tfValue", new PropertyModel(this.story,"value")).setRequired(true));
+		form.add(new TextField("tfValue", new PropertyModel(this.story,"value")));
+		
+		form.add(new ColorPickerTextField<String>("colorpicker", new PropertyModel<String>(this.story,"color"))); 
 		
 		if(story.getPriority() != null){
 			form.add(new Label("story.priority", story.getPriority().toString()));

@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -151,15 +153,19 @@ public class KanbanPage extends PageBase {
 			protected void populateItem(ListItem<Story> item) {
 				final Story story = (Story)item.getModelObject();
 				
+				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
+				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+				item.add(webContainer);
+				
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbName = new Label("lbName", story.getName());
 				Label lbDescription = new Label("lbDescription", story.getDescription());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("HH:mm dd/MM/yyyy"));
 				
-				item.add(lbId);
-				item.add(lbName);
-				item.add(lbDescription);
-				item.add(lbDateCreate);
+				webContainer.add(lbId);
+				webContainer.add(lbName);
+				webContainer.add(lbDescription);
+				webContainer.add(lbDateCreate);
 				
 				Link lkStorys = new Link("lkDelete") {
 					@Override
@@ -168,10 +174,10 @@ public class KanbanPage extends PageBase {
 						setResponsePage(new StorysPage(user));
 					}
 				};
-				item.add(lkStorys);
+				webContainer.add(lkStorys);
 				
 				
-				item.add(new AjaxLink<Void>("lkEdit") {
+				webContainer.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						storyModal.setPageCreator(new ModalWindow.PageCreator() {
@@ -200,7 +206,7 @@ public class KanbanPage extends PageBase {
 	
 	
 	
-	private void createListActivity(String name,final User user, ListItem<Story> item, final Story story, final Integer state){
+	private void createListActivity(String name,final User user, WebMarkupContainer item, final Story story, final Integer state){
 		
 		List<Activity> listActivityStop = activityBusiness.findActivityForSprintAndState(story,state);
 		

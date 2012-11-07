@@ -50,7 +50,7 @@ public class Story implements Serializable{
 	@JoinColumn(name="sprint_id")
 	private Sprint sprint;
 	
-public Story() {}
+	public Story() {}
 	
 	public Story(Sprint sprint) {
 		this.sprint = sprint;
@@ -89,6 +89,9 @@ public Story() {}
 	}
 
 	public String getColor() {
+		if(color == null){
+			color = "";
+		}
 		return color;
 	}
 

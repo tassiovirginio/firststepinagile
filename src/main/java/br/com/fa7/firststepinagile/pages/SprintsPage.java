@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -175,10 +177,17 @@ public class SprintsPage extends PageBase {
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
-				item.add(lbName);
-				item.add(lbDescription);
-				item.add(lbId);
-				item.add(lbDateCreate);
+				
+				
+				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
+				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+				item.add(webContainer);
+				
+				
+				webContainer.add(lbName);
+				webContainer.add(lbDescription);
+				webContainer.add(lbId);
+				webContainer.add(lbDateCreate);
 				
 				Link lkStorys = new Link("lkDelete") {
 					@Override
@@ -187,10 +196,10 @@ public class SprintsPage extends PageBase {
 						setResponsePage(new SprintsPage(user));
 					}
 				};
-				item.add(lkStorys);
+				webContainer.add(lkStorys);
 				
 				
-				item.add(new AjaxLink<Void>("lkEdit") {
+				webContainer.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						storyModal.setPageCreator(new ModalWindow.PageCreator() {
@@ -202,11 +211,16 @@ public class SprintsPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkRight") {
+				webContainer.add(new AjaxLink("lkRight") {
 					@Override
-					public void onClick() {
-						sprintBusiness.addStoryInSprint(story,sprint);
-						setResponsePage(new SprintsPage(user,sprint));
+					public void onClick(AjaxRequestTarget target) {
+						if(sprint != null){
+							sprintBusiness.addStoryInSprint(story,sprint);
+							setResponsePage(new SprintsPage(user,sprint));
+						}else{
+							notifier.create(target,
+			                        "Selecione um Sprint","");
+						}
 					}
 				});
 				
@@ -233,10 +247,15 @@ public class SprintsPage extends PageBase {
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
-				item.add(lbName);
-				item.add(lbDescription);
-				item.add(lbId);
-				item.add(lbDateCreate);
+				
+				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
+				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+				item.add(webContainer);
+				
+				webContainer.add(lbName);
+				webContainer.add(lbDescription);
+				webContainer.add(lbId);
+				webContainer.add(lbDateCreate);
 				
 				Link lkStorys = new Link("lkDelete") {
 					@Override
@@ -245,10 +264,10 @@ public class SprintsPage extends PageBase {
 						setResponsePage(new SprintsPage(user,sprint));
 					}
 				};
-				item.add(lkStorys);
+				webContainer.add(lkStorys);
 				
 				
-				item.add(new AjaxLink<Void>("lkEdit") {
+				webContainer.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						storyModal.setPageCreator(new ModalWindow.PageCreator() {
@@ -260,7 +279,7 @@ public class SprintsPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkRight") {
+				webContainer.add(new Link("lkRight") {
 					@Override
 					public void onClick() {
 						story.setSprint(null);

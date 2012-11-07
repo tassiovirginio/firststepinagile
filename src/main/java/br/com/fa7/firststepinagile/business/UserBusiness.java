@@ -21,6 +21,10 @@ public class UserBusiness {
 	@Autowired
 	private UserDAO userDAO; 
 	
+	public void delete(User user){
+		userDAO.delete(user);
+	}
+	
 	public int size(){
 		logger.debug("Size List Users");
 		return userDAO.listAll().size();
@@ -33,14 +37,9 @@ public class UserBusiness {
 	}
 
 
-	public boolean login(User user) {
-		return true;
-	}
-	
-	
 	public boolean login(String login, String password) {
 		logger.debug("Login User: " + login);
-		List<User> listUser = userDAO.findByCriteria(Restrictions.eq("login", login),Restrictions.eq("password", password));
+		List<User> listUser = userDAO.findByCriteriaReturnList(Restrictions.eq("login", login),Restrictions.eq("password", password));
 		if(listUser.size() > 0){
 			return true;
 		}
@@ -50,7 +49,7 @@ public class UserBusiness {
 	
 	public User findForLogin(String login){
 		logger.debug("Find User: " + login);
-		return userDAO.findByCriteria(Restrictions.eq("login", login)).get(0);
+		return userDAO.findByCriteriaReturnUniqueResult(Restrictions.eq("login", login));
 	}
 	
 	public List<User> loadAllUser(){

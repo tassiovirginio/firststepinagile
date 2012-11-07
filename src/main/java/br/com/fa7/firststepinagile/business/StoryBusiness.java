@@ -46,7 +46,7 @@ public class StoryBusiness {
 	
 	public List<Story> getStoryBySprint(Sprint sprint){
 		return storyDAO.findByCriteria(
-				Order.desc("priority"),
+				Order.asc("priority"),
 				Restrictions.eq("sprint", sprint)
 				);
 	}

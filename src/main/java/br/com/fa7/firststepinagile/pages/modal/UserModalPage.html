@@ -1,28 +1,65 @@
 <!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org">
-<head>
-<meta charset="utf-8" />
-<title>Usuário</title>
-</head>
-<body>
-Login: <span wicket:id="user.name"></span>
-<br>
-<form wicket:id="form">
-<table>
-<tr>
-<td>Nome:</td><td><input type="text" wicket:id="tfName" /></td>
-</tr>
-<tr>
-<td>Email:</td><td><input type="text" wicket:id="tfEmail" /></td>
-</tr>
-<tr>
-<td>Senha:</td><td><input type="password" wicket:id="tfPassword" /></td>
-</tr>
-<tr>
-<td colspan="2"><input type="submit" value="Salvar" wicket:id="ajax-button"/></td>
-</tr>
-</table>
-</form>
+	<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+	<meta charset="utf-8" />
+	<title>Usuário</title>
+	</head>
+	<body>
+	
+	<br>
+	<TABLE id="table_storys">
+		<TR>
+			<TD valign="top" align="left" width="50%">
+			
+				<TABLE id="table_storys_backlog">
+					<TR>
+						<TD>
+						
+							<div class="barra_rolagem">
+								<div wicket:id="listViewUsers">
+									<TABLE class="story" width="100%" height="50px">
+										<TR>
+											<TD>
+											<b>#<span wicket:id="lbId">1234</span></b> -
+											<span wicket:id="lbName">Nome</span>
+											<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
+											<a wicket:id="lkRight" href="#"><img src="imagens/rnd_br_next.png" /></a> 
+											</TD>
+										</TR>
+									</TABLE>
+									<br>
+
+								</div>
+							</div>
+						</TD>
+					</TR>
+				</TABLE>
+
+			</TD>
+			<TD valign="top" align="left" width="50%">
+				<form wicket:id="form">
+					<table>
+					<tr>
+					<td>Login:</td><td><span wicket:id="user.name"></span></td>
+					</tr>
+					<tr>
+					<td>Nome:</td><td><input type="text" wicket:id="tfName" /></td>
+					</tr>
+					<tr>
+					<td>Email:</td><td><input type="text" wicket:id="tfEmail" /></td>
+					</tr>
+					<tr>
+					<td>Senha:</td><td><input type="password" wicket:id="tfPassword" /></td>
+					</tr>
+					<tr>
+					<td><input type="submit" value="Salvar" wicket:id="ajax-button"/></td>
+					<td><input type="submit" value="Novo" wicket:id="ajax-button-new"/></td>
+					</tr>
+					</table>
+				</form>
+			</TD>
+		</TR>
+	</TABLE>
 <br>
 <!-- <a wicket:id="closeOK">OK</a> -->
 <!-- <a wicket:id="closeCancel">Cancelar</a> -->

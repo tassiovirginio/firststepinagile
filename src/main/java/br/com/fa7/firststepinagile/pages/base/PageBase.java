@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.link.Link;
 
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.KanbanPage;
+import br.com.fa7.firststepinagile.pages.LoginPage;
 import br.com.fa7.firststepinagile.pages.SobrePage;
 import br.com.fa7.firststepinagile.pages.SprintsPage;
 import br.com.fa7.firststepinagile.pages.StartPage;
@@ -20,17 +21,23 @@ import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
 import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
 import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
 import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
+import com.google.code.jqwicket.ui.notifier.NotifierWebMarkupContainer;
 
 @SuppressWarnings({ "rawtypes", "serial" })
 public class PageBase extends WebPage {
 	
 	private static final long serialVersionUID = 1L;
 	
+	protected NotifierWebMarkupContainer notifier;
+	
 	public PageBase(final User user, String tutorial) {
 		
 		createUserModal(user);
 		
 		createTutorial(tutorial);
+		
+		notifier = new NotifierWebMarkupContainer("notifier1");
+		add(notifier);
 		
 		Link linkStart = new Link("lkStart") {
 			@Override
@@ -79,6 +86,16 @@ public class PageBase extends WebPage {
 			}
 		};
 		add(lkSobre);
+		
+		
+		Link lkExit = new Link("lkExit") {
+			@Override
+			public void onClick() {
+				getSession().invalidateNow();
+				setResponsePage(new LoginPage());
+			}
+		};
+		add(lkExit);
 
 	}
 	
@@ -117,6 +134,7 @@ public class PageBase extends WebPage {
 		
 		Label lbUser = new Label("lbUser",user.getName());
 		ajLkUser.add(lbUser);
+		ajLkUser.setVisible(user.isAdmin());
 		add(ajLkUser);
 	}
 	

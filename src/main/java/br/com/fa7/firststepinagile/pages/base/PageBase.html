@@ -18,6 +18,25 @@
 	
 	<div wicket:id="userModal"></div>
 	
+	<div wicket:id="notifier1">  
+   
+	    <!--   
+	    Later on, you can choose which template to use by referring to the   
+	    ID assigned to each template.  You'll also be able to refer  
+	    to each template by index, so in this example, "basic-tempate" is  
+	    index 0 and "advanced-template" is index 1.  
+	    -->  
+	    <div id="basic-template">  
+	        <a class="ui-notify-cross ui-notify-close" href="#">x</a>  
+	        <h1>#{title}</h1>  
+	        <p>#{text}</p>  
+	    </div>  
+	   
+	    <div id="advanced-template">  
+	        <!-- ... you get the idea ... -->  
+	    </div>  
+   </div>  
+	
 	<div id="top_div">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		First Step In Agile
@@ -26,7 +45,7 @@
 	<div id="top_div_user">
 		<a wicket:id="ajLkUser"><span wicket:id="lbUser"></span> </a>-
 		&nbsp;<a wicket:id="lkSobre" href="">Sobre</a>&nbsp;-
-		&nbsp;<a href="#">Sair</a>
+		&nbsp;<a wicket:id="lkExit" href="">Sair</a>
 	</div>
 	
 	<div id="menu_div">

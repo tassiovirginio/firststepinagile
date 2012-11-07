@@ -56,15 +56,21 @@ public class WicketApplication extends WebApplication{
 		// add your configuration here
 	}
 	
+	
 	private void criarDadosTeste(){
-		User userAdmin = new User();
-		userAdmin.setEmail("admin@admin.com");
-		userAdmin.setName("Admin");
-		userAdmin.setLogin("admin");
-		userAdmin.setPassword("admin");
-		userAdmin.setAdmin(true);
-		userBusiness.save(userAdmin);
-
+		
+		User userAdmin = userBusiness.findForLogin("admin");
+		
+		if(userAdmin == null){
+			userAdmin = new User();
+			userAdmin.setEmail("admin@admin.com");
+			userAdmin.setName("Admin");
+			userAdmin.setLogin("admin");
+			userAdmin.setPassword("admin");
+			userAdmin.setAdmin(true);
+			userBusiness.save(userAdmin);
+		}
+		
 		Sprint sprint1 = new Sprint();
 		sprint1.setCreator(userAdmin);
 		sprint1.setDateCreation(new DateTime());

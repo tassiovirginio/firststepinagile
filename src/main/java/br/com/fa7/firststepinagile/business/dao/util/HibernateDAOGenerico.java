@@ -67,8 +67,12 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 		}
 	}
 
-	public List<T> findByCriteria(Criterion... criterion) {
+	public List<T> findByCriteriaReturnList(Criterion... criterion) {
 		return findByCriteria(null, criterion);
+	}
+	
+	public T findByCriteriaReturnUniqueResult(Criterion... criterion) {
+		return findByCriteriaReturnUniqueResult(null, criterion);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -83,6 +87,24 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 				crit.addOrder(order);
 			}
 			return crit.list();
+		} catch (final HibernateException ex) {
+			HibernateDAOGenerico.LOG.error(ex);
+			throw convertHibernateAccessException(ex);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public T findByCriteriaReturnUniqueResult(Order order,Criterion... criterion) {
+		try {
+			Criteria crit = this.getHibernateTemplate().getSessionFactory()
+					.getCurrentSession().createCriteria(getPersistentClass());
+			for (Criterion c : criterion) {
+				crit.add(c);
+			}
+			if(order != null){
+				crit.addOrder(order);
+			}
+			return (T) crit.uniqueResult();
 		} catch (final HibernateException ex) {
 			HibernateDAOGenerico.LOG.error(ex);
 			throw convertHibernateAccessException(ex);
