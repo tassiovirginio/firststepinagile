@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fa7.firststepinagile.business.dao.ActivityDAO;
 import br.com.fa7.firststepinagile.entities.Activity;
-import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 
@@ -90,8 +89,6 @@ public class ActivityBusiness {
 			double index2 = activity.getPriority();
 			activity2.setPriority(index2);
 			activity.setPriority(index1);
-			System.out.println("1->"+activity.getPriority());
-			System.out.println("2->"+activity2.getPriority());
 			save(activity);
 			save(activity2);
 		}
@@ -122,8 +119,6 @@ public class ActivityBusiness {
 			double index2 = activity.getPriority();
 			activity2.setPriority(index2);
 			activity.setPriority(index1);
-			System.out.println("1->"+activity.getPriority());
-			System.out.println("2->"+activity2.getPriority());
 			save(activity);
 			save(activity2);
 		}

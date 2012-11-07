@@ -57,8 +57,6 @@ public class WicketApplication extends WebApplication{
 	}
 	
 	private void criarDadosTeste(){
-		System.out.println("----> "+activityBusiness.size());
-		
 		User userAdmin = new User();
 		userAdmin.setEmail("admin@admin.com");
 		userAdmin.setName("Admin");
@@ -171,6 +169,5 @@ public class WicketApplication extends WebApplication{
 		userTest03.setPassword("userTest03");
 		userBusiness.save(userTest03);
 		
-		System.out.println("----> "+activityBusiness.size());
 	}
 }

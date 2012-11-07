@@ -231,7 +231,6 @@ public class KanbanPage extends PageBase {
 				item.add(new AjaxLink<Void>("lkEdit") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						System.out.println("activity Edit -> " + activity.getId());
 						activityModal.setPageCreator(new ModalWindow.PageCreator() {
 							public Page createPage() {
 								return new ActivityModalPage(KanbanPage.this.getPageReference(), storyModal, user, story, activity);

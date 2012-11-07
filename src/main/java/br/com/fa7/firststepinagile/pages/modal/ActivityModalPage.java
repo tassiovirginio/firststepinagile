@@ -54,7 +54,6 @@ public class ActivityModalPage extends WebPage {
 		form.add(new AjaxButton("ajax-button", form) {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				System.out.println("Gravando a atividade..." + ActivityModalPage.this.activity);
 				activityBusiness.save(ActivityModalPage.this.activity);
 				window.close(target);
 			}
@@ -65,25 +64,7 @@ public class ActivityModalPage extends WebPage {
 			}
 		});
 		
-		
-		
 		add(form);
-		
-//		add(new AjaxLink<Void>("closeOK") {
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				System.out.println(StoryModalPage.this.story.getName());
-//				storyBusiness.save(StoryModalPage.this.story);
-//				window.close(target);
-//			}
-//		});
-//
-//		add(new AjaxLink<Void>("closeCancel") {
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				window.close(target);
-//			}
-//		});
 
 	}
 }

@@ -48,8 +48,6 @@ public class SprintsPage extends PageBase {
 	public SprintsPage(User user, Sprint sprint) {
 		super(user,"/tutorial/tutorial3.html");
 		
-		System.out.println(sprint);
-		
 		createSprintModal(user);
 		
 		createBarSprintModal(user);

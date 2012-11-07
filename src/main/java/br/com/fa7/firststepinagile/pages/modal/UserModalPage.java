@@ -46,21 +46,5 @@ public class UserModalPage extends WebPage {
 			}
 		});
 
-		// add(new AjaxLink<Void>("closeOK") {
-		// @Override
-		// public void onClick(AjaxRequestTarget target) {
-		// System.out.println(user.getName());
-		// userBusiness.save(user);
-		// window.close(target);
-		// }
-		// });
-		//
-		// add(new AjaxLink<Void>("closeCancel") {
-		// @Override
-		// public void onClick(AjaxRequestTarget target) {
-		// window.close(target);
-		// }
-		// });
-
 	}
 }

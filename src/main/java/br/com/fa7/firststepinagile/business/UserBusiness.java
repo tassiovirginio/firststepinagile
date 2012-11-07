@@ -3,6 +3,8 @@ package br.com.fa7.firststepinagile.business;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,16 +16,19 @@ import br.com.fa7.firststepinagile.entities.User;
 @Transactional 
 public class UserBusiness {
 	
+	final static Logger logger = LoggerFactory.getLogger(UserBusiness.class);
+	
 	@Autowired
 	private UserDAO userDAO; 
 	
 	public int size(){
+		logger.debug("Size List Users");
 		return userDAO.listAll().size();
 	}
 
 	
 	public void save(User user){
-		System.out.println("Salvando Usuario");
+		logger.debug("Save User: " + user);
 		userDAO.save(user);
 	}
 
@@ -34,6 +39,7 @@ public class UserBusiness {
 	
 	
 	public boolean login(String login, String password) {
+		logger.debug("Login User: " + login);
 		List<User> listUser = userDAO.findByCriteria(Restrictions.eq("login", login),Restrictions.eq("password", password));
 		if(listUser.size() > 0){
 			return true;
@@ -43,10 +49,12 @@ public class UserBusiness {
 	
 	
 	public User findForLogin(String login){
+		logger.debug("Find User: " + login);
 		return userDAO.findByCriteria(Restrictions.eq("login", login)).get(0);
 	}
 	
 	public List<User> loadAllUser(){
+		logger.debug("Load All User");
 		return userDAO.listAll();
 	}
 }

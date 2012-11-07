@@ -46,7 +46,6 @@ public class SprintModalPage extends WebPage {
 	public SprintModalPage(final PageReference pageRefOrigem, final ModalWindow window, final User user,Sprint sprintSelected) {
 		
 		if(sprintSelected != null){
-			System.out.println("Escolheu -> " + sprintSelected.getName());
 			if(sprintSelected.getDateStart()!=null)
 			dateStart = sprintSelected.getDateStart().toDate();
 			if(sprintSelected.getDateEnd()!=null)
@@ -66,7 +65,6 @@ public class SprintModalPage extends WebPage {
 		form.add(new Button("btSalvar") {
 			@Override
 			public void onSubmit() {
-				System.out.println("Gravando a atividade..." + sprintLocal);
 				sprintLocal.setDateStart(new DateTime(dateStart.getTime()));
 				sprintLocal.setDateEnd(new DateTime(dateEnd.getTime()));
 				sprintBusiness.save(sprintLocal);
