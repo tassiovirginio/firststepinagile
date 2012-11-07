@@ -80,6 +80,7 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 		try {
 			Criteria crit = this.getHibernateTemplate().getSessionFactory()
 					.getCurrentSession().createCriteria(getPersistentClass());
+			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			for (Criterion c : criterion) {
 				crit.add(c);
 			}
@@ -98,6 +99,7 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 		try {
 			Criteria crit = this.getHibernateTemplate().getSessionFactory()
 					.getCurrentSession().createCriteria(getPersistentClass());
+			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			for (Criterion c : criterion) {
 				crit.add(c);
 			}
@@ -116,6 +118,7 @@ public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateD
 		try {
 			Criteria crit = this.getHibernateTemplate().getSessionFactory()
 					.getCurrentSession().createCriteria(getPersistentClass());
+			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			if(order != null){
 				crit.addOrder(order);
 			}
