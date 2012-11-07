@@ -3,7 +3,9 @@ package br.com.fa7.firststepinagile.entities;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -43,7 +45,7 @@ public class Sprint implements Serializable{
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime dateEnd;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "sprint", targetEntity = Story.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Story> storys;
 
 	public Long getId() {

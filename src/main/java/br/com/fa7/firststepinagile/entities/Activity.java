@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
@@ -49,6 +50,7 @@ public class Activity implements Serializable{
 	private int duration;
 	
 	@ManyToOne
+	@JoinColumn(name="story_id")
 	private Story story;
 
 	public Activity() {

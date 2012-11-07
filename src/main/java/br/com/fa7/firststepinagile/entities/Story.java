@@ -5,8 +5,10 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -32,12 +34,6 @@ public class Story implements Serializable{
 	
 	private Long value;
 	
-	public Story() {}
-	
-	public Story(Sprint sprint) {
-		this.sprint = sprint;
-	}
-	
 	@ManyToOne
 	private User currentResponsible;
 	
@@ -47,11 +43,18 @@ public class Story implements Serializable{
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime dateCreation;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "story", targetEntity = Activity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Activity> activitys;
 	
 	@ManyToOne
+	@JoinColumn(name="sprint_id")
 	private Sprint sprint;
+	
+public Story() {}
+	
+	public Story(Sprint sprint) {
+		this.sprint = sprint;
+	}
 	
 	public Long getId() {
 		return id;
