@@ -50,12 +50,7 @@ public class StoryModalPage extends WebPage {
 		form.add(new TextField("tfValue", new PropertyModel(this.story,"value")));
 		
 		form.add(new ColorPickerTextField<String>("colorpicker", new PropertyModel<String>(this.story,"color"))); 
-		
-		if(story.getPriority() != null){
-			form.add(new Label("story.priority", story.getPriority().toString()));
-		}else{
-			form.add(new Label("story.priority",""));
-		}
+	
 		
 		form.add(new AjaxButton("ajax-button", form){
             @Override
