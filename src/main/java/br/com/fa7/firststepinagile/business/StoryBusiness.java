@@ -40,8 +40,15 @@ public class StoryBusiness {
 		return storyDAO.listAll();
 	}
 	
-	public List<Story> allOrderByDescPrioridade(){
+	public List<Story> allOrderByAscPrioridade(){
 		return storyDAO.findByCriteria(	Order.asc("priority"));
+	}
+	
+	public List<Story> notSprintOrderByAscPrioridade(){
+		return storyDAO.findByCriteria(
+				Order.asc("priority"),
+				Restrictions.isNull("sprint")
+				);
 	}
 	
 	public List<Story> getStoryBySprint(Sprint sprint){
@@ -52,7 +59,7 @@ public class StoryBusiness {
 	}
 	
 	public double lastStoryPriority(){
-		List<Story> list = allOrderByDescPrioridade();
+		List<Story> list = allOrderByAscPrioridade();
 		if(list.isEmpty())
 			return 1000;	
 		return list.get(list.size()-1).getPriority();

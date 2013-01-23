@@ -30,8 +30,14 @@
 						<TH>Backlog</TH>
 					</TR>
 					<TR>
-						<TH class="menu" colspan="2">
+						<TH class="menu">
     						<a wicket:id="showStoryModal"><img src="imagens/plus.png" /></a>
+    						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    						 <span style="float:right;" wicket:id="group">Filtros:
+    						 <input wicket:id="radio1"  type="radio" name="sex" value="male">Todos
+							 <input wicket:id="radio2" type="radio" name="sex" value="female">Sem Sprint
+							 <input wicket:id="radio3" type="radio" name="sex" value="female">Sprint Atual
+							 </span>
 						</TH>
 					</TR>
 					<TR>
@@ -41,7 +47,8 @@
 
 								<TABLE wicket:id="tableStory" class="story" width="100%" height="50px">
 									<TR>
-										<TD><b>#<span wicket:id="lbId">1234</span></b>
+										<TD><b>#<span wicket:id="lbId">1234</span></b> 
+										<b>(<span wicket:id="lbActivitysSize">0</span>)</b> - 
 										- <span wicket:id="lbName">Nome</span> <br>
 										<span wicket:id="lbDescription">Nome</span> <br>
 										<span wicket:id="lbDateCreate">Date</span> <br>

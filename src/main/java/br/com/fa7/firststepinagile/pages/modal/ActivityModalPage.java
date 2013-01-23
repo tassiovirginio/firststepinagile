@@ -35,12 +35,14 @@ public class ActivityModalPage extends WebPage {
 			this.activity.setCreator(user);
 			this.activity.setStory(story);
 			add(new Label("activity.id", "Novo"));
+			
 		} else if (activity.getId() == null) {
 			this.activity = activity;
 			this.activity.setDateCreation(new DateTime());
 			this.activity.setCreator(user);
 			this.activity.setStory(story);
 			add(new Label("activity.id", "Novo"));
+			
 		} else {
 			this.activity = activity;
 			add(new Label("activity.id", activity.getId().toString()));

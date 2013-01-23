@@ -166,7 +166,7 @@ public class SprintsPage extends PageBase {
 	
 	
 	private void createPanelBacklog(final User user, final Sprint sprint) {
-		List<Story> listAllStory = storyBusiness.allOrderByDescPrioridade();
+		List<Story> listAllStory = storyBusiness.allOrderByAscPrioridade();
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
 			@Override
@@ -174,6 +174,7 @@ public class SprintsPage extends PageBase {
 				final Story story = (Story)item.getModelObject();
 				Label lbName = new Label("lbName", story.getName());
 				Label lbDescription = new Label("lbDescription", story.getDescription());
+				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
@@ -186,6 +187,7 @@ public class SprintsPage extends PageBase {
 				
 				webContainer.add(lbName);
 				webContainer.add(lbDescription);
+				webContainer.add(lbActivitysSize);
 				webContainer.add(lbId);
 				webContainer.add(lbDateCreate);
 				
@@ -244,6 +246,7 @@ public class SprintsPage extends PageBase {
 				final Story story = (Story)item.getModelObject();
 				Label lbName = new Label("lbName", story.getName());
 				Label lbDescription = new Label("lbDescription", story.getDescription());
+				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
@@ -254,6 +257,7 @@ public class SprintsPage extends PageBase {
 				
 				webContainer.add(lbName);
 				webContainer.add(lbDescription);
+				webContainer.add(lbActivitysSize);
 				webContainer.add(lbId);
 				webContainer.add(lbDateCreate);
 				

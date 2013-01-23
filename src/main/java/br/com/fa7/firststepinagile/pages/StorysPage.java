@@ -2,16 +2,21 @@ package br.com.fa7.firststepinagile.pages;
 
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Radio;
+import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
@@ -49,21 +54,32 @@ public class StorysPage extends PageBase {
 	private Story storySelected;
 	
 	public StorysPage(final User user) {
-		this(user,null);
+		this(user,user.getSprint(),1);
+	}
+	
+	public StorysPage(final User user, int filter) {
+		this(user,user.getSprint(),filter);
 	}
 	
 	public StorysPage(final User user, Story story) {
+		this(user,user.getSprint(),1);
+	}
+	
+	public StorysPage(final User user, Sprint sprint, Story story) {
+		this(user,sprint,1);
+	}
+	
+	public StorysPage(final User user, Sprint sprint, int filter) {
 		super(user,"/tutorial/tutorial2.html");
 		
-		storySelected = story;
 		
 		createStoryModal(user);
 		
 		createActivityModal(user);
 		
-		createPanelBacklog(user);
+		createPanelBacklog(user,sprint,filter);
 		
-		createBarSprintModal(user);
+		createBarSprintModal(user, sprint, filter);
 		
 		createSprintModal(user);
 		
@@ -110,7 +126,7 @@ public class StorysPage extends PageBase {
 
 	}
 	
-	private void createBarSprintModal(final User user) {
+	private void createBarSprintModal(final User user, final Sprint sprint, int filter) {
 		
 		String dateEnd = "";
 		
@@ -136,11 +152,63 @@ public class StorysPage extends PageBase {
 			}
 		});
 		
+		RadioGroup group = new RadioGroup("group", new Model("radio1"));
+		add(group);
+		
+		Radio radio1 = new Radio("radio1");
+		radio1.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new StorysPage(user,1));
+			}
+		});
+		
+		Radio radio2 = new Radio("radio2");
+		radio2.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new StorysPage(user,2));
+			}
+		});
+		
+		Radio radio3 = new Radio("radio3");
+		radio3.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new StorysPage(user,sprint,3));
+			}
+		});
+		
+		if(filter == 1){
+			radio1.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}else if(filter == 2){
+			radio2.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}else if(filter == 3){
+			radio3.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}
+		
+		group.add(radio1);
+		group.add(radio2);
+		group.add(radio3);
+		
 	}
 	
 
-	private void createPanelBacklog(final User user) {
-		List<Story> listAllStory = storyBusiness.allOrderByDescPrioridade();
+	private void createPanelBacklog(final User user, Sprint sprint, int filter) {
+		
+		List<Story> listAllStory = null;
+		
+		if(filter == 1){
+			listAllStory = storyBusiness.allOrderByAscPrioridade();
+		}else if(filter == 2){
+			listAllStory = storyBusiness.notSprintOrderByAscPrioridade();
+		}else if(filter == 3){
+			listAllStory = storyBusiness.getStoryBySprint(sprint);
+		}
+		
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
 			@Override
@@ -148,6 +216,7 @@ public class StorysPage extends PageBase {
 				final Story story = (Story)item.getModelObject();
 				Label lbName = new Label("lbName", story.getName());
 				Label lbDescription = new Label("lbDescription", story.getDescription());
+				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
@@ -158,6 +227,7 @@ public class StorysPage extends PageBase {
 				
 				webContainer.add(lbName);
 				webContainer.add(lbDescription);
+				webContainer.add(lbActivitysSize);
 				webContainer.add(lbId);
 				webContainer.add(lbDateCreate);
 				
