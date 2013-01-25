@@ -21,7 +21,7 @@ public class Start {
 
         connector.setMaxIdleTime(timeout);
         connector.setSoLingerTime(-1);
-        connector.setPort(9999);
+        connector.setPort(5000);
         server.addConnector(connector);
 
         WebAppContext bb = new WebAppContext();
