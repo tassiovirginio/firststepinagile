@@ -15,13 +15,18 @@ public class Start {
 	
     public static void main(String[] args) throws Exception {
         int timeout = (int) Duration.ONE_HOUR.getMilliseconds();
+        
+        String webPort = System.getenv("PORT");
+        if (webPort == null || webPort.isEmpty()) {
+            webPort = "9999";
+        }
 
         Server server = new Server();
         SocketConnector connector = new SocketConnector();
 
         connector.setMaxIdleTime(timeout);
         connector.setSoLingerTime(-1);
-        connector.setPort(5000);
+        connector.setPort(Integer.valueOf(webPort));
         server.addConnector(connector);
 
         WebAppContext bb = new WebAppContext();
