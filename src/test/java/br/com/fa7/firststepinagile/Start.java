@@ -39,13 +39,13 @@ public class Start {
         try {
         	logger.debug(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
             server.start();
-            System.in.read();
-            logger.debug(">>> STOPPING EMBEDDED JETTY SERVER");
-            server.stop();
+//            System.in.read();
+//            logger.debug(">>> STOPPING EMBEDDED JETTY SERVER");
+//            server.stop();
             server.join();
         } catch (Exception e) {
             e.printStackTrace();
-            System.exit(1);
+//            System.exit(1);
         }
     }
 }
