@@ -5,8 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="users")
 public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -25,6 +28,7 @@ public class User implements Serializable{
 	
 	private boolean admin;
 	
+	@OneToOne
 	private Sprint sprint;
 	
 	public String getName() {
