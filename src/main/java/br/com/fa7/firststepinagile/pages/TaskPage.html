@@ -25,7 +25,7 @@
 
 				<TABLE id="table_storys_backlog">
 					<TR>
-						<TH>Backlog</TH>
+						<TH width="50%">Backlog</TH>
 					</TR>
 					<TR>
 						<TH class="menu" colspan="2">
@@ -39,17 +39,25 @@
 
 								<TABLE wicket:id="tableStory" class="story" width="100%" height="50px">
 									<TR>
-										<TD><b>#<span wicket:id="lbId">1234</span></b>
-										<b>(<span wicket:id="lbActivitysSize">0</span>)</b>
-										- <span wicket:id="lbName">Nome</span> - <a class="select" wicket:id="lkSelect" href="#">&nbsp;selecionar&nbsp;</a> <br>
-										<span wicket:id="lbDescription">Nome</span> <br>
+										<TD>
+										<div>
+										<b>#<span wicket:id="lbId">1234</span></b>
+										<b>(<span wicket:id="lbActivitysSize">0</span>)</b> 
+										- 
+										<a class="select" wicket:id="lkSelect" href="#">&nbsp;selecionar&nbsp;</a> <br>
+										
+										<span wicket:id="lbName">Nome</span>.
+										
 										<span wicket:id="lbDateCreate">Date</span> <br>
 											<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
 											<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
+										</div>
 										</TD>
+										
 										<TD class="bt_fluxo">
 										<a wicket:id="lkUp" href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
 										<a wicket:id="lkDown" href="#"><img src="imagens/rnd_br_down.png" /></a>
+										
 										</TD>
 									</TR>
 								</TABLE>
@@ -66,10 +74,10 @@
 			<!--                      Atividades                           -->
 
 
-			<TD valign="top" align="left">
+			<TD valign="top" align="left" width="50%">
 				<TABLE id="table_tasks">
 					<TR>
-						<TH>Tarefas da Historia: <span wicket:id="lbStoryId">1234</span></TH>
+						<TH width="50%">Tarefas da Historia: <span wicket:id="lbStoryId">1234</span></TH>
 					</TR>
 					<TR>
 						<TH class="menu" colspan="2">
@@ -86,7 +94,6 @@
 										<TD>
 											<b>#<span wicket:id="lbId">1234</span></b>
 										- <span wicket:id="lbName">Nome</span> <br>
-										<span wicket:id="lbDescription">Nome</span> <br>
 										<span wicket:id="lbDateCreate">Date</span> <br>
 										<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
 										<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>

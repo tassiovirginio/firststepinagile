@@ -215,9 +215,9 @@ public class StorysPage extends PageBase {
 			protected void populateItem(ListItem<Story> item) {
 				final Story story = (Story)item.getModelObject();
 				Label lbName = new Label("lbName", story.getName());
-				Label lbDescription = new Label("lbDescription", story.getDescription());
+//				Label lbDescription = new Label("lbDescription", story.getDescription());
 				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
-				lbDescription.setEscapeModelStrings(false);
+//				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
 				
@@ -226,7 +226,7 @@ public class StorysPage extends PageBase {
 				item.add(webContainer);
 				
 				webContainer.add(lbName);
-				webContainer.add(lbDescription);
+//				webContainer.add(lbDescription);
 				webContainer.add(lbActivitysSize);
 				webContainer.add(lbId);
 				webContainer.add(lbDateCreate);

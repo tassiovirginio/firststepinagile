@@ -51,7 +51,7 @@ public class WicketApplication extends WebApplication{
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getDebugSettings().setAjaxDebugModeEnabled(false);
 		
-		criarDadosTeste();
+//		criarDadosTeste();
 		
 		// add your configuration here
 	}
@@ -88,21 +88,21 @@ public class WicketApplication extends WebApplication{
 		sprintBusiness.save(sprint2);
 		
 		Story story1 = new Story();
-		story1.setName("Estoria 01");
+		story1.setName("Historia 01");
 		story1.setCreator(userAdmin);
 		story1.setDescription("Teste Story.........");
 		story1.setSprint(sprint1);
 		storyBusiness.save(story1);
 		
 		Story story2 = new Story();
-		story2.setName("Estoria 02");
+		story2.setName("Historia 02");
 		story2.setCreator(userAdmin);
 		story2.setDescription("Teste Story.........");
 		story1.setSprint(sprint2);
 		storyBusiness.save(story2);
 		
 		Story story3 = new Story();
-		story3.setName("Estoria 03");
+		story3.setName("Historia 03");
 		story3.setCreator(userAdmin);
 		story3.setDescription("Teste Story.... asdas asda  asda sda .....");
 		story3.setSprint(sprint1);
