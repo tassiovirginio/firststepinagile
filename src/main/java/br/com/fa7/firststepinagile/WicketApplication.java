@@ -51,7 +51,7 @@ public class WicketApplication extends WebApplication{
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getDebugSettings().setAjaxDebugModeEnabled(false);
 		
-//		criarDadosTeste();
+		criarDadosTeste();
 		
 		// add your configuration here
 	}
