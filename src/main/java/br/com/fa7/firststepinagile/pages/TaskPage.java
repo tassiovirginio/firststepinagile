@@ -57,7 +57,7 @@ public class TaskPage extends PageBase {
 	}
 	
 	public TaskPage(final User user, Story story) {
-		super(user,"/tutorial/tutorial4.html");
+		super(user,"/tutorial/tutorial3.html");
 		
 		storySelected = story;
 		

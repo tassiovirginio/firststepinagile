@@ -48,7 +48,7 @@ public class SprintsPage extends PageBase {
 	}
 
 	public SprintsPage(User user, Sprint sprint) {
-		super(user,"/tutorial/tutorial3.html");
+		super(user,"/tutorial/tutorial4.html");
 		
 		createSprintModal(user);
 		
