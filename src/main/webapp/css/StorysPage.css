@@ -26,13 +26,6 @@ a.select:hover {
 	border-color: black;
 }
 
-.barra_rolagem{
-	overflow-y: scroll;
-	height: 100%;
-	white-space: nowrap;
-	vertical-align: top;
-}
-
 #table_storys_backlog {
 	width: 100%;
 	height: 100%;

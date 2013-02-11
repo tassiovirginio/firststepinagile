@@ -2,8 +2,6 @@ package br.com.fa7.firststepinagile.business;
 
 import java.util.List;
 
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +11,9 @@ import br.com.fa7.firststepinagile.business.dao.ActivityDAO;
 import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
+
+import static org.hibernate.criterion.Restrictions.*;
+import static org.hibernate.criterion.Order.*;
 
 @Component
 @Transactional
@@ -43,29 +44,21 @@ public class ActivityBusiness {
 	
 	public List<Activity> findActivityForUserAndState(User user, Integer state){
 		return activityDAO.findByCriteria(
-				Order.desc("priority"),
-				Restrictions.eq("currentResponsible", user),
-				Restrictions.eq("state", state)
-				);
+				desc("priority"),eq("currentResponsible", user),eq("state", state));
 	}
 	
 	public List<Activity> findActivityForSprintAndState(Story story, Integer state){
-		return activityDAO.findByCriteria(
-				Order.desc("priority"),
-				Restrictions.eq("story", story),
-				Restrictions.eq("state", state)
-				);
+		return activityDAO
+				.findByCriteria(desc("priority"),eq("story", story),eq("state", state));
 	}
 	
 	public List<Activity> findActivityByStory(Story story){
 		return activityDAO.findByCriteria(
-				Order.asc("priority"),
-				Restrictions.eq("story", story)
-				);
+				asc("priority"),eq("story", story));
 	}
 	
 	public List<Activity> allOrderByDescPrioridade(){
-		return activityDAO.findByCriteria(	Order.asc("priority"));
+		return activityDAO.findByCriteria(asc("priority"));
 	}
 	
 	public double lastActivityPriority(){

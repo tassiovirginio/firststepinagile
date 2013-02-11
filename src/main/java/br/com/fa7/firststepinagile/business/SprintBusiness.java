@@ -2,7 +2,6 @@ package br.com.fa7.firststepinagile.business;
 
 import java.util.List;
 
-import org.hibernate.criterion.Order;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +11,9 @@ import br.com.fa7.firststepinagile.business.dao.SprintDAO;
 import br.com.fa7.firststepinagile.business.dao.StoryDAO;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
+
+import static org.hibernate.criterion.Restrictions.*;
+import static org.hibernate.criterion.Order.*;
 
 @Component
 @Transactional 
@@ -43,7 +45,7 @@ public class SprintBusiness {
 	}
 	
 	public List<Sprint> allOrderById(){
-		return sprintDAO.findByCriteria(Order.desc("id"));
+		return sprintDAO.findByCriteria(desc("id"));
 	}
 	
 	public Sprint findById(Long id){

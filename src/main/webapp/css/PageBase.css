@@ -294,3 +294,20 @@ th.login {
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#404040),to(#000000) );
 	background-image: -moz-linear-gradient(100% 100% 90deg, #404040, #000000);
 }
+
+.barra_rolagem{
+	overflow-y: scroll;
+	height: 100%;
+	white-space: nowrap;
+	vertical-align: top;
+}
+
+.barra_rolagem2{
+	overflow-y: scroll;
+	height: 100%;
+	vertical-align: top;
+}
+
+.container{
+	height: 100%;
+}

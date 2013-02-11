@@ -102,7 +102,8 @@ public class PageBase extends WebPage {
 	private void createTutorial(String tutorial){
 		add(new ExtruderWebMarkupContainer("extruderLeft1",  
                 new ExtruderOptions("Tutorial",tutorial)  
-                        .position(Position.LEFT).width(300)  
+                        .position(Position.LEFT)
+                        .width(300)
                         .extruderOpacity(0.8f)));
 	}
 	

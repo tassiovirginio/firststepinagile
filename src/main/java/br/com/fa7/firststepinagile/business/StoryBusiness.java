@@ -2,8 +2,6 @@ package br.com.fa7.firststepinagile.business;
 
 import java.util.List;
 
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.fa7.firststepinagile.business.dao.StoryDAO;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
+
+import static org.hibernate.criterion.Restrictions.*;
+import static org.hibernate.criterion.Order.*;
 
 @Component
 @Transactional 
@@ -41,21 +42,15 @@ public class StoryBusiness {
 	}
 	
 	public List<Story> allOrderByAscPrioridade(){
-		return storyDAO.findByCriteria(	Order.asc("priority"));
+		return storyDAO.findByCriteria(asc("priority"));
 	}
 	
 	public List<Story> notSprintOrderByAscPrioridade(){
-		return storyDAO.findByCriteria(
-				Order.asc("priority"),
-				Restrictions.isNull("sprint")
-				);
+		return storyDAO.findByCriteria(asc("priority"),isNull("sprint"));
 	}
 	
 	public List<Story> getStoryBySprint(Sprint sprint){
-		return storyDAO.findByCriteria(
-				Order.asc("priority"),
-				Restrictions.eq("sprint", sprint)
-				);
+		return storyDAO.findByCriteria(asc("priority"),eq("sprint", sprint));
 	}
 	
 	public double lastStoryPriority(){
@@ -71,7 +66,7 @@ public class StoryBusiness {
 	
 	public void upStoryPriority(Story story){
 		story = storyDAO.findById(story.getId());
-		List<Story> list = storyDAO.findByCriteria(Order.asc("priority"));
+		List<Story> list = storyDAO.findByCriteria(asc("priority"));
 		int index = list.indexOf(story);
 		if(index != 0){
 			Story story2 = list.get(index-1);
@@ -86,7 +81,7 @@ public class StoryBusiness {
 	
 	public void downStoryPriority(Story story){
 		story = storyDAO.findById(story.getId());
-		List<Story> list = storyDAO.findByCriteria(Order.asc("priority"));
+		List<Story> list = storyDAO.findByCriteria(asc("priority"));
 		int index = list.indexOf(story);
 		if(list.size() > index+1){
 			Story story2 = list.get(index+1);
