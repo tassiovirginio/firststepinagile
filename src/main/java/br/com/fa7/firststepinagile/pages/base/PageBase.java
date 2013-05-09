@@ -1,5 +1,12 @@
 package br.com.fa7.firststepinagile.pages.base;
 
+import br.com.fa7.firststepinagile.entities.User;
+import br.com.fa7.firststepinagile.pages.*;
+import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
+import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
+import com.google.code.jqwicket.ui.notifier.NotifierWebMarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -7,21 +14,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
-
-import br.com.fa7.firststepinagile.entities.User;
-import br.com.fa7.firststepinagile.pages.KanbanPage;
-import br.com.fa7.firststepinagile.pages.LoginPage;
-import br.com.fa7.firststepinagile.pages.SobrePage;
-import br.com.fa7.firststepinagile.pages.SprintsPage;
-import br.com.fa7.firststepinagile.pages.StartPage;
-import br.com.fa7.firststepinagile.pages.StorysPage;
-import br.com.fa7.firststepinagile.pages.TaskPage;
-import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
-
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
-import com.google.code.jqwicket.ui.notifier.NotifierWebMarkupContainer;
+import org.joda.time.DateTime;
 
 @SuppressWarnings({ "rawtypes", "serial" })
 public class PageBase extends WebPage {
@@ -97,7 +90,25 @@ public class PageBase extends WebPage {
 		};
 		add(lkExit);
 
+        calcularTimeBox(user);
+
 	}
+
+    public void calcularTimeBox(final User user){
+
+        Label lbTimeBox = new Label("lbTimeBox","Sem Um Sprint Selecionado");
+
+        if(user.getSprint() != null){
+            DateTime endDate = user.getSprint().getDateEnd();
+            DateTime now = new DateTime();
+
+            DateTime dateCalc = endDate.minus(now.getMillis());
+
+            lbTimeBox = new Label("lbTimeBox",dateCalc.getDayOfMonth()+" dias restantes ");
+        }
+
+        add(lbTimeBox);
+    }
 	
 	private void createTutorial(String tutorial){
 		add(new ExtruderWebMarkupContainer("extruderLeft1",  

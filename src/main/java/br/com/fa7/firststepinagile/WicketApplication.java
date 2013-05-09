@@ -50,6 +50,10 @@ public class WicketApplication extends WebApplication{
 		
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getDebugSettings().setAjaxDebugModeEnabled(false);
+
+        getApplicationSettings().setInternalErrorPage(LoginPage.class);
+
+        getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
 		
 		criarDadosTeste();
 		

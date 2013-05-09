@@ -1,8 +1,9 @@
 package br.com.fa7.firststepinagile.pages.modal;
 
-import java.util.Date;
-import java.util.List;
-
+import br.com.fa7.firststepinagile.business.SprintBusiness;
+import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Sprint;
+import br.com.fa7.firststepinagile.entities.User;
 import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -21,10 +22,8 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
 
-import br.com.fa7.firststepinagile.business.SprintBusiness;
-import br.com.fa7.firststepinagile.entities.Activity;
-import br.com.fa7.firststepinagile.entities.Sprint;
-import br.com.fa7.firststepinagile.entities.User;
+import java.util.Date;
+import java.util.List;
 
 public class SprintModalPage extends WebPage {
 
@@ -38,12 +37,13 @@ public class SprintModalPage extends WebPage {
 	private Date dateStart;
 	
 	private Date dateEnd;
-	
+
+
 	public SprintModalPage(final PageReference pageRefOrigem, final ModalWindow window, final User user){
 		this(pageRefOrigem, window, user, null);
 	}
 	
-	public SprintModalPage(final PageReference pageRefOrigem, final ModalWindow window, final User user,Sprint sprintSelected) {
+	public SprintModalPage(final PageReference pageRefOrigem, final ModalWindow window, final User user, Sprint sprintSelected) {
 		
 		if(sprintSelected != null){
 			if(sprintSelected.getDateStart()!=null)
@@ -59,8 +59,8 @@ public class SprintModalPage extends WebPage {
 		Form<Activity> form = new Form<Activity>("form");
 		form.add(new TextField("tfName", new PropertyModel(sprintSelected,"name")).setRequired(true));
 		form.add(new TextArea<String>("tfDescription", new PropertyModel<String>(sprintSelected, "description")));
-		form.add(new DateField("dfStart", new PropertyModel<Date>(this, "dateStart")));
-		form.add(new DateField("dfEnd", new PropertyModel<Date>(this, "dateEnd")));
+		form.add(new DateField("dfStart", new PropertyModel<Date>(this, "dateStart")).setRequired(true));
+		form.add(new DateField("dfEnd", new PropertyModel<Date>(this, "dateEnd")).setRequired(true));
 		
 		form.add(new Button("btSalvar") {
 			@Override
@@ -95,7 +95,13 @@ public class SprintModalPage extends WebPage {
 			@Override
 			protected void populateItem(ListItem<Sprint> item) {
 				final Sprint sprint = (Sprint)item.getModelObject();
-				Label lbName = new Label("lbName", sprint.getName());
+
+                String nameSprint = sprint.getName();
+                if(user.getSprint() != null && user.getSprint().getId() != null && user.getSprint().getId().equals(sprint.getId())){
+                    nameSprint = "-> "+sprint.getName();
+                }
+
+				Label lbName = new Label("lbName", nameSprint);
 				Label lbId = new Label("lbId", sprint.getId().toString());
 				item.add(lbName);
 				item.add(lbId);

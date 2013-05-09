@@ -1,7 +1,7 @@
 package br.com.fa7.firststepinagile.pages.modal;
 
-import java.util.List;
-
+import br.com.fa7.firststepinagile.business.UserBusiness;
+import br.com.fa7.firststepinagile.entities.User;
 import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -17,8 +17,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import br.com.fa7.firststepinagile.business.UserBusiness;
-import br.com.fa7.firststepinagile.entities.User;
+import java.util.List;
 
 public class UserModalPage extends WebPage {
 
@@ -34,7 +33,7 @@ public class UserModalPage extends WebPage {
 	public UserModalPage(final PageReference pageRefOrigem,final ModalWindow window, final User userSelected) {
 		
 		Form<User> form = new Form<User>("form");
-		form.add(new Label("user.name", userSelected.getLogin()));
+        form.add(new TextField<String>("tfLogin", new PropertyModel<String>(userSelected, "login")));
 		form.add(new TextField<String>("tfName", new PropertyModel<String>(userSelected, "name")));
 		form.add(new TextField<String>("tfEmail", new PropertyModel<String>(userSelected, "email")));
 		form.add(new PasswordTextField("tfPassword", new PropertyModel<String>(userSelected, "password")));

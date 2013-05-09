@@ -1,3 +1,13 @@
+#timebox {
+    bottom: 0%;
+    left: 0%;
+    position: absolute;
+    font-weight: bold;
+    font-size: 11px;
+    color: #000000;
+	background: #FFFFFF;
+}
+
 div.w_caption{
 	background-color: black !important;
 	color: #FFFFFF !important;

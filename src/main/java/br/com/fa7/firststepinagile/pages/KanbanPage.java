@@ -1,8 +1,17 @@
 package br.com.fa7.firststepinagile.pages;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import br.com.fa7.firststepinagile.business.ActivityBusiness;
+import br.com.fa7.firststepinagile.business.SprintBusiness;
+import br.com.fa7.firststepinagile.business.StoryBusiness;
+import br.com.fa7.firststepinagile.business.UserBusiness;
+import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Sprint;
+import br.com.fa7.firststepinagile.entities.Story;
+import br.com.fa7.firststepinagile.entities.User;
+import br.com.fa7.firststepinagile.pages.base.PageBase;
+import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
+import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
+import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -16,18 +25,8 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
-import br.com.fa7.firststepinagile.business.ActivityBusiness;
-import br.com.fa7.firststepinagile.business.SprintBusiness;
-import br.com.fa7.firststepinagile.business.StoryBusiness;
-import br.com.fa7.firststepinagile.business.UserBusiness;
-import br.com.fa7.firststepinagile.entities.Activity;
-import br.com.fa7.firststepinagile.entities.Sprint;
-import br.com.fa7.firststepinagile.entities.Story;
-import br.com.fa7.firststepinagile.entities.User;
-import br.com.fa7.firststepinagile.pages.base.PageBase;
-import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
-import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
-import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class KanbanPage extends PageBase {
 	
@@ -64,7 +63,6 @@ public class KanbanPage extends PageBase {
 	
 	private void createSprintModal(final User user) {
 		add(sprintModal = new ModalWindow("sprintModal"));
-		sprintModal.setCookieName("storyModal-cookie");
 		sprintModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
 		sprintModal.setResizable(false);
 
