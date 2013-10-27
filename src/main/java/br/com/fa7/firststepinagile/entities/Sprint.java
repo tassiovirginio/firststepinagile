@@ -1,6 +1,7 @@
 package br.com.fa7.firststepinagile.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,6 +36,9 @@ public class Sprint implements Serializable{
 	
 	@ManyToOne
 	private User creator;
+	
+	@ManyToOne
+	private Project project;
 	
 	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
 	private DateTime dateCreation;
@@ -103,6 +107,18 @@ public class Sprint implements Serializable{
 	public void setDateStart(DateTime dateStart) {
 		this.dateStart = dateStart;
 	}
+	
+	public Date getDateStart2() {
+		if(dateStart != null){
+			return dateStart.toDate();
+		}else{
+			return null;	
+		}
+	}
+	
+	public void setDateStart2(Date dateStart) {
+		this.dateStart = new DateTime(dateStart);
+	}
 
 	public DateTime getDateEnd() {
 		return dateEnd;
@@ -110,6 +126,17 @@ public class Sprint implements Serializable{
 
 	public void setDateEnd(DateTime dateEnd) {
 		this.dateEnd = dateEnd;
+	}
+	
+	public Date getDateEnd2() {
+		if(dateEnd != null){
+			return dateEnd.toDate();
+		}
+		return null;
+	}
+
+	public void setDateEnd2(Date dateEnd) {
+		this.dateEnd = new DateTime(dateEnd);
 	}
 
 	@Override

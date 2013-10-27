@@ -10,12 +10,12 @@ body {
 }
 
 #div_login{
-	width: 100px;
+	width: 400px;
 	height: 100px;
 	text-align: left;
 	margin: 0 auto;
-	right: 7%;
-	top: 3%;
+	left: 35%;
+	top: 30%;
 	position: fixed;
 	font-weight: bold;
 	font-size: 11px;

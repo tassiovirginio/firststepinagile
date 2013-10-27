@@ -2,11 +2,14 @@ package br.com.fa7.firststepinagile.pages.base;
 
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.*;
+import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
 import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
+
 import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
 import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
 import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
 import com.google.code.jqwicket.ui.notifier.NotifierWebMarkupContainer;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -16,65 +19,98 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.joda.time.DateTime;
 
-@SuppressWarnings({ "rawtypes", "serial" })
+@SuppressWarnings({ "serial","rawtypes"})
 public class PageBase extends WebPage {
 	
 	private static final long serialVersionUID = 1L;
 	
-	protected NotifierWebMarkupContainer notifier;
+	protected Link linkStart;
+	protected Link lkStorys;
+	protected Link lkSprints;
+	protected Link lkSprints2;
+	protected Link lkTasks;
+	protected Link linkKanban;
+	protected Link lkSobre;
 	
-	public PageBase(final User user, String tutorial) {
+	private void allEnable(){
+		linkStart.setEnabled(true);
+		lkStorys.setEnabled(true);
+		lkSprints.setEnabled(true);
+		lkSprints2.setEnabled(true);
+		lkTasks.setEnabled(true);
+		linkKanban.setEnabled(true);
+		lkSobre.setEnabled(true);
+	}
+	
+	public PageBase(final User user) {
 		
 		createUserModal(user);
 		
-		createTutorial(tutorial);
-		
-		notifier = new NotifierWebMarkupContainer("notifier1");
-		add(notifier);
-		
-		Link linkStart = new Link("lkStart") {
+		linkStart = new Link("lkStart") {
 			@Override
 			public void onClick() {
+				allEnable();
+				this.setEnabled(false);
 				setResponsePage(new StartPage(user));
 			}
 		};
 		add(linkStart);
 
-		Link lkStorys = new Link("lkStorys") {
+		lkStorys = new Link("lkStorys") {
 			@Override
 			public void onClick() {
+				allEnable();
+				this.setEnabled(false);
 				setResponsePage(new StorysPage(user));
 			}
 		};
 		add(lkStorys);
 		
-		Link lkSprints = new Link("lkSprints") {
+		lkSprints2 = new Link("lkSprints2") {
 			@Override
 			public void onClick() {
+				allEnable();
+				this.setEnabled(false);
+				setResponsePage(new SprintsPage2(user));
+			}
+		};
+		add(lkSprints2);
+		
+		lkSprints = new Link("lkSprints") {
+			@Override
+			public void onClick() {
+				allEnable();
+				this.setEnabled(false);
 				setResponsePage(new SprintsPage(user));
 			}
 		};
 		add(lkSprints);
 		
-		Link lkTasks = new Link("lkTasks") {
+		lkTasks = new Link("lkTasks") {
 			@Override
 			public void onClick() {
+				allEnable();
+				this.setEnabled(false);
 				setResponsePage(new TaskPage(user));
 			}
 		};
 		add(lkTasks);
 		
-		Link linkKanban = new Link("lkKanban") {
+		linkKanban = new Link("lkKanban") {
 			@Override
 			public void onClick() {
+				allEnable();
+				this.setEnabled(false);
 				setResponsePage(new KanbanPage(user));
 			}
 		};
 		add(linkKanban);
 
-		Link lkSobre = new Link("lkSobre") {
+		lkSobre = new Link("lkSobre") {
 			@Override
 			public void onClick() {
+				allEnable();
+				this.setEnabled(false);
 				setResponsePage(new SobrePage(user));
 			}
 		};
@@ -104,19 +140,15 @@ public class PageBase extends WebPage {
 
             DateTime dateCalc = endDate.minus(now.getMillis());
 
-            lbTimeBox = new Label("lbTimeBox",dateCalc.getDayOfMonth()+" dias restantes ");
+            if(dateCalc.getDayOfMonth() > 1){
+            	lbTimeBox = new Label("lbTimeBox",dateCalc.getDayOfMonth()+" dias restantes ");
+            }else{
+            	lbTimeBox = new Label("lbTimeBox",dateCalc.getDayOfMonth()+" dia restante ");
+            }
         }
 
         add(lbTimeBox);
     }
-	
-	private void createTutorial(String tutorial){
-		add(new ExtruderWebMarkupContainer("extruderLeft1",  
-                new ExtruderOptions("Tutorial",tutorial)  
-                        .position(Position.LEFT)
-                        .width(300)
-                        .extruderOpacity(0.8f)));
-	}
 	
 	private void createUserModal(final User user) {
 		final ModalWindow userModal;

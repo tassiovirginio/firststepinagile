@@ -4,128 +4,122 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.hibernate.criterion.Projections;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class HibernateDAOGenerico<T, ID extends Serializable> extends HibernateDaoSupport{
+@SuppressWarnings("unchecked")
+public class HibernateDAOGenerico<T, ID extends Serializable> {
 
-	private static Log LOG = LogFactory.getLog(HibernateDAOGenerico.class);
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	@SuppressWarnings("unchecked")
+    public org.hibernate.Session session() {
+        return sessionFactory.getCurrentSession();
+    }
+
 	public HibernateDAOGenerico() {
-		this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
-	}
+        this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 
-	private Class<T> persistentClass;
+    private Class<T> persistentClass;
 
-	public Class<T> getPersistentClass() {
-		return this.persistentClass;
-	}
+    public Class<T> clazz() {
+        return this.persistentClass;
+    }
 
-	public void delete(T entity) {
-		try {
-			this.getHibernateTemplate().delete(entity);
-		} catch (final HibernateException ex) {
-			HibernateDAOGenerico.LOG.error(ex);
-			throw convertHibernateAccessException(ex);
-		}
-	}
+    public void delete(T entity) {
+        session().delete(entity);
+    }
 
-	@SuppressWarnings("unchecked")
-	public T findById(ID id) {
-		try {
-			return (T) this.getHibernateTemplate().get(getPersistentClass(), id);
-		} catch (final HibernateException ex) {
-			HibernateDAOGenerico.LOG.error(ex);
-			throw convertHibernateAccessException(ex);
-		}
-	}
+    public T findById(ID id) {
+        return (T) session().get(clazz(), id);
+    }
 
-	@SuppressWarnings("unchecked")
-	public List<T> listAll() {
-		try {
-			return this.getHibernateTemplate().loadAll(getPersistentClass());
-		} catch (final HibernateException ex) {
-			HibernateDAOGenerico.LOG.error(ex);
-			throw convertHibernateAccessException(ex);
-		}
-	}
+    public List<T> listAll() {
+        Criteria crit = session().createCriteria(clazz());
+        return crit.list();
+    }
 
-	public T save(T entity) {
-		try {
-			this.getHibernateTemplate().saveOrUpdate(entity);
-			return entity;
-		} catch (final HibernateException ex) {
-			HibernateDAOGenerico.LOG.error(ex);
-			throw convertHibernateAccessException(ex);
-		}
-	}
+    public int size() {
+        Criteria crit = session().createCriteria(clazz());
+        crit.setProjection(Projections.rowCount());
+        Object result = crit.uniqueResult();
+        Long size = (Long) result;
+        return size.intValue();
+    }
 
-	public List<T> findByCriteriaReturnList(Criterion... criterion) {
-		return findByCriteria(null, criterion);
-	}
-	
-	public T findByCriteriaReturnUniqueResult(Criterion... criterion) {
-		return findByCriteriaReturnUniqueResult(null, criterion);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<T> findByCriteria(Order order,Criterion... criterion) {
-		try {
-			Criteria crit = this.getHibernateTemplate().getSessionFactory()
-					.getCurrentSession().createCriteria(getPersistentClass());
-			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			for (Criterion c : criterion) {
-				crit.add(c);
-			}
-			if(order != null){
-				crit.addOrder(order);
-			}
-			return crit.list();
-		} catch (final HibernateException ex) {
-			HibernateDAOGenerico.LOG.error(ex);
-			throw convertHibernateAccessException(ex);
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public T findByCriteriaReturnUniqueResult(Order order,Criterion... criterion) {
-		try {
-			Criteria crit = this.getHibernateTemplate().getSessionFactory()
-					.getCurrentSession().createCriteria(getPersistentClass());
-			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			for (Criterion c : criterion) {
-				crit.add(c);
-			}
-			if(order != null){
-				crit.addOrder(order);
-			}
-			return (T) crit.uniqueResult();
-		} catch (final HibernateException ex) {
-			HibernateDAOGenerico.LOG.error(ex);
-			throw convertHibernateAccessException(ex);
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<T> findByCriteria(Order order) {
-		try {
-			Criteria crit = this.getHibernateTemplate().getSessionFactory()
-					.getCurrentSession().createCriteria(getPersistentClass());
-			crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			if(order != null){
-				crit.addOrder(order);
-			}
-			return crit.list();
-		} catch (final HibernateException ex) {
-			HibernateDAOGenerico.LOG.error(ex);
-			throw convertHibernateAccessException(ex);
-		}
-	}
+    public T save(T entity) {
+        session().saveOrUpdate(entity);
+        return entity;
+    }
+
+    public List<T> findByCriteriaReturnList(Criterion... criterion) {
+        return findByCriteria(null, criterion);
+    }
+
+    public T findByCriteriaReturnUniqueResult(Criterion... criterion) {
+        return findByCriteriaReturnUniqueResult(null, criterion);
+    }
+
+    public List<T> findByCriteria(Order order, Criterion... criterion) {
+        Criteria crit = session().createCriteria(clazz());
+        crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        for (Criterion c : criterion) {
+            crit.add(c);
+        }
+        if (order != null) {
+            crit.addOrder(order);
+        }
+        return crit.list();
+    }
+
+    public T findByCriteriaReturnUniqueResult(Order order, Criterion... criterion) {
+        Criteria crit = session().createCriteria(clazz());
+        crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        for (Criterion c : criterion) {
+            crit.add(c);
+        }
+        if (order != null) {
+            crit.addOrder(order);
+        }
+        return (T) crit.uniqueResult();
+    }
+
+    public T findByCriteriaReturnUniqueResult(Order order, int offSet, int size, Criterion... criterion) {
+        Criteria crit = session().createCriteria(clazz());
+        crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        crit.setFirstResult(offSet);
+        crit.setMaxResults(size);
+        for (Criterion c : criterion) {
+            crit.add(c);
+        }
+        if (order != null) {
+            crit.addOrder(order);
+        }
+        return (T) crit.uniqueResult();
+    }
+
+    public List<T> findByCriteria(Order order) {
+        Criteria crit = session().createCriteria(clazz());
+        crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        if (order != null) {
+            crit.addOrder(order);
+        }
+        return crit.list();
+    }
+
+    public List<T> findByCriteria(Order order, int offSet, int size) {
+        Criteria crit = session().createCriteria(clazz());
+        crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        crit.setFirstResult(offSet);
+        crit.setMaxResults(size);
+        if (order != null) {
+            crit.addOrder(order);
+        }
+        return crit.list();
+    }
 }

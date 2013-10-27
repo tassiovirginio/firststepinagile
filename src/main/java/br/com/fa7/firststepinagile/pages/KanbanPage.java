@@ -1,17 +1,8 @@
 package br.com.fa7.firststepinagile.pages;
 
-import br.com.fa7.firststepinagile.business.ActivityBusiness;
-import br.com.fa7.firststepinagile.business.SprintBusiness;
-import br.com.fa7.firststepinagile.business.StoryBusiness;
-import br.com.fa7.firststepinagile.business.UserBusiness;
-import br.com.fa7.firststepinagile.entities.Activity;
-import br.com.fa7.firststepinagile.entities.Sprint;
-import br.com.fa7.firststepinagile.entities.Story;
-import br.com.fa7.firststepinagile.entities.User;
-import br.com.fa7.firststepinagile.pages.base.PageBase;
-import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
-import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
-import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -25,9 +16,20 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.com.fa7.firststepinagile.business.ActivityBusiness;
+import br.com.fa7.firststepinagile.business.SprintBusiness;
+import br.com.fa7.firststepinagile.business.StoryBusiness;
+import br.com.fa7.firststepinagile.business.UserBusiness;
+import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Sprint;
+import br.com.fa7.firststepinagile.entities.Story;
+import br.com.fa7.firststepinagile.entities.User;
+import br.com.fa7.firststepinagile.pages.base.PageBase;
+import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
+import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
+import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
+@SuppressWarnings({ "serial", "deprecation","rawtypes"})
 public class KanbanPage extends PageBase {
 	
 	private static final long serialVersionUID = 1L;
@@ -51,69 +53,13 @@ public class KanbanPage extends PageBase {
 	private ModalWindow activityModal;
 	
 	public KanbanPage(User user) {
-		super(user,"/tutorial/tutorial5.html");
+		super(user);
+		
+		super.linkKanban.setEnabled(false);
 		
 		createPanelBacklog(user);
-		createSprintModal(user);
-		createBarSprintModal(user);
 		createStoryModal(user);
 		createActivityModal(user);
-		
-	}
-	
-	private void createSprintModal(final User user) {
-		add(sprintModal = new ModalWindow("sprintModal"));
-		sprintModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
-		sprintModal.setResizable(false);
-
-		sprintModal.setPageCreator(new ModalWindow.PageCreator() {
-			public Page createPage() {
-				return new SprintModalPage(KanbanPage.this.getPageReference(), sprintModal, user);
-			}
-		});
-		
-		
-		sprintModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-			@Override
-			public void onClose(AjaxRequestTarget target) {
-				StringValue sprintId = KanbanPage.this.getPageParameters().get("sprintId");
-				if(!sprintId.isNull()){
-					Sprint sprint = sprintBusiness.findById(sprintId.toLong());;
-					user.setSprint(sprint);
-					userBusiness.save(user);
-					setResponsePage(new KanbanPage(user));
-				}
-				setResponsePage(new KanbanPage(user));
-			}
-		});
-
-	}
-	
-	private void createBarSprintModal(final User user) {
-		
-		String dateEnd = "";
-		
-		if(user.getSprint() != null && user.getSprint().getDateEnd() != null)
-		dateEnd = user.getSprint().getDateEnd().toString("dd/MM/yyyy");
-		
-		if(user.getSprint() != null){
-			add(new Label("lbSprintName",user.getSprint().getName() + " - " + user.getSprint().getDateStart().toString("dd/MM/yyyy") 
-					+ " - " + dateEnd));
-		}else{
-			add(new Label("lbSprintName",""));	
-		}
-		
-		add(new AjaxLink<Void>("lkSprintModal") {
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				sprintModal.setPageCreator(new ModalWindow.PageCreator() {
-					public Page createPage() {
-						return new SprintModalPage(KanbanPage.this.getPageReference(), sprintModal, user);
-					}
-				});
-				sprintModal.show(target);
-			}
-		});
 		
 	}
 	

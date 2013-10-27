@@ -6,39 +6,49 @@
 <LINK href="css/LoginPage.css" rel="stylesheet" type="text/css">
 </HEAD>
 <BODY>
-	<img src="imagens/wallpaper.jpg" class="bg">
-	
-	<img id="logo_top" src="imagens/step.png" />
-	
-	<div id="top_div">
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		First Step In Agile 
-	</div>
-	<div id="menu_div">
-<!-- 		&nbsp;TESTE1&nbsp;TESTE1&nbsp;TESTE1&nbsp;TESTE1&nbsp;TESTE1&nbsp; -->
-	</div>
-	
-		<form wicket:id="form">
-			<TABLE id="div_login">
-				<TR>
-					<TH class="login" colspan="2">First Step In Agile</TH>
-				</TR>
-				<TR>
-					<TD class="login" colspan="2"><span wicket:id="feedback"></span></TD>
-				</TR>
-				<TR>
-					<TD class="login" >Login:</TD>
-					<TD class="login" ><input type="text" wicket:id="login" /></TD>
-				</TR>
-				<TR>
-					<TD class="login">Senha:</TD>
-					<TD class="login"><input type="password" wicket:id="password" /></TD>
-				</TR>
-				<TR>
-					<TD class="login" colspan="2"><input value="entrar" type="submit" /></TD>
-				</TR>
-			</TABLE>
-		</form>
+	<img id="bg" src="/imagens/wallpaper3.jpg" />
+
+	<div id="logo_bg_top" />
+
+	<div id="logo_top" />
+
+	<div id="logo_texto_top">First Step In Agile</div>
+
+	<TABLE id="div_start">
+		<TR>
+			<TH>Apresentação</TH>
+		</TR>
+		<TR>
+			<TD style="text-align: left; margin-top: 0px; top: 0px;">Seja bem vindo ao First Step in Agile<br> <br>
+				Aqui você vai aprender alguns fundamentos do gerenciamento Ágil<br>
+				focado em desenvolvimento de software.<br> Siga as etapas do
+				menu acima, e bons estudos.<br>
+			</TD>
+		</TR>
+	</TABLE>
+
+	<form wicket:id="form">
+		<TABLE id="div_login">
+			<TR>
+				<TD class="login"><span wicket:id="feedback"></span></TD>
+			</TR>
+			<TR>
+				<TD align="left" style="color: white;">e-mail:<input type="text" wicket:id="login" /></TD>
+			</TR>
+			<TR>
+				<TD align="left" style="color: white;">Senha:<input type="password" wicket:id="password" /></TD>
+			</TR>
+			<TR>
+				<TD class="login"><input value="entrar"
+					type="submit" /></TD>
+			</TR>
+			<TR>
+				<TD class="login">
+					<a href="#" wicket:id="lkCadastro" >Novo Cadastro</a>
+				</TD>
+			</TR>
+		</TABLE>
+	</form>
 
 	<div id="status_div">
 		<span>Power by: Wicket, Hibernate and Spring. </span>

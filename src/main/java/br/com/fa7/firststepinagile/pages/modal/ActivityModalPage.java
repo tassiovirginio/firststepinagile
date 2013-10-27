@@ -18,6 +18,7 @@ import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 
+@SuppressWarnings({ "serial","rawtypes", "unchecked"})
 public class ActivityModalPage extends WebPage {
 
 	private static final long serialVersionUID = 1L;

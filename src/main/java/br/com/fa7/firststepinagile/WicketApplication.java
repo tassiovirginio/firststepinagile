@@ -67,9 +67,8 @@ public class WicketApplication extends WebApplication{
 		
 		if(userAdmin == null){
 			userAdmin = new User();
-			userAdmin.setEmail("admin@admin.com");
 			userAdmin.setName("Admin");
-			userAdmin.setLogin("admin");
+			userAdmin.setLogin("admin@admin.com");
 			userAdmin.setPassword("admin");
 			userAdmin.setAdmin(true);
 			userBusiness.save(userAdmin);
@@ -79,6 +78,7 @@ public class WicketApplication extends WebApplication{
 		sprint1.setCreator(userAdmin);
 		sprint1.setDateCreation(new DateTime());
 		sprint1.setDateStart(new DateTime());
+		sprint1.setDateEnd(new DateTime().plusDays(10));
 		sprint1.setDescription("Teste...");
 		sprint1.setName("Sprint Test01");
 		sprintBusiness.save(sprint1);
@@ -87,6 +87,7 @@ public class WicketApplication extends WebApplication{
 		sprint2.setCreator(userAdmin);
 		sprint2.setDateCreation(new DateTime());
 		sprint2.setDateStart(new DateTime());
+		sprint2.setDateEnd(new DateTime().plusDays(10));
 		sprint2.setDescription("Teste...");
 		sprint2.setName("Sprint Test02");
 		sprintBusiness.save(sprint2);
@@ -96,13 +97,15 @@ public class WicketApplication extends WebApplication{
 		story1.setCreator(userAdmin);
 		story1.setDescription("Teste Story.........");
 		story1.setSprint(sprint1);
+		story1.setColor("00FF00");
 		storyBusiness.save(story1);
 		
 		Story story2 = new Story();
 		story2.setName("Historia 02");
 		story2.setCreator(userAdmin);
 		story2.setDescription("Teste Story.........");
-		story1.setSprint(sprint2);
+		story2.setSprint(sprint2);
+		story2.setColor("0000FF");
 		storyBusiness.save(story2);
 		
 		Story story3 = new Story();
@@ -110,6 +113,7 @@ public class WicketApplication extends WebApplication{
 		story3.setCreator(userAdmin);
 		story3.setDescription("Teste Story.... asdas asda  asda sda .....");
 		story3.setSprint(sprint1);
+		story3.setColor("FF0000");
 		storyBusiness.save(story3);
 		
 		Activity activity01 = new Activity();
@@ -166,16 +170,14 @@ public class WicketApplication extends WebApplication{
 		
 		
 		User userTest02 = new User();
-		userTest02.setEmail("userTest02@userTest02.com");
 		userTest02.setName("userTest02");
-		userTest02.setLogin("userTest02");
+		userTest02.setLogin("userTest02@userTest02.com");
 		userTest02.setPassword("userTest02");
 		userBusiness.save(userTest02);
 		
 		User userTest03 = new User();
-		userTest03.setEmail("userTest03@userTest03.com");
 		userTest03.setName("userTest03");
-		userTest03.setLogin("userTest03");
+		userTest03.setLogin("userTest03@userTest03.com");
 		userTest03.setPassword("userTest03");
 		userBusiness.save(userTest03);
 		

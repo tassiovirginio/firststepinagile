@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org">
 	<head>
+		<link rel="stylesheet" href="css/PageBase.css" type="text/css" title="Stylesheet" />
 		<meta charset="utf-8" />
 		<title>First Step In Agile</title>
 		<link rel="shortcut icon" href="favicon2.png" />
-		<link rel="stylesheet" href="css/PageBase.css" type="text/css" media="screen" title="Stylesheet" />
+		
 			
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" />
 		
@@ -18,24 +19,7 @@
 	
 	<div wicket:id="userModal"></div>
 	
-	<div wicket:id="notifier1">  
-   
-	    <!--   
-	    Later on, you can choose which template to use by referring to the   
-	    ID assigned to each template.  You'll also be able to refer  
-	    to each template by index, so in this example, "basic-tempate" is  
-	    index 0 and "advanced-template" is index 1.  
-	    -->  
-	    <div id="basic-template">  
-	        <a class="ui-notify-cross ui-notify-close" href="#">x</a>  
-	        <h1>#{title}</h1>  
-	        <p>#{text}</p>  
-	    </div>  
-	   
-	    <div id="advanced-template">  
-	        <!-- ... you get the idea ... -->  
-	    </div>  
-   </div>  
+
 	
 	<div id="top_div">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -49,17 +33,107 @@
 	</div>
 	
 	<div id="menu_div">
-		<A class="menu" wicket:id="lkStart" href="">&nbsp;0-Start&nbsp;</A>
-		<A class="menu" wicket:id="lkStorys" href="">&nbsp;1-Histórias&nbsp;</A>
-		<A class="menu" wicket:id="lkTasks" href="">&nbsp;2-Atividades&nbsp;</A>
-		<A class="menu" wicket:id="lkSprints" href="">&nbsp;3-Sprints&nbsp;</A>
-		<A class="menu" wicket:id="lkKanban" href="">&nbsp;4-Kanban&nbsp;</A>
+		<A class="menu" wicket:id="lkStart" href="">&nbsp;1-Projetos&nbsp;</A>
+		<A class="menu" wicket:id="lkStorys" href="">&nbsp;2-Backlog&nbsp;</A>
+		<A class="menu" wicket:id="lkTasks" href="">&nbsp;3-Atividades&nbsp;</A>
+		<A class="menu" wicket:id="lkSprints2" href="">&nbsp;4-Sprints&nbsp;</A>
+		<A class="menu" wicket:id="lkSprints" href="">&nbsp;5-Backlog Sprints&nbsp;</A>
+		<A class="menu" wicket:id="lkKanban" href="">&nbsp;6-Kanban&nbsp;</A>
 	</div>
-	
-	<div wicket:id="extruderLeft1" class="a"></div>
 	
 	<div id="div_child">
 		<wicket:child/>
+	</div>
+	
+	<div id="div_sprints">
+		Sprint Atual:
+		<br/>
+		Sprint Inicial: Descrição desse Sprint, aiosdjo iaajo sidjaosijdoas;
+		<br/>
+		Periodo: 01/01/2013 a 12/12/2013
+		<br/>
+		Qtd.Historias: 12
+		<br/>
+		Concluidas: 3
+		<br/>
+		<br/>
+		Lista de Srpint: <button>Adicionar</button>
+		<div style="width: 100%; background-color: white; height: 100%; color: black;overflow-y: scroll;">
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			<div style="width: 100%; border-radius: 5px; background-color: #999999;">
+				Sprint 1 - 01/01/2013 - 12/12/2013 <br/>
+				<button>Selecionar</button>
+				<button>Del</button>
+				<button>Edit</button>
+			</div>
+			<br/>
+			
+		
+		
+		</div>
 	</div>
 	
 	<div id="status_div">

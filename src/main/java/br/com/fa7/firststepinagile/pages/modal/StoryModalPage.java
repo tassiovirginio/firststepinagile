@@ -19,6 +19,7 @@ import br.com.fa7.firststepinagile.entities.User;
 
 import com.google.code.jqwicket.ui.colorpicker.ColorPickerTextField;
 
+@SuppressWarnings({ "serial","rawtypes", "unchecked"})
 public class StoryModalPage extends WebPage {
 
 	private static final long serialVersionUID = 1L;

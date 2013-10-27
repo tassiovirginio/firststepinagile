@@ -26,6 +26,7 @@ import br.com.fa7.firststepinagile.pages.base.PageBase;
 import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
+@SuppressWarnings({ "serial", "deprecation","rawtypes"})
 public class SprintsPage extends PageBase {
 
 	private static final long serialVersionUID = 1L;
@@ -48,11 +49,9 @@ public class SprintsPage extends PageBase {
 	}
 
 	public SprintsPage(User user, Sprint sprint) {
-		super(user,"/tutorial/tutorial4.html");
+		super(user);
 		
-		createSprintModal(user);
-		
-		createBarSprintModal(user);
+		super.lkSprints.setEnabled(false);
 		
 		createPanelBacklog(user,sprint);
 		
@@ -107,62 +106,7 @@ public class SprintsPage extends PageBase {
 
 	}
 	
-	private void createBarSprintModal(final User user) {
-		
-		String dateEnd = "";
-		
-		if(user.getSprint() != null && user.getSprint().getDateEnd() != null)
-		dateEnd = user.getSprint().getDateEnd().toString("dd/MM/yyyy");
-		
-		if(user.getSprint() != null){
-			add(new Label("lbSprintName",user.getSprint().getName() + " - " + user.getSprint().getDateStart().toString("dd/MM/yyyy") 
-					+ " - " + dateEnd));
-		}else{
-			add(new Label("lbSprintName",""));	
-		}
-		
-		add(new AjaxLink<Void>("lkSprintModal") {
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				sprintModal.setPageCreator(new ModalWindow.PageCreator() {
-					public Page createPage() {
-						return new SprintModalPage(SprintsPage.this.getPageReference(), sprintModal, user);
-					}
-				});
-				sprintModal.show(target);
-			}
-		});
-		
-	}
 
-	private void createSprintModal(final User user) {
-		add(sprintModal = new ModalWindow("sprintModal"));
-		sprintModal.setCookieName("storyModal-cookie");
-		sprintModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
-		sprintModal.setResizable(false);
-
-		sprintModal.setPageCreator(new ModalWindow.PageCreator() {
-			public Page createPage() {
-				return new SprintModalPage(SprintsPage.this.getPageReference(), sprintModal, user);
-			}
-		});
-		
-		
-		sprintModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-			@Override
-			public void onClose(AjaxRequestTarget target) {
-				StringValue sprintId = SprintsPage.this.getPageParameters().get("sprintId");
-				if(!sprintId.isNull()){
-					Sprint sprint = sprintBusiness.findById(sprintId.toLong());;
-					user.setSprint(sprint);
-					userBusiness.save(user);
-					setResponsePage(new SprintsPage(user,sprint));
-				}
-				setResponsePage(new SprintsPage(user));
-			}
-		});
-
-	}
 	
 	
 	private void createPanelBacklog(final User user, final Sprint sprint) {
@@ -213,18 +157,21 @@ public class SprintsPage extends PageBase {
 					}
 				});
 				
-				webContainer.add(new AjaxLink("lkRight") {
+				AjaxLink lkRight = new AjaxLink("lkRight") {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						if(sprint != null){
 							sprintBusiness.addStoryInSprint(story,sprint);
 							setResponsePage(new SprintsPage(user,sprint));
 						}else{
-							notifier.create(target,
-			                        "Selecione um Sprint","");
+//							notifier.create(target,"Selecione um Sprint","");
 						}
 					}
-				});
+				};
+				
+				lkRight.setEnabled(user.getSprint() != null);
+				
+				webContainer.add(lkRight);
 				
 			}
 		};

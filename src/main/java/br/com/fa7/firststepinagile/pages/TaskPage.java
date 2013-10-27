@@ -28,6 +28,7 @@ import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
 import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
+@SuppressWarnings({ "serial", "deprecation","rawtypes"})
 public class TaskPage extends PageBase {
 
 	private static final long serialVersionUID = 1L;
@@ -57,7 +58,9 @@ public class TaskPage extends PageBase {
 	}
 	
 	public TaskPage(final User user, Story story) {
-		super(user,"/tutorial/tutorial3.html");
+		super(user);
+		
+		super.lkTasks.setEnabled(false);
 		
 		storySelected = story;
 		
@@ -68,10 +71,6 @@ public class TaskPage extends PageBase {
 		createPanelBacklog(user);
 		
 		createPanelTasks(user,story);
-		
-		createSprintModal(user);
-		
-		createBarSprintModal(user);
 		
 		add(new AjaxLink<Void>("showStoryModal") {
 			@Override
@@ -101,61 +100,7 @@ public class TaskPage extends PageBase {
 	}
 	
 	
-	private void createSprintModal(final User user) {
-		add(sprintModal = new ModalWindow("sprintModal"));
-		sprintModal.setCookieName("storyModal-cookie");
-		sprintModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
-		sprintModal.setResizable(false);
-
-		sprintModal.setPageCreator(new ModalWindow.PageCreator() {
-			public Page createPage() {
-				return new SprintModalPage(TaskPage.this.getPageReference(), sprintModal, user);
-			}
-		});
-		
-		
-		sprintModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-			@Override
-			public void onClose(AjaxRequestTarget target) {
-				StringValue sprintId = TaskPage.this.getPageParameters().get("sprintId");
-				if(!sprintId.isNull()){
-					Sprint sprint = sprintBusiness.findById(sprintId.toLong());;
-					user.setSprint(sprint);
-					userBusiness.save(user);
-				}
-				setResponsePage(new TaskPage(user));
-			}
-		});
-
-	}
 	
-	private void createBarSprintModal(final User user) {
-		
-		String dateEnd = "";
-		
-		if(user.getSprint() != null && user.getSprint().getDateEnd() != null)
-		dateEnd = user.getSprint().getDateEnd().toString("dd/MM/yyyy");
-		
-		if(user.getSprint() != null){
-			add(new Label("lbSprintName",user.getSprint().getName() + " - " + user.getSprint().getDateStart().toString("dd/MM/yyyy") 
-					+ " - " + dateEnd));
-		}else{
-			add(new Label("lbSprintName",""));	
-		}
-		
-		add(new AjaxLink<Void>("lkSprintModal") {
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				sprintModal.setPageCreator(new ModalWindow.PageCreator() {
-					public Page createPage() {
-						return new SprintModalPage(TaskPage.this.getPageReference(), storyModal, user);
-					}
-				});
-				sprintModal.show(target);
-			}
-		});
-		
-	}
 	
 	private void createPanelTasks(final User user, final Story story) {
 		List<Activity> listActivity = activityBusiness.findActivityByStory(story);
@@ -167,6 +112,7 @@ public class TaskPage extends PageBase {
 		}
 		
 		ListView<Activity> listViewActivity = new ListView<Activity>("listViewActivity", listActivity) {
+			
 			@Override
 			protected void populateItem(ListItem<Activity> item) {
 				final Activity activity = (Activity)item.getModelObject();

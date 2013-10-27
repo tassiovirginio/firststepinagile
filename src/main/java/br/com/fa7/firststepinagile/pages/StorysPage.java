@@ -32,6 +32,7 @@ import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
 import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
+@SuppressWarnings({ "serial", "deprecation","rawtypes", "unchecked"})
 public class StorysPage extends PageBase {
 
 	private static final long serialVersionUID = 1L;
@@ -70,8 +71,9 @@ public class StorysPage extends PageBase {
 	}
 	
 	public StorysPage(final User user, Sprint sprint, int filter) {
-		super(user,"/tutorial/tutorial2.html");
+		super(user);
 		
+		super.lkStorys.setEnabled(false);
 		
 		createStoryModal(user);
 		
@@ -79,7 +81,7 @@ public class StorysPage extends PageBase {
 		
 		createPanelBacklog(user,sprint,filter);
 		
-		createBarSprintModal(user, sprint, filter);
+//		createBarSprintModal(user, sprint, filter);
 		
 		createSprintModal(user);
 		
@@ -126,78 +128,37 @@ public class StorysPage extends PageBase {
 
 	}
 	
-	private void createBarSprintModal(final User user, final Sprint sprint, int filter) {
-		
-		String dateEnd = "";
-		
-		if(user.getSprint() != null && user.getSprint().getDateEnd() != null)
-		dateEnd = user.getSprint().getDateEnd().toString("dd/MM/yyyy");
-		
-		if(user.getSprint() != null){
-			add(new Label("lbSprintName",user.getSprint().getName() + " - " + user.getSprint().getDateStart().toString("dd/MM/yyyy") 
-					+ " - " + dateEnd));
-		}else{
-			add(new Label("lbSprintName",""));	
-		}
-		
-		add(new AjaxLink<Void>("lkSprintModal") {
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				sprintModal.setPageCreator(new ModalWindow.PageCreator() {
-					public Page createPage() {
-						return new SprintModalPage(StorysPage.this.getPageReference(), storyModal, user);
-					}
-				});
-				sprintModal.show(target);
-			}
-		});
-		
-		RadioGroup group = new RadioGroup("group", new Model("radio1"));
-		add(group);
-		
-		Radio radio1 = new Radio("radio1");
-		radio1.add(new AjaxEventBehavior("onclick") {
-			private static final long serialVersionUID = 1L;
-			@Override
-			protected void onEvent(AjaxRequestTarget target) {
-				setResponsePage(new StorysPage(user,1));
-			}
-		});
-		
-		Radio radio2 = new Radio("radio2");
-		radio2.add(new AjaxEventBehavior("onclick") {
-			private static final long serialVersionUID = 1L;
-			@Override
-			protected void onEvent(AjaxRequestTarget target) {
-				setResponsePage(new StorysPage(user,2));
-			}
-		});
-		
-		Radio radio3 = new Radio("radio3");
-		radio3.add(new AjaxEventBehavior("onclick") {
-			private static final long serialVersionUID = 1L;
-			@Override
-			protected void onEvent(AjaxRequestTarget target) {
-				setResponsePage(new StorysPage(user,sprint,3));
-			}
-		});
-		
-		if(filter == 1){
-			radio1.add( new AttributeModifier( "checked", new Model( "true" ) ) );
-		}else if(filter == 2){
-			radio2.add( new AttributeModifier( "checked", new Model( "true" ) ) );
-		}else if(filter == 3){
-			radio3.add( new AttributeModifier( "checked", new Model( "true" ) ) );
-		}
-		
-		group.add(radio1);
-		group.add(radio2);
-		group.add(radio3);
-		
-	}
+//	private void createBarSprintModal(final User user, final Sprint sprint, int filter) {
+//		
+//		String dateEnd = "";
+//		
+//		if(user.getSprint() != null && user.getSprint().getDateEnd() != null)
+//		dateEnd = user.getSprint().getDateEnd().toString("dd/MM/yyyy");
+//		
+//		if(user.getSprint() != null){
+//			add(new Label("lbSprintName",user.getSprint().getName() + " - " + user.getSprint().getDateStart().toString("dd/MM/yyyy") 
+//					+ " - " + dateEnd));
+//		}else{
+//			add(new Label("lbSprintName",""));	
+//		}
+//		
+//		add(new AjaxLink<Void>("lkSprintModal") {
+//			@Override
+//			public void onClick(AjaxRequestTarget target) {
+//				sprintModal.setPageCreator(new ModalWindow.PageCreator() {
+//					public Page createPage() {
+//						return new SprintModalPage(StorysPage.this.getPageReference(), storyModal, user);
+//					}
+//				});
+//				sprintModal.show(target);
+//			}
+//		});
+//		
+//		
+//	}
 	
 
-	private void createPanelBacklog(final User user, Sprint sprint, int filter) {
+	private void createPanelBacklog(final User user, final Sprint sprint, int filter) {
 		
 		List<Story> listAllStory = null;
 		
@@ -271,6 +232,50 @@ public class StorysPage extends PageBase {
 			}
 		};
 		add(listViewStoryBacklog);
+		
+		
+		RadioGroup group = new RadioGroup("group", new Model("radio1"));
+		add(group);
+		
+		Radio radio1 = new Radio("radio1");
+		radio1.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new StorysPage(user,1));
+			}
+		});
+		
+		Radio radio2 = new Radio("radio2");
+		radio2.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new StorysPage(user,2));
+			}
+		});
+		
+		Radio radio3 = new Radio("radio3");
+		radio3.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new StorysPage(user,sprint,3));
+			}
+		});
+		
+		if(filter == 1){
+			radio1.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}else if(filter == 2){
+			radio2.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}else if(filter == 3){
+			radio3.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}
+		
+		group.add(radio1);
+		group.add(radio2);
+		group.add(radio3);
+		
 	}
 
 	private void createStoryModal(final User user) {

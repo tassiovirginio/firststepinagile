@@ -1,5 +1,7 @@
 package br.com.fa7.firststepinagile.business;
 
+import static org.hibernate.criterion.Order.desc;
+
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -11,9 +13,6 @@ import br.com.fa7.firststepinagile.business.dao.SprintDAO;
 import br.com.fa7.firststepinagile.business.dao.StoryDAO;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
-
-import static org.hibernate.criterion.Restrictions.*;
-import static org.hibernate.criterion.Order.*;
 
 @Component
 @Transactional 

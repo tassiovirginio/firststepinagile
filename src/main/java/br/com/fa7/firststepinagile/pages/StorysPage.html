@@ -12,27 +12,9 @@
 
 <div wicket:id="sprintModal"></div>
 
-	<TABLE id="table_storys">
-		<TR>
-			<TH class="title" colspan="2">Histórias</TH>
-		</TR>
-		<TR>
-			<TH class="menu" colspan="2">
-			
-			<a wicket:id="lkSprintModal" class="busca" href="#"><img width="18px" height="18px" src="imagens/search.png" /></a>
-			Sprint atual -> <spam wicket:id="lbSprintName">Sprint: Nome do Sprint - Estado:Aberto - 01-01-2012</spam> 
-			
-			</TH>
-		</TR>
-		<TR>
-			<TD valign="top" align="left" width="50%">
-
 				<TABLE id="table_storys_backlog">
-					<TR>
-						<TH>Backlog</TH>
-					</TR>
-					<TR>
-						<TH class="menu">
+					<TR style="background-color: white;">
+						<TH style="background-color: white;background-image:none;color: black;">
     						<a wicket:id="showStoryModal"><img src="imagens/plus.png" /></a>
     						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     						 <span style="float:right;" wicket:id="group">Filtros:
@@ -49,15 +31,17 @@
 
 								<TABLE wicket:id="tableStory" class="story" width="100%" height="50px">
 									<TR>
-										<TD><b>#<span wicket:id="lbId">1234</span></b> 
+										<TD>
+										<b>#<span wicket:id="lbId">1234</span></b> 
 										<b>(<span wicket:id="lbActivitysSize">0</span>)</b> - 
-										- <span wicket:id="lbName">Nome</span> <br>
-										<span wicket:id="lbDateCreate">Date</span> <br>
+										<span wicket:id="lbName">Nome</span> -
+										<span wicket:id="lbDateCreate">Date</span> 
+										&nbsp;&nbsp;&nbsp;
 											<a wicket:id="lkEdit" href="#"><img src="imagens/edit.png" /></a>
 											<a wicket:id="lkDelete" href="#"><img src="imagens/delete.png" /></a>
 										</TD>
 										<TD class="bt_fluxo">
-										<a wicket:id="lkUp" href="#"><img src="imagens/rnd_br_up.png" /></a><br> 
+										<a wicket:id="lkUp" href="#"><img src="imagens/rnd_br_up.png" /></a> 
 										<a wicket:id="lkDown" href="#"><img src="imagens/rnd_br_down.png" /></a>
 										</TD>
 									</TR>
@@ -69,10 +53,5 @@
 						</TD>
 					</TR>
 				</TABLE>
-
-			</TD>
-		
-		</TR>
-	</TABLE>
 </wicket:extend>
 </html>

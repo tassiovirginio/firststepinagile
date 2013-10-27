@@ -1,10 +1,7 @@
 
 #table_sprints {
-	position: fixed;
-	top: 8%;
-	left: 15%;
-	width: 70%;
-	height: 80%;
+	width: 100%;
+	height: 100%;
 	border: 2px #00468E outset;
 	vertical-align: center;
 	background-color: #FFFFFF !important;

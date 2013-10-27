@@ -7,8 +7,6 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.fa7.firststepinagile.business.UserBusiness;
-
 public class Start {
 	
 	final static Logger logger = LoggerFactory.getLogger(Start.class);
