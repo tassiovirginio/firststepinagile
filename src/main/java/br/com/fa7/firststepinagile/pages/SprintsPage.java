@@ -187,6 +187,14 @@ public class SprintsPage extends PageBase {
 			listAllStory = storyBusiness.getStoryBySprint(sprint);
 		}
 		
+		Label sprintName = null;
+		if(sprint != null){
+			sprintName = new Label("sprintName", sprint.getName());
+		}else{
+			sprintName = new Label("sprintName", "Não Selecionado");
+		}
+		add(sprintName);
+		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStorySprint", listAllStory) {
 			@Override
 			protected void populateItem(ListItem<Story> item) {

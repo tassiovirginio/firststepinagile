@@ -11,7 +11,10 @@ span.menu{
 	background-color: white;
 	color: black;
 	height: 310px;
-	border-radius: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
 }
 
 div.w_caption{
@@ -141,7 +144,7 @@ span.feedbackPanelINFO{
 
 #menu_div {
 	background-image: -webkit-gradient(linear, 0% 100%,0% 0%, from(#909090),to(#404040) );
-	line-height: 20px;
+	line-height: 27px;
 	font-weight: bold;
 	font-size: 11px;
 	height: 20px;
@@ -167,7 +170,10 @@ a:link,a:visited,a:active {
 a.menu:link,a.menu:visited,a.menu:active {
 	text-decoration: none;
 	box-shadow: 0 5px 15px hsla(0, 0%, 0%, .8);
-	border-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#404040),to(#000000) );
 	background-image: -moz-linear-gradient(100% 100% 90deg, #404040, #000000);
 }

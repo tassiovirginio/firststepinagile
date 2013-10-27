@@ -2,33 +2,35 @@ package br.com.fa7.firststepinagile.pages;
 
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Radio;
+import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.StringValue;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
 import br.com.fa7.firststepinagile.business.SprintBusiness;
 import br.com.fa7.firststepinagile.business.StoryBusiness;
 import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
-import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
 import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
-import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
-@SuppressWarnings({ "serial", "deprecation","rawtypes"})
+@SuppressWarnings({ "unchecked", "serial", "deprecation","rawtypes"})
 public class TaskPage extends PageBase {
 
 	private static final long serialVersionUID = 1L;
@@ -49,26 +51,34 @@ public class TaskPage extends PageBase {
 	
 	private ModalWindow activityModal;
 	
-	private ModalWindow sprintModal;
-	
 	private Story storySelected;
 	
 	public TaskPage(final User user) {
-		this(user,null);
+		this(user,null,2);
+	}
+	
+	public TaskPage(final User user, int filter) {
+		this(user,null,filter);
 	}
 	
 	public TaskPage(final User user, Story story) {
+		this(user,story,2);
+	}
+	
+	public TaskPage(final User user, Story story, int filter) {
 		super(user);
 		
 		super.lkTasks.setEnabled(false);
 		
 		storySelected = story;
 		
-		createStoryModal(user);
+		createStoryModal(user,filter);
 		
-		createActivityModal(user);
+		createActivityModal(user,filter);
 		
-		createPanelBacklog(user);
+		createPanelBacklog(user,filter);
+		
+		createRadioGroup(user,filter);
 		
 		createPanelTasks(user,story);
 		
@@ -98,9 +108,6 @@ public class TaskPage extends PageBase {
 		});
 		
 	}
-	
-	
-	
 	
 	private void createPanelTasks(final User user, final Story story) {
 		List<Activity> listActivity = activityBusiness.findActivityByStory(story);
@@ -172,11 +179,17 @@ public class TaskPage extends PageBase {
 		add(listViewActivity);
 	}
 
-	private void createPanelBacklog(final User user) {
+	private void createPanelBacklog(final User user, final int filter) {
 		
-//		List<Story> listAllStory = storyBusiness.getStoryBySprint(user.getSprint());
+		List<Story> listAllStory = null;
 		
-		List<Story> listAllStory = storyBusiness.allOrderByAscPrioridade();
+		if(filter == 1){
+			listAllStory = storyBusiness.allOrderByAscPrioridade();
+		}else if(filter == 2){
+			listAllStory = storyBusiness.notSprintOrderByAscPrioridade();
+		}else if(filter == 3){
+			listAllStory = storyBusiness.getStoryBySprint(user.getSprint());
+		}
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
 			@Override
@@ -203,7 +216,7 @@ public class TaskPage extends PageBase {
 					@Override
 					public void onClick() {
 						storySelected = story;
-						setResponsePage(new TaskPage(user,story));
+						setResponsePage(new TaskPage(user,story,filter));
 					}
 				};
 				webContainer.add(lkSelect);
@@ -212,7 +225,7 @@ public class TaskPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.delete(story);
-						setResponsePage(new TaskPage(user));
+						setResponsePage(new TaskPage(user,filter));
 					}
 				};
 				webContainer.add(lkStorys);
@@ -234,7 +247,7 @@ public class TaskPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.upStoryPriority(story);
-						setResponsePage(new TaskPage(user,storySelected));
+						setResponsePage(new TaskPage(user,storySelected,filter));
 					}
 				});
 				
@@ -242,15 +255,60 @@ public class TaskPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.downStoryPriority(story);
-						setResponsePage(new TaskPage(user,storySelected));
+						setResponsePage(new TaskPage(user,storySelected,filter));
 					}
 				});
 			}
 		};
 		add(listViewStoryBacklog);
 	}
+	
+	
+	private void createRadioGroup(final User user, int filter){
+		RadioGroup group = new RadioGroup("group", new Model("radio1"));
+		add(group);
+		
+		Radio radio1 = new Radio("radio1");
+		radio1.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new TaskPage(user,1));
+			}
+		});
+		
+		Radio radio2 = new Radio("radio2");
+		radio2.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new TaskPage(user,2));
+			}
+		});
+		
+		Radio radio3 = new Radio("radio3");
+		radio3.add(new AjaxEventBehavior("onclick") {
+			private static final long serialVersionUID = 1L;
+			@Override
+			protected void onEvent(AjaxRequestTarget target) {
+				setResponsePage(new TaskPage(user,3));
+			}
+		});
+		
+		if(filter == 1){
+			radio1.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}else if(filter == 2){
+			radio2.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}else if(filter == 3){
+			radio3.add( new AttributeModifier( "checked", new Model( "true" ) ) );
+		}
+		
+		group.add(radio1);
+		group.add(radio2);
+		group.add(radio3);
+	}
 
-	private void createStoryModal(final User user) {
+	private void createStoryModal(final User user, final int filter) {
 		add(storyModal = new ModalWindow("storyModal"));
 		storyModal.setCookieName("storyModal-cookie");
 		storyModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
@@ -264,13 +322,13 @@ public class TaskPage extends PageBase {
 		
 		storyModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 			public void onClose(AjaxRequestTarget target) {
-				setResponsePage(new TaskPage(user));
+				setResponsePage(new TaskPage(user,filter));
 			}
 		});
 
 	}
 	
-	private void createActivityModal(final User user) {
+	private void createActivityModal(final User user,final int filter) {
 		add(activityModal = new ModalWindow("activityModal"));
 		activityModal.setCookieName("activityModal-cookie");
 		activityModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
@@ -285,7 +343,7 @@ public class TaskPage extends PageBase {
 		
 		activityModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 			public void onClose(AjaxRequestTarget target) {
-				setResponsePage(new TaskPage(user,storySelected));
+				setResponsePage(new TaskPage(user,storySelected,filter));
 			}
 		});
 

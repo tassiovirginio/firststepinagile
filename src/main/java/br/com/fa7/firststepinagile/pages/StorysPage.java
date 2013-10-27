@@ -55,7 +55,7 @@ public class StorysPage extends PageBase {
 	private Story storySelected;
 	
 	public StorysPage(final User user) {
-		this(user,user.getSprint(),1);
+		this(user,user.getSprint(),2);
 	}
 	
 	public StorysPage(final User user, int filter) {
@@ -63,11 +63,15 @@ public class StorysPage extends PageBase {
 	}
 	
 	public StorysPage(final User user, Story story) {
-		this(user,user.getSprint(),1);
+		this(user,user.getSprint(),2);
+	}
+	
+	public StorysPage(final User user, Story story, int filter) {
+		this(user,user.getSprint(),filter);
 	}
 	
 	public StorysPage(final User user, Sprint sprint, Story story) {
-		this(user,sprint,1);
+		this(user,sprint,2);
 	}
 	
 	public StorysPage(final User user, Sprint sprint, int filter) {
@@ -75,13 +79,13 @@ public class StorysPage extends PageBase {
 		
 		super.lkStorys.setEnabled(false);
 		
-		createStoryModal(user);
+		createStoryModal(user,filter);
 		
 		createActivityModal(user);
 		
 		createPanelBacklog(user,sprint,filter);
 		
-//		createBarSprintModal(user, sprint, filter);
+		createRadioGroup(user,filter);
 		
 		createSprintModal(user);
 		
@@ -158,7 +162,7 @@ public class StorysPage extends PageBase {
 //	}
 	
 
-	private void createPanelBacklog(final User user, final Sprint sprint, int filter) {
+	private void createPanelBacklog(final User user, final Sprint sprint, final int filter) {
 		
 		List<Story> listAllStory = null;
 		
@@ -196,7 +200,7 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.delete(story);
-						setResponsePage(new StorysPage(user));
+						setResponsePage(new StorysPage(user,filter));
 					}
 				};
 				webContainer.add(lkStorys);
@@ -218,7 +222,7 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.upStoryPriority(story);
-						setResponsePage(new StorysPage(user,storySelected));
+						setResponsePage(new StorysPage(user,storySelected,filter));
 					}
 				});
 				
@@ -226,14 +230,15 @@ public class StorysPage extends PageBase {
 					@Override
 					public void onClick() {
 						storyBusiness.downStoryPriority(story);
-						setResponsePage(new StorysPage(user,storySelected));
+						setResponsePage(new StorysPage(user,storySelected,filter));
 					}
 				});
 			}
 		};
 		add(listViewStoryBacklog);
-		
-		
+	}
+	
+	private void createRadioGroup(final User user, int filter){
 		RadioGroup group = new RadioGroup("group", new Model("radio1"));
 		add(group);
 		
@@ -260,7 +265,7 @@ public class StorysPage extends PageBase {
 			private static final long serialVersionUID = 1L;
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {
-				setResponsePage(new StorysPage(user,sprint,3));
+				setResponsePage(new StorysPage(user,user.getSprint(),3));
 			}
 		});
 		
@@ -275,10 +280,9 @@ public class StorysPage extends PageBase {
 		group.add(radio1);
 		group.add(radio2);
 		group.add(radio3);
-		
 	}
 
-	private void createStoryModal(final User user) {
+	private void createStoryModal(final User user, final int filter) {
 		add(storyModal = new ModalWindow("storyModal"));
 		storyModal.setCookieName("storyModal-cookie");
 		storyModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
@@ -292,7 +296,7 @@ public class StorysPage extends PageBase {
 		
 		storyModal.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 			public void onClose(AjaxRequestTarget target) {
-				setResponsePage(new StorysPage(user));
+				setResponsePage(new StorysPage(user,filter));
 			}
 		});
 

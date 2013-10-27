@@ -29,7 +29,7 @@ public class StoryModalPage extends WebPage {
 	
 	private Story story;
 
-	public StoryModalPage(final PageReference pageRefOrigem,	final ModalWindow window, final User user, final Story story) {
+	public StoryModalPage(final PageReference pageRefOrigem, final ModalWindow window, final User user, final Story story) {
 		
 		if (story == null) {
 			this.story = new Story();
