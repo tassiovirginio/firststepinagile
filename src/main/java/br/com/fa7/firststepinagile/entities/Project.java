@@ -34,7 +34,7 @@ public class Project implements Serializable{
 	private DateTime dateCreation;
 	
 	@OneToMany(mappedBy = "project", targetEntity = Sprint.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Sprint> projects;
+	private Set<Sprint> sprints;
 	
 	@OneToMany
 	private Set<User> users;
@@ -81,13 +81,20 @@ public class Project implements Serializable{
 		this.dateCreation = dateCreation;
 	}
 
-	public Set<Sprint> getProjects() {
-		return projects;
+	public Set<Sprint> getSprints() {
+		return sprints;
 	}
 
-	public void setProjects(Set<Sprint> projects) {
-		this.projects = projects;
+	public void setSprints(Set<Sprint> sprints) {
+		this.sprints = sprints;
 	}
-	
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 
 }

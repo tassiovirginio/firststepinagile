@@ -1,42 +1,104 @@
-<!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+	<link rel="stylesheet" type="text/css" href="css/StartPage.css" />
+</wicket:head>
+
 <wicket:extend>
-	<BR>
-	<BR>
-	<BR>
-	<BR>
-	<BR>
-	<BR>
-	<BR>
-	<TABLE>
-		<TBODY>
-			<TR>
-				<TH>Meus Projetos</TH>
-			</TR>
-			<TR>
-				<TD>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - <button>selecionar</button><button>editar</button><button>del</button><br/>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - <button>selecionar</button><button>editar</button><button>del</button><br/>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - <button>selecionar</button><button>editar</button><button>del</button><br/>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - <button>selecionar</button><button>editar</button><button>del</button><br/>
+	<TABLE id="table_storys">
+		<TR>
+			<TD valign="top" align="left" width="50%">
+				<TABLE>
+					<TBODY>
+						<TR>
+							<TH>Meus Projetos</TH>
+						</TR>
+						<TR>
+							<TD>Projeto Teste 1 - Backlog(120) - Sprints(12) -
+								<button>selecionar</button>
+								<button>editar</button>
+								<button>del</button> <br /> Projeto Teste 1 - Backlog(120) -
+								Sprints(12) -
+								<button>selecionar</button>
+								<button>editar</button>
+								<button>del</button> <br /> Projeto Teste 1 - Backlog(120) -
+								Sprints(12) -
+								<button>selecionar</button>
+								<button>editar</button>
+								<button>del</button> <br /> Projeto Teste 1 - Backlog(120) -
+								Sprints(12) -
+								<button>selecionar</button>
+								<button>editar</button>
+								<button>del</button> <br />
+							</TD>
+						</TR>
+					</TBODY>
+				</TABLE> <br />
+				<TABLE>
+					<TBODY>
+						<TR>
+							<TH>Projetos Convidados</TH>
+						</TR>
+						<TR>
+							<TD>Projeto Teste 1 - Backlog(120) - Sprints(12) - Dono:
+								Tassio
+								<button>selecionar</button> <br /> Projeto Teste 1 -
+								Backlog(120) - Sprints(12) - Dono: Tassio
+								<button>selecionar</button> <br /> Projeto Teste 1 -
+								Backlog(120) - Sprints(12) - Dono: Tassio
+								<button>selecionar</button> <br /> Projeto Teste 1 -
+								Backlog(120) - Sprints(12) - Dono: Tassio
+								<button>selecionar</button> <br />
+							</TD>
+						</TR>
+					</TBODY>
+				</TABLE>
+
+			</TD>
+			<TD valign="top" align="left" width="50%"><br />
+				<form>
+					<table style="height: 430px;">
+						<tr style="height: 10px;">
+							<td>Nome:<input type="text" /></td>
+						</tr>
+						<tr style="height: 10px;">
+							<td>Desc:<textarea cols="40" rows="10"></textarea></td>
+						</tr>
+						<tr style="height: 100%;top:0px;">
+							<td style="height: 100%;top:0px;">
+							<br/><br/>
+							Convidados: <br/>
+							<input type="text" size="50" /> 
+							<button>Add</button>
+								<table style="height:80%; width: 100%;">
+									<tr>
+										<td>
+										<div style="overflow-y: scroll;height:100%; width: 100%;">
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+										</div>	
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<br/>
+								<input type="submit" value="Salvar" />
+							</td>
+						</tr>
+					</table>
+				</form>
 				</TD>
-			</TR>
-		</TBODY>
-	</TABLE>
-	<TABLE>
-		<TBODY>
-			<TR>
-				<TH>Projetos Convidados</TH>
-			</TR>
-			<TR>
-				<TD>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - Dono: Tassio <button>selecionar</button><br/>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - Dono: Tassio <button>selecionar</button><br/>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - Dono: Tassio <button>selecionar</button><br/>
-					Projeto Teste 1 - Backlog(120) - Sprints(12) - Dono: Tassio <button>selecionar</button><br/>
-				</TD>
-			</TR>
-		</TBODY>
+		</TR>
 	</TABLE>
 </wicket:extend>
-</html>
