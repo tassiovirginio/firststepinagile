@@ -1,11 +1,10 @@
 #timebox {
     bottom: 0%;
-    left: 0%;
-    position: absolute;
+    right: 1%;
+    position:fixed;
     font-weight: bold;
     font-size: 11px;
-    color: #000000;
-	background: #FFFFFF;
+    color: white;
 }
 
 span.menu{
@@ -79,6 +78,7 @@ span.feedbackPanelINFO{
 
 
 #status_div {
+	height: 20px;
 	text-align: right;
 	margin: 0 auto;
 	left: 0%;

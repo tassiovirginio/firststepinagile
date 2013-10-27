@@ -1,15 +1,5 @@
 package br.com.fa7.firststepinagile.pages.base;
 
-import br.com.fa7.firststepinagile.entities.User;
-import br.com.fa7.firststepinagile.pages.*;
-import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
-import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
-
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderOptions.Position;
-import com.google.code.jqwicket.ui.mb.extruder.ExtruderWebMarkupContainer;
-import com.google.code.jqwicket.ui.notifier.NotifierWebMarkupContainer;
-
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -18,6 +8,17 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.joda.time.DateTime;
+
+import br.com.fa7.firststepinagile.entities.User;
+import br.com.fa7.firststepinagile.pages.KanbanPage;
+import br.com.fa7.firststepinagile.pages.LoginPage;
+import br.com.fa7.firststepinagile.pages.SobrePage;
+import br.com.fa7.firststepinagile.pages.SprintsPage;
+import br.com.fa7.firststepinagile.pages.SprintsPage2;
+import br.com.fa7.firststepinagile.pages.StartPage;
+import br.com.fa7.firststepinagile.pages.StorysPage;
+import br.com.fa7.firststepinagile.pages.TaskPage;
+import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
 
 @SuppressWarnings({ "serial","rawtypes"})
 public class PageBase extends WebPage {
@@ -141,9 +142,9 @@ public class PageBase extends WebPage {
             DateTime dateCalc = endDate.minus(now.getMillis());
 
             if(dateCalc.getDayOfMonth() > 1){
-            	lbTimeBox = new Label("lbTimeBox",dateCalc.getDayOfMonth()+" dias restantes ");
+            	lbTimeBox = new Label("lbTimeBox","Sprint: "+ user.getSprint().getName() + " - TimeBox:" + dateCalc.getDayOfMonth()+" dias restantes ");
             }else{
-            	lbTimeBox = new Label("lbTimeBox",dateCalc.getDayOfMonth()+" dia restante ");
+            	lbTimeBox = new Label("lbTimeBox","Sprint: "+ user.getSprint().getName() + " - TimeBox:" + dateCalc.getDayOfMonth()+" dia restante ");
             }
         }
 
