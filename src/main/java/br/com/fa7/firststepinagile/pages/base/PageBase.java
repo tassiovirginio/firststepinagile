@@ -137,21 +137,25 @@ public class PageBase extends WebPage {
 		}
 
 	}
+	
+	private String red(String texto){
+		return "<font style=\"color: #64B0FC;\">"+texto+"</font>";
+	}
 
     public void calcularTimeBox(final User user){
     	
     	String retorno = "";
     	
     	if(user.getProjectAtual() == null){
-    		retorno = retorno + "Sem Projeto Selecionado";
+    		retorno = retorno + red("Sem Projeto Selecionado");
     	}else{
-    		retorno = retorno + "Projeto: " + user.getProjectAtual().getName() + " - ";
+    		retorno = retorno + "Projeto: " + red(user.getProjectAtual().getName()) + " - ";
     	}
     	
     	if(user.getProjectAtual() != null && user.getSprint() == null){
-    		retorno = retorno + "Sem Um Sprint Selecionado";
+    		retorno = retorno + red("Sem Um Sprint Selecionado");
     	}else if(user.getProjectAtual() != null && user.getSprint() != null){
-    		retorno = retorno + "Sprint: " + user.getSprint().getName() + " - ";
+    		retorno = retorno + "Sprint: " + red(user.getSprint().getName()) + " - ";
     	}
 
         Label lbTimeBox = new Label("lbTimeBox",retorno);
@@ -163,14 +167,16 @@ public class PageBase extends WebPage {
             DateTime dateCalc = endDate.minus(now.getMillis());
 
             if(dateCalc.getDayOfMonth() > 1){
-            	retorno = retorno + "TimeBox: " + dateCalc.getDayOfMonth() + " dias restantes";
+            	retorno = retorno + "TimeBox: " + red(dateCalc.getDayOfMonth()+"") + " dias restantes";
             }else{
-            	retorno = retorno + "TimeBox: " + dateCalc.getDayOfMonth() + " dia restante";
+            	retorno = retorno + "TimeBox: " + red(dateCalc.getDayOfMonth()+"") + " dia restante";
             }
         }
         
         lbTimeBox = new Label("lbTimeBox",retorno);
 
+        lbTimeBox.setEscapeModelStrings(false);
+        
         add(lbTimeBox);
     }
 	
