@@ -185,6 +185,11 @@ public class PageBase extends WebPage {
 		add(userModal = new ModalWindow("userModal"));
 		userModal.setCookieName("userModal-cookie");
 		userModal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
+		userModal.setMinimalHeight(200);
+		userModal.setMinimalWidth(200);
+		userModal.setInitialHeight(200);
+		userModal.setInitialWidth(200);
+		userModal.setResizable(false);
 
 		userModal.setPageCreator(new ModalWindow.PageCreator() {
 			public Page createPage() {
