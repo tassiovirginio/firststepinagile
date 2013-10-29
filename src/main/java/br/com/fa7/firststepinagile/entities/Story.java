@@ -50,6 +50,9 @@ public class Story implements Serializable{
 	@JoinColumn(name="sprint_id")
 	private Sprint sprint;
 	
+	@ManyToOne
+	private Project project;
+	
 	public Story() {}
 	
 	public Story(Sprint sprint) {
@@ -130,6 +133,30 @@ public class Story implements Serializable{
 	public void setValue(Long value) {
 		this.value = value;
 	}
+	
+	public Set<Activity> getActivitys() {
+		return activitys;
+	}
+
+	public void setActivitys(Set<Activity> activitys) {
+		this.activitys = activitys;
+	}
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
 	@Override
 	public int hashCode() {
@@ -155,22 +182,5 @@ public class Story implements Serializable{
 			return false;
 		return true;
 	}
-
-	public Set<Activity> getActivitys() {
-		return activitys;
-	}
-
-	public void setActivitys(Set<Activity> activitys) {
-		this.activitys = activitys;
-	}
-
-	public Sprint getSprint() {
-		return sprint;
-	}
-
-	public void setSprint(Sprint sprint) {
-		this.sprint = sprint;
-	}
-
 
 }

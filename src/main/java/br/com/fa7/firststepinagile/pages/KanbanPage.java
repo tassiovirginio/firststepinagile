@@ -84,7 +84,7 @@ public class KanbanPage extends PageBase {
 		List<Story> listAllStory = new ArrayList<Story>();
 		
 		if(user.getSprint() != null){
-			listAllStory = storyBusiness.getStoryBySprint(user.getSprint());
+			listAllStory = storyBusiness.getStoryBySprint(user.getSprint(),user.getProjectAtual());
 		}
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {

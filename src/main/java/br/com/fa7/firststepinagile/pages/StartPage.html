@@ -6,54 +6,38 @@
 	<TABLE id="table_storys">
 		<TR>
 			<TD valign="top" align="left" width="50%">
-				<TABLE>
+				<TABLE style="height: 40%; width: 60%;">
 					<TBODY>
 						<TR>
 							<TH>Meus Projetos</TH>
 						</TR>
 						<TR>
 							<TD>
-							<div wicket:id="listViewProjectUsers" >
-								Nome: <label wicket:id="lbName"></label>
-								<a wicket:id="lkSelect">Selecionar</a>
-								<a wicket:id="lkEditor">Editar</a>
-								<a wicket:id="lkDelete">Del</a>
+							<div class="barra_rolagem">
+								<div wicket:id="listViewProjectUsers" >
+									Nome: <label wicket:id="lbName"></label>
+									<a wicket:id="lkSelect">Selecionar</a>
+									<a wicket:id="lkEditor">Editar</a>
+									<a wicket:id="lkDelete">Del</a>
+								</div>
 							</div>
-							Projeto Teste 1 - Backlog(120) - Sprints(12) -
-								<button>selecionar</button>
-								<button>editar</button>
-								<button>del</button> <br /> Projeto Teste 1 - Backlog(120) -
-								Sprints(12) -
-								<button>selecionar</button>
-								<button>editar</button>
-								<button>del</button> <br /> Projeto Teste 1 - Backlog(120) -
-								Sprints(12) -
-								<button>selecionar</button>
-								<button>editar</button>
-								<button>del</button> <br /> Projeto Teste 1 - Backlog(120) -
-								Sprints(12) -
-								<button>selecionar</button>
-								<button>editar</button>
-								<button>del</button> <br />
 							</TD>
 						</TR>
 					</TBODY>
 				</TABLE> <br />
-				<TABLE>
+				<TABLE style="height: 40%; width: 60%;">
 					<TBODY>
 						<TR>
 							<TH>Projetos Convidados</TH>
 						</TR>
 						<TR>
-							<TD>Projeto Teste 1 - Backlog(120) - Sprints(12) - Dono:
-								Tassio
-								<button>selecionar</button> <br /> Projeto Teste 1 -
-								Backlog(120) - Sprints(12) - Dono: Tassio
-								<button>selecionar</button> <br /> Projeto Teste 1 -
-								Backlog(120) - Sprints(12) - Dono: Tassio
-								<button>selecionar</button> <br /> Projeto Teste 1 -
-								Backlog(120) - Sprints(12) - Dono: Tassio
-								<button>selecionar</button> <br />
+							<TD>
+							<div class="barra_rolagem">
+								<div wicket:id="listViewProjectConvites" >
+									Nome: <label wicket:id="lbName"></label>
+									<a wicket:id="lkSelect">Selecionar</a>
+								</div>
+							</div>
 							</TD>
 						</TR>
 					</TBODY>
@@ -61,18 +45,23 @@
 
 			</TD>
 			<TD valign="top" align="left" width="50%"><br />
-				<form wicket:id="form">
 					<table style="height: 430px;">
-						<tr style="height: 10px;">
-							<td>Nome:<input type="text" wicket:id="tfName" /></td>
-						</tr>
-						<tr style="height: 10px;">
-							<td>Desc:<textarea wicket:id="tfDescription" cols="40" rows="10"></textarea></td>
-						</tr>
+						<form wicket:id="form">
+							<tr style="height: 10px;">
+								<td>Nome:<input type="text" wicket:id="tfName" /></td>
+							</tr>
+							<tr style="height: 10px;">
+								<td>Desc:<textarea wicket:id="tfDescription" cols="40" rows="10"></textarea></td>
+							</tr>
+							<tr>
+								<td style="height: 10%;top:0px;" colspan="2">
+									<button wicket:id="btSalvar">Salvar</button>
+								</td>
+							</tr>
+						</form>
 						<tr style="height: 100%;top:0px;">
 							<td style="height: 100%;top:0px;">
-							<br/><br/>
-							Convidados: <br/>
+							Convidados:
 							<form wicket:id="form2">
 								<input wicket:id="email" type="text" size="50" /> 
 								<button wicket:id="salvar" >Add</button>
@@ -90,14 +79,7 @@
 								</table>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2">
-								<br/>
-								<input type="submit" wicket:id="btSalvar" value="Salvar" />
-							</td>
-						</tr>
 					</table>
-				</form>
 				</TD>
 		</TR>
 	</TABLE>

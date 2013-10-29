@@ -9,7 +9,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.joda.time.DateTime;
 
-import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.KanbanPage;
 import br.com.fa7.firststepinagile.pages.LoginPage;
@@ -122,6 +121,20 @@ public class PageBase extends WebPage {
 		add(lkExit);
 
         calcularTimeBox(user);
+        
+        if(user.getProjectAtual() != null){
+			lkStorys.setVisible(true);
+			lkSprints.setVisible(true);
+			lkSprints2.setVisible(true);
+			lkTasks.setVisible(true);
+			linkKanban.setVisible(true);
+		}else{
+			lkStorys.setVisible(false);
+			lkSprints.setVisible(false);
+			lkSprints2.setVisible(false);
+			lkTasks.setVisible(false);
+			linkKanban.setVisible(false);
+		}
 
 	}
 

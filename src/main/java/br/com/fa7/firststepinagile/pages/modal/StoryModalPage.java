@@ -56,6 +56,7 @@ public class StoryModalPage extends WebPage {
 		form.add(new AjaxButton("ajax-button", form){
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form){
+            	StoryModalPage.this.story.setProject(user.getProjectAtual());
             	storyBusiness.save(StoryModalPage.this.story);
 				window.close(target);
             }

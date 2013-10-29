@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.joda.time.DateTime;
 
 import br.com.fa7.firststepinagile.business.ConviteBusiness;
 import br.com.fa7.firststepinagile.business.ProjectBusiness;
@@ -43,23 +44,21 @@ public class StartPage extends PageBase {
 	public StartPage(final User user, final Project projectEditar) {
 		super(user);
 		
-		
 		Form<Project> form = new Form<Project>("form");
 		form.add(new TextField<String>("tfName", new PropertyModel<String>(projectEditar,"name")).setRequired(true));
 		form.add(new TextArea<String>("tfDescription", new PropertyModel<String>(projectEditar, "description")));
 		
-		ListView<Convite> ListViewConvite = createListConvites(user,projectEditar);
-		
-		form.add(ListViewConvite);
-		
 		form.add(new Button("btSalvar") {
 			@Override
 			public void onSubmit() {
+				System.out.println(projectEditar.getName());
+				projectEditar.setCreator(user);
+				projectEditar.setDateCreation(new DateTime());
 				projectBusiness.save(projectEditar);
 				setResponsePage(new StartPage(user));
 			}
 		});
-		
+		add(form);
 		
 		final Convite conviteNovo = new Convite();
 		Form<Project> form2 = new Form<Project>("form2");
@@ -72,15 +71,16 @@ public class StartPage extends PageBase {
 				convite.setProject(projectEditar);
 				conviteBusiness.save(convite);
 				projectEditar.getConvites().add(convite);
-//				projectBusiness.save(projectEditar);
 				setResponsePage(new StartPage(user,projectEditar));
 			}
 		});
-		form.add(form2);
 		
-		add(form);
+		add(form2);
 		
-		List<Project> projetosUser = new ArrayList<Project>(projectBusiness.listAll());
+		ListView<Convite> ListViewConvite = createListConvites(user,projectEditar);
+		add(ListViewConvite);
+		
+		List<Project> projetosUser = new ArrayList<Project>(projectBusiness.listAllByUser(user));
 		
 		ListView<Project> listViewProjectUsers = new ListView<Project>("listViewProjectUsers", projetosUser) {
 			@Override
@@ -124,6 +124,36 @@ public class StartPage extends PageBase {
 			}
 		};
 		add(listViewProjectUsers);
+		
+		List<Project> projetosConvidados = new ArrayList<Project>(projectBusiness.listAllByConvite(user));
+		
+		ListView<Project> listViewProjectConvites = new ListView<Project>("listViewProjectConvites", projetosConvidados) {
+			@Override
+			protected void populateItem(ListItem<Project> item) {
+				final Project project = item.getModelObject();
+
+				Label lbName = new Label("lbName", project.getName().trim());
+				item.add(lbName);
+				
+				Link lkSelect = new Link("lkSelect") {
+					@Override
+					public void onClick() {
+						user.setProjectAtual(project);
+						userBusiness.save(user);
+						setResponsePage(new StartPage(user));
+					}
+				};
+					
+				if(user.getProjectAtual() != null && user.getProjectAtual().equals(project)){
+					lkSelect.setEnabled(false);
+				}else{
+					lkSelect.setEnabled(true);
+				}
+				
+				item.add(lkSelect);
+			}
+		};
+		add(listViewProjectConvites);
 		
 		super.linkStart.setEnabled(false);
 	}

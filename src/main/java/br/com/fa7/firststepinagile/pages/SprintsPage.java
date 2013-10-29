@@ -106,7 +106,7 @@ public class SprintsPage extends PageBase {
 	
 	
 	private void createPanelBacklog(final User user, final Sprint sprint) {
-		List<Story> listAllStory = storyBusiness.allOrderByAscPrioridade();
+		List<Story> listAllStory = storyBusiness.allOrderByAscPrioridade(user.getProjectAtual());
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
 			@Override
@@ -180,7 +180,7 @@ public class SprintsPage extends PageBase {
 		List<Story> listAllStory = new ArrayList<Story>();
 		
 		if(sprint != null){
-			listAllStory = storyBusiness.getStoryBySprint(sprint);
+			listAllStory = storyBusiness.getStoryBySprint(sprint,user.getProjectAtual());
 		}
 		
 		Label sprintName = null;

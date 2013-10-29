@@ -1,5 +1,9 @@
 package br.com.fa7.firststepinagile.business;
 
+import static org.hibernate.criterion.Order.asc;
+import static org.hibernate.criterion.Restrictions.eq;
+import static org.hibernate.criterion.Restrictions.isNull;
+
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -8,11 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fa7.firststepinagile.business.dao.StoryDAO;
+import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
-
-import static org.hibernate.criterion.Restrictions.*;
-import static org.hibernate.criterion.Order.*;
 
 @Component
 @Transactional 
@@ -27,7 +29,7 @@ public class StoryBusiness {
 	
 	public void save(Story story){
 		if(story.getId() == null){
-			story.setPriority(nextStoryPriority());
+			story.setPriority(nextStoryPriority(story.getProject()));
 			story.setDateCreation(new DateTime());
 		}
 		storyDAO.save(story);
@@ -41,27 +43,27 @@ public class StoryBusiness {
 		return storyDAO.listAll();
 	}
 	
-	public List<Story> allOrderByAscPrioridade(){
-		return storyDAO.findByCriteria(asc("priority"));
+	public List<Story> allOrderByAscPrioridade(Project project){
+		return storyDAO.findByCriteria(asc("priority"),eq("project",project));
 	}
 	
-	public List<Story> notSprintOrderByAscPrioridade(){
-		return storyDAO.findByCriteria(asc("priority"),isNull("sprint"));
+	public List<Story> notSprintOrderByAscPrioridade(Project project){
+		return storyDAO.findByCriteria(asc("priority"),isNull("sprint"),eq("project",project));
 	}
 	
-	public List<Story> getStoryBySprint(Sprint sprint){
-		return storyDAO.findByCriteria(asc("priority"),eq("sprint", sprint));
+	public List<Story> getStoryBySprint(Sprint sprint,Project project){
+		return storyDAO.findByCriteria(asc("priority"),eq("sprint", sprint),eq("project",project));
 	}
 	
-	public double lastStoryPriority(){
-		List<Story> list = allOrderByAscPrioridade();
+	public double lastStoryPriority(Project project){
+		List<Story> list = allOrderByAscPrioridade(project);
 		if(list.isEmpty())
 			return 1000;	
 		return list.get(list.size()-1).getPriority();
 	}
 	
-	public double nextStoryPriority(){
-		return lastStoryPriority()+1;
+	public double nextStoryPriority(Project project){
+		return lastStoryPriority(project)+1;
 	}
 	
 	public void upStoryPriority(Story story){

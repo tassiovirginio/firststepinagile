@@ -4,6 +4,7 @@ import static org.hibernate.criterion.Order.desc;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fa7.firststepinagile.business.dao.SprintDAO;
 import br.com.fa7.firststepinagile.business.dao.StoryDAO;
+import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 
@@ -39,8 +41,8 @@ public class SprintBusiness {
 		sprintDAO.delete(sprint);
 	}
 	
-	public List<Sprint> all(){
-		return sprintDAO.listAll();
+	public List<Sprint> all(Project project){
+		return sprintDAO.findByCriteriaReturnList(Restrictions.eq("project", project));
 	}
 	
 	public List<Sprint> allOrderById(){

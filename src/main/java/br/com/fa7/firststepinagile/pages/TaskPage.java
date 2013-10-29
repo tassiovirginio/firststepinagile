@@ -184,11 +184,11 @@ public class TaskPage extends PageBase {
 		List<Story> listAllStory = null;
 		
 		if(filter == 1){
-			listAllStory = storyBusiness.allOrderByAscPrioridade();
+			listAllStory = storyBusiness.allOrderByAscPrioridade(user.getProjectAtual());
 		}else if(filter == 2){
-			listAllStory = storyBusiness.notSprintOrderByAscPrioridade();
+			listAllStory = storyBusiness.notSprintOrderByAscPrioridade(user.getProjectAtual());
 		}else if(filter == 3){
-			listAllStory = storyBusiness.getStoryBySprint(user.getSprint());
+			listAllStory = storyBusiness.getStoryBySprint(user.getSprint(),user.getProjectAtual());
 		}
 		
 		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
