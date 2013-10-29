@@ -162,7 +162,7 @@ span.feedbackPanelINFO{
 
 a:link,a:visited,a:active {
 	text-decoration: none;
-	color: #0066CC;
+	color: #64B0FC;
 	border: solid 0px;
 	border-radius: 5px;
 }
@@ -199,13 +199,13 @@ a.menu:hover {
 
 a.status:link,a.status:visited,a.status:active {
 	text-decoration: none;
-	color: #0066CC;
+	color: #64B0FC;
 	font-weight: bolder;
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#404040),to(#000000) );
 	background-image: -moz-linear-gradient(100% 100% 90deg, #404040, #000000);
 }
 a.status:hover {
-	color: #0066CC;
+	color: #64B0FC;
 	font-weight: bolder;
 }
 
