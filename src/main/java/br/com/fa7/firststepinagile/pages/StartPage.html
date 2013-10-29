@@ -12,7 +12,14 @@
 							<TH>Meus Projetos</TH>
 						</TR>
 						<TR>
-							<TD>Projeto Teste 1 - Backlog(120) - Sprints(12) -
+							<TD>
+							<div wicket:id="listViewProjectUsers" >
+								Nome: <label wicket:id="lbName"></label>
+								<a wicket:id="lkSelect">Selecionar</a>
+								<a wicket:id="lkEditor">Editar</a>
+								<a wicket:id="lkDelete">Del</a>
+							</div>
+							Projeto Teste 1 - Backlog(120) - Sprints(12) -
 								<button>selecionar</button>
 								<button>editar</button>
 								<button>del</button> <br /> Projeto Teste 1 - Backlog(120) -
@@ -54,36 +61,29 @@
 
 			</TD>
 			<TD valign="top" align="left" width="50%"><br />
-				<form>
+				<form wicket:id="form">
 					<table style="height: 430px;">
 						<tr style="height: 10px;">
-							<td>Nome:<input type="text" /></td>
+							<td>Nome:<input type="text" wicket:id="tfName" /></td>
 						</tr>
 						<tr style="height: 10px;">
-							<td>Desc:<textarea cols="40" rows="10"></textarea></td>
+							<td>Desc:<textarea wicket:id="tfDescription" cols="40" rows="10"></textarea></td>
 						</tr>
 						<tr style="height: 100%;top:0px;">
 							<td style="height: 100%;top:0px;">
 							<br/><br/>
 							Convidados: <br/>
-							<input type="text" size="50" /> 
-							<button>Add</button>
+							<form wicket:id="form2">
+								<input wicket:id="email" type="text" size="50" /> 
+								<button wicket:id="salvar" >Add</button>
+							</form>
 								<table style="height:80%; width: 100%;">
 									<tr>
 										<td>
 										<div style="overflow-y: scroll;height:100%; width: 100%;">
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
-											<div>tassiovirginio@gmail.com<button>del</button></div><br>
+											<div wicket:id="listViewConvite">
+											<label wicket:id="lbEmail"></label><a wicket:id="lkDelete"> del</a><br>
+											</div>
 										</div>	
 										</td>
 									</tr>
@@ -93,7 +93,7 @@
 						<tr>
 							<td colspan="2">
 								<br/>
-								<input type="submit" value="Salvar" />
+								<input type="submit" wicket:id="btSalvar" value="Salvar" />
 							</td>
 						</tr>
 					</table>

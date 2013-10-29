@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.fa7.firststepinagile.business.ActivityBusiness;
+import br.com.fa7.firststepinagile.business.ConviteBusiness;
+import br.com.fa7.firststepinagile.business.ProjectBusiness;
 import br.com.fa7.firststepinagile.business.SprintBusiness;
 import br.com.fa7.firststepinagile.business.StoryBusiness;
 import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
+import br.com.fa7.firststepinagile.entities.Convite;
+import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
@@ -33,6 +37,12 @@ public class WicketApplication extends WebApplication{
 	
 	@Autowired
 	private SprintBusiness sprintBusiness;
+	
+	@Autowired
+	private ProjectBusiness projectBusiness;
+	
+	@Autowired
+	private ConviteBusiness conviteBusiness;
 	
 	@Override
 	public Class<LoginPage> getHomePage(){
@@ -70,9 +80,36 @@ public class WicketApplication extends WebApplication{
 			userAdmin.setName("Admin");
 			userAdmin.setLogin("admin@admin.com");
 			userAdmin.setPassword("admin");
-			userAdmin.setAdmin(true);
 			userBusiness.save(userAdmin);
 		}
+
+		
+		Project project1 = new Project();
+		project1.setName("Projeto 1");
+		project1.setDescription("Projeto 1");
+		project1.setDateCreation(new DateTime());
+		project1.setCreator(userAdmin);
+		projectBusiness.save(project1);
+		
+		Project project2 = new Project();
+		project2.setName("Projeto 2");
+		project2.setDescription("Projeto 2");
+		project2.setDateCreation(new DateTime());
+		project2.setCreator(userAdmin);
+		projectBusiness.save(project2);
+		
+		Convite convite1 = new Convite();
+		convite1.setEmail("teste@teste.com");
+		convite1.setProject(project1);
+		conviteBusiness.save(convite1);
+		
+		Convite convite2 = new Convite();
+		convite2.setEmail("teste2@teste2.com");
+		convite2.setProject(project2);
+		conviteBusiness.save(convite2);
+		
+		userAdmin.setProjectAtual(project2);
+		userBusiness.save(userAdmin);
 		
 		Sprint sprint1 = new Sprint();
 		sprint1.setCreator(userAdmin);
@@ -81,6 +118,7 @@ public class WicketApplication extends WebApplication{
 		sprint1.setDateEnd(new DateTime().plusDays(10));
 		sprint1.setDescription("Teste...");
 		sprint1.setName("Sprint Test01");
+		sprint1.setProject(project1);
 		sprintBusiness.save(sprint1);
 		
 		Sprint sprint2 = new Sprint();
@@ -90,6 +128,7 @@ public class WicketApplication extends WebApplication{
 		sprint2.setDateEnd(new DateTime().plusDays(10));
 		sprint2.setDescription("Teste...");
 		sprint2.setName("Sprint Test02");
+		sprint1.setProject(project2);
 		sprintBusiness.save(sprint2);
 		
 		Story story1 = new Story();
@@ -180,6 +219,7 @@ public class WicketApplication extends WebApplication{
 		userTest03.setLogin("userTest03@userTest03.com");
 		userTest03.setPassword("userTest03");
 		userBusiness.save(userTest03);
+		
 		
 	}
 }

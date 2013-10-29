@@ -138,6 +138,22 @@ public class Sprint implements Serializable{
 	public void setDateEnd2(Date dateEnd) {
 		this.dateEnd = new DateTime(dateEnd);
 	}
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
+	public Set<Story> getStorys() {
+		return storys;
+	}
+
+	public void setStorys(Set<Story> storys) {
+		this.storys = storys;
+	}
 
 	@Override
 	public int hashCode() {
@@ -163,14 +179,5 @@ public class Sprint implements Serializable{
 			return false;
 		return true;
 	}
-
-	public Set<Story> getStorys() {
-		return storys;
-	}
-
-	public void setStorys(Set<Story> storys) {
-		this.storys = storys;
-	}
-
 
 }

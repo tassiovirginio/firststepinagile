@@ -13,6 +13,7 @@ import org.apache.wicket.validation.validator.StringValidator;
 import br.com.fa7.firststepinagile.business.UserBusiness;
 import br.com.fa7.firststepinagile.entities.User;
 
+@SuppressWarnings({"rawtypes","serial"})
 public class LoginPage extends WebPage {
 	private static final long serialVersionUID = 1L;
 

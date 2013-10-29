@@ -14,7 +14,6 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.StringValue;
 
 import br.com.fa7.firststepinagile.business.SprintBusiness;
 import br.com.fa7.firststepinagile.business.StoryBusiness;
@@ -23,7 +22,6 @@ import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
-import br.com.fa7.firststepinagile.pages.modal.SprintModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
 
 @SuppressWarnings({ "serial", "deprecation","rawtypes"})
@@ -40,8 +38,6 @@ public class SprintsPage extends PageBase {
 	@SpringBean
 	private UserBusiness userBusiness;
 
-	private ModalWindow sprintModal;
-	
 	private ModalWindow storyModal;
 	
 	public SprintsPage(User user) {

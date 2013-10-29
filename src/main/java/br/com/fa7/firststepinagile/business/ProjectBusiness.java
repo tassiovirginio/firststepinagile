@@ -1,20 +1,14 @@
 package br.com.fa7.firststepinagile.business;
 
-import static org.hibernate.criterion.Order.asc;
-import static org.hibernate.criterion.Order.desc;
-import static org.hibernate.criterion.Restrictions.eq;
-
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.fa7.firststepinagile.business.dao.ProjectDAO;
-import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.Project;
-import br.com.fa7.firststepinagile.entities.Story;
-import br.com.fa7.firststepinagile.entities.User;
 
 @Component
 @Transactional
@@ -39,8 +33,8 @@ public class ProjectBusiness {
 		return projectDAO.findById(id);
 	}
 	
-	public List<Project> listAll(){
-		return projectDAO.listAll();
+	public Set<Project> listAll(){
+		return new HashSet<Project>(projectDAO.listAll());
 	}
 	
 }

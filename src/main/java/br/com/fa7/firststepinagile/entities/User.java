@@ -24,11 +24,19 @@ public class User implements Serializable{
 	
 	private String login;
 	
-	private boolean admin;
-	
 	@OneToOne
 	private Sprint sprint;
 	
+	private Project projectAtual;
+	
+	public Project getProjectAtual() {
+		return projectAtual;
+	}
+
+	public void setProjectAtual(Project projectAtual) {
+		this.projectAtual = projectAtual;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -84,14 +92,6 @@ public class User implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
 	}
 
 	public Sprint getSprint() {

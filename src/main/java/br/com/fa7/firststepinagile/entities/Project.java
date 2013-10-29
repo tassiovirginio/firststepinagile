@@ -1,6 +1,7 @@
 package br.com.fa7.firststepinagile.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,11 +37,9 @@ public class Project implements Serializable{
 	@OneToMany(mappedBy = "project", targetEntity = Sprint.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Sprint> sprints;
 	
-	@OneToMany
-	private Set<User> users;
+	@OneToMany(mappedBy = "project", targetEntity = Convite.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Convite> convites = new HashSet<Convite>();
 	
-	public Project() {}
-
 	public Long getId() {
 		return id;
 	}
@@ -88,13 +87,38 @@ public class Project implements Serializable{
 	public void setSprints(Set<Sprint> sprints) {
 		this.sprints = sprints;
 	}
-
-	public Set<User> getUsers() {
-		return users;
+	
+	public Set<Convite> getConvites() {
+		return convites;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setConvites(Set<Convite> convites) {
+		this.convites = convites;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Project other = (Project) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

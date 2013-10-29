@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.joda.time.DateTime;
 
+import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.KanbanPage;
 import br.com.fa7.firststepinagile.pages.LoginPage;
@@ -51,7 +52,6 @@ public class PageBase extends WebPage {
 			@Override
 			public void onClick() {
 				allEnable();
-				this.setEnabled(false);
 				setResponsePage(new StartPage(user));
 			}
 		};
@@ -61,7 +61,6 @@ public class PageBase extends WebPage {
 			@Override
 			public void onClick() {
 				allEnable();
-				this.setEnabled(false);
 				setResponsePage(new StorysPage(user));
 			}
 		};
@@ -71,7 +70,6 @@ public class PageBase extends WebPage {
 			@Override
 			public void onClick() {
 				allEnable();
-				this.setEnabled(false);
 				setResponsePage(new SprintsPage2(user));
 			}
 		};
@@ -81,7 +79,6 @@ public class PageBase extends WebPage {
 			@Override
 			public void onClick() {
 				allEnable();
-				this.setEnabled(false);
 				setResponsePage(new SprintsPage(user));
 			}
 		};
@@ -91,7 +88,6 @@ public class PageBase extends WebPage {
 			@Override
 			public void onClick() {
 				allEnable();
-				this.setEnabled(false);
 				setResponsePage(new TaskPage(user));
 			}
 		};
@@ -101,7 +97,6 @@ public class PageBase extends WebPage {
 			@Override
 			public void onClick() {
 				allEnable();
-				this.setEnabled(false);
 				setResponsePage(new KanbanPage(user));
 			}
 		};
@@ -111,7 +106,6 @@ public class PageBase extends WebPage {
 			@Override
 			public void onClick() {
 				allEnable();
-				this.setEnabled(false);
 				setResponsePage(new SobrePage(user));
 			}
 		};
@@ -179,7 +173,6 @@ public class PageBase extends WebPage {
 		
 		Label lbUser = new Label("lbUser",user.getName());
 		ajLkUser.add(lbUser);
-		ajLkUser.setVisible(user.isAdmin());
 		add(ajLkUser);
 	}
 	
