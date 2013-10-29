@@ -139,8 +139,22 @@ public class PageBase extends WebPage {
 	}
 
     public void calcularTimeBox(final User user){
+    	
+    	String retorno = "";
+    	
+    	if(user.getProjectAtual() == null){
+    		retorno = retorno + "Sem Projeto Selecionado";
+    	}else{
+    		retorno = retorno + "Projeto: " + user.getProjectAtual().getName() + " - ";
+    	}
+    	
+    	if(user.getProjectAtual() != null && user.getSprint() == null){
+    		retorno = retorno + "Sem Um Sprint Selecionado";
+    	}else if(user.getProjectAtual() != null && user.getSprint() != null){
+    		retorno = retorno + "Sprint: " + user.getSprint().getName() + " - ";
+    	}
 
-        Label lbTimeBox = new Label("lbTimeBox","Sem Um Sprint Selecionado");
+        Label lbTimeBox = new Label("lbTimeBox",retorno);
 
         if(user.getSprint() != null){
             DateTime endDate = user.getSprint().getDateEnd();
@@ -149,11 +163,13 @@ public class PageBase extends WebPage {
             DateTime dateCalc = endDate.minus(now.getMillis());
 
             if(dateCalc.getDayOfMonth() > 1){
-            	lbTimeBox = new Label("lbTimeBox","Sprint: "+ user.getSprint().getName() + " - TimeBox:" + dateCalc.getDayOfMonth()+" dias restantes ");
+            	retorno = retorno + "TimeBox: " + dateCalc.getDayOfMonth() + " dias restantes";
             }else{
-            	lbTimeBox = new Label("lbTimeBox","Sprint: "+ user.getSprint().getName() + " - TimeBox:" + dateCalc.getDayOfMonth()+" dia restante ");
+            	retorno = retorno + "TimeBox: " + dateCalc.getDayOfMonth() + " dia restante";
             }
         }
+        
+        lbTimeBox = new Label("lbTimeBox",retorno);
 
         add(lbTimeBox);
     }

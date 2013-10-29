@@ -1,6 +1,6 @@
 #timebox {
-    bottom: 0%;
-    right: 1%;
+    top: 0%;
+    left: 33%;
     position:fixed;
     font-weight: bold;
     font-size: 11px;
