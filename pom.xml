@@ -184,11 +184,11 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
-<!-- 					<scanIntervalSeconds>1</scanIntervalSeconds> -->
+					<scanIntervalSeconds>1</scanIntervalSeconds>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
 							<port>7777</port>
-<!-- 							<maxIdleTime>3600000</maxIdleTime> -->
+							<maxIdleTime>3600000</maxIdleTime>
 						</connector>
 					</connectors>
 				</configuration>
