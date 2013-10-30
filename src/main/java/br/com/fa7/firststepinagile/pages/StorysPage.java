@@ -75,7 +75,7 @@ public class StorysPage extends PageBase {
 	}
 	
 	public StorysPage(final User user, Sprint sprint, int filter) {
-		super(user);
+		super(user,"tutorial2.html");
 		
 		super.lkStorys.setEnabled(false);
 		

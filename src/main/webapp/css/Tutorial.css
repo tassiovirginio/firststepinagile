@@ -1,0 +1,22 @@
+body {
+	font-family: Verdana, Arial;
+	font-size: 9pt;
+	line-height: 150%;
+	margin: 0px;
+	margin-top: 0px;
+	width: 100%;
+	height:  100%;
+	position: fixed;
+}
+
+div.text{
+	background-color: black;
+	color: white;
+	font-size: 12px;
+}
+
+.barra_rolagem2{
+	overflow-y: scroll;
+	height: 100%;
+	vertical-align: top;
+}

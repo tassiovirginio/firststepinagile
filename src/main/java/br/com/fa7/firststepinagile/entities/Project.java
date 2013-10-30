@@ -35,7 +35,7 @@ public class Project implements Serializable{
 	private DateTime dateCreation;
 	
 	@OneToMany(mappedBy = "project", targetEntity = Sprint.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private Set<Sprint> sprints;
+	private Set<Sprint> sprints = new HashSet<Sprint>();
 	
 	@OneToMany(mappedBy = "project", targetEntity = Convite.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Convite> convites = new HashSet<Convite>();

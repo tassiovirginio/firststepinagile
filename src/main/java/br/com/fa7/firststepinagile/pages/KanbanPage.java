@@ -48,7 +48,7 @@ public class KanbanPage extends PageBase {
 	private ModalWindow activityModal;
 	
 	public KanbanPage(User user) {
-		super(user);
+		super(user,"tutorial6.html");
 		
 		super.linkKanban.setEnabled(false);
 		

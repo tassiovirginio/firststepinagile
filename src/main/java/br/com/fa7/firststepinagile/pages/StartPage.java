@@ -42,7 +42,7 @@ public class StartPage extends PageBase {
 	}
 	
 	public StartPage(final User user, final Project projectEditar) {
-		super(user);
+		super(user,"tutorial1.html");
 		
 		Form<Project> form = new Form<Project>("form");
 		form.add(new TextField<String>("tfName", new PropertyModel<String>(projectEditar,"name")).setRequired(true));
@@ -69,7 +69,9 @@ public class StartPage extends PageBase {
 				Convite convite = new Convite();
 				convite.setEmail(conviteNovo.getEmail());
 				convite.setProject(projectEditar);
-				conviteBusiness.save(convite);
+				if(projectEditar.getId() != null){
+					conviteBusiness.save(convite);
+				}
 				projectEditar.getConvites().add(convite);
 				setResponsePage(new StartPage(user,projectEditar));
 			}
@@ -89,6 +91,9 @@ public class StartPage extends PageBase {
 
 				Label lbName = new Label("lbName", project.getName().trim());
 				item.add(lbName);
+				
+				Label lbSizeSprints = new Label("lbSizeSprints", project.getSprints().size()+"");
+				item.add(lbSizeSprints);
 				
 				Link lkSelect = new Link("lkSelect") {
 					@Override

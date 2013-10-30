@@ -45,7 +45,7 @@ public class SprintsPage extends PageBase {
 	}
 
 	public SprintsPage(User user, Sprint sprint) {
-		super(user);
+		super(user,"tutorial5.html");
 		
 		super.lkSprints.setEnabled(false);
 		

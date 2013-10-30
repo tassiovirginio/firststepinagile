@@ -66,7 +66,7 @@ public class TaskPage extends PageBase {
 	}
 	
 	public TaskPage(final User user, Story story, int filter) {
-		super(user);
+		super(user,"tutorial3.html");
 		
 		super.lkTasks.setEnabled(false);
 		

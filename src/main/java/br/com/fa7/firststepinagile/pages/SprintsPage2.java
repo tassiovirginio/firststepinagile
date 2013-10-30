@@ -36,7 +36,7 @@ public class SprintsPage2 extends PageBase {
 	}
 
 	public SprintsPage2(final User user, Sprint sprintEditar) {
-		super(user);
+		super(user,"tutorial4.html");
 		
 		super.lkSprints2.setEnabled(false);
 		

@@ -1,9 +1,11 @@
 package br.com.fa7.firststepinagile.pages.base;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -43,7 +45,7 @@ public class PageBase extends WebPage {
 		lkSobre.setEnabled(true);
 	}
 	
-	public PageBase(final User user) {
+	public PageBase(final User user, String tutorial) {
 		
 		createUserModal(user);
 		
@@ -135,6 +137,10 @@ public class PageBase extends WebPage {
 			lkTasks.setVisible(false);
 			linkKanban.setVisible(false);
 		}
+        
+        WebMarkupContainer tutorialIframe = new WebMarkupContainer("tutorial");
+        tutorialIframe.add(new AttributeModifier("src", "../tutorial/"+tutorial));
+		add(tutorialIframe);
 
 	}
 	
