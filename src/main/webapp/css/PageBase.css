@@ -17,6 +17,12 @@ span.menu{
 	border-bottom-left-radius: 0px;
 }
 
+div.text{
+	background-color: black;
+	color: white;
+	font-size: 12px;
+}
+
 div.w_caption{
 	background-color: black !important;
 	color: #FFFFFF !important;
@@ -59,6 +65,7 @@ span.feedbackPanelINFO{
 	width: 15%;
 	height: 95%;
 	top: 40px;
+	border-color: black;
 }
 
 #div_login{
