@@ -58,7 +58,7 @@ public class SprintsPage2 extends PageBase {
 		
 		add(form);
 		
-		List<Sprint> listSprints = sprintBusiness.allOrderById();
+		List<Sprint> listSprints = sprintBusiness.all(user.getProjectAtual());
 		
 		ListView<Sprint> listViewSprint = new ListView<Sprint>("listViewSprint", listSprints) {
 			@Override
