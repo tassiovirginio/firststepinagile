@@ -51,6 +51,7 @@ public class SprintsPage2 extends PageBase {
 		form.add(new Button("btSalvar") {
 			@Override
 			public void onSubmit() {
+				sprintLocal.setProject(user.getProjectAtual());
 				sprintBusiness.save(sprintLocal);
 				setResponsePage(new SprintsPage2(user));
 			}
