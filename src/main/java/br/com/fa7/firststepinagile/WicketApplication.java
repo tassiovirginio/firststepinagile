@@ -136,7 +136,7 @@ public class WicketApplication extends WebApplication{
 		story1.setCreator(userAdmin);
 		story1.setDescription("Teste Story.........");
 		story1.setSprint(sprint1);
-		story1.setColor("00FF00");
+		story1.setColor("c2ceff");
 		story1.setProject(project1);
 		storyBusiness.save(story1);
 		
@@ -145,7 +145,7 @@ public class WicketApplication extends WebApplication{
 		story2.setCreator(userAdmin);
 		story2.setDescription("Teste Story.........");
 		story2.setSprint(sprint2);
-		story2.setColor("0000FF");
+		story2.setColor("c2ceff");
 		story2.setProject(project2);
 		storyBusiness.save(story2);
 		
@@ -154,7 +154,8 @@ public class WicketApplication extends WebApplication{
 		story3.setCreator(userAdmin);
 		story3.setDescription("Teste Story.... asdas asda  asda sda .....");
 		story3.setSprint(sprint1);
-		story3.setColor("FF0000");
+		story3.setColor("c2ceff");
+		story3.setProject(project1);
 		storyBusiness.save(story3);
 		
 		Activity activity01 = new Activity();

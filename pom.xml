@@ -4,7 +4,7 @@
 	<groupId>br.com.fa7.firststepinagile</groupId>
 	<artifactId>FirstStepInAgile</artifactId>
 	<packaging>war</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 
 	<name>First Step In Agile</name>
 	<description>First Step In Agile</description>
