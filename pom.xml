@@ -82,9 +82,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>8.4-701.jdbc4</version>
+			<version>9.2-1003-jdbc4</version>
 		</dependency>
 
 		<!-- JODA TIME -->
