@@ -1,18 +1,39 @@
 First Step In Agile
 
-DEMO: http://firststepinagile.herokuapp.com/
+versão: 1.0 beta
 
-pre-requisitos: Java, Maven e Git.
+First Step In Agile é uma ferramenta simples de gerenciamento de projetos 
+utilizando de alguns conceitos de metodologias ágeis. Entre elas Scrum, XP
+e Kanban. O First Step também é um tutorial, que vai guiar os usuário no
+mundo das metodologias ágeis.
 
-para rodar a aplicação:
+Vamos explicar de um modo geral cada passo que você deve seguir.
+após fazer o login você irá visualizar um menu no centro superior da página,
+cada numero é o passo que deve ser seguido, e dentro de cada página 
+se tem mais informações sobre o que esta acontecendo.
 
-git clone git@github.com:tassiovirginio/firststepinagile.git
+Vamos a uma listagem rápida:
+1 - Projetos -> Página responsavel em gerenciar os projetos.<br><br>
+2 - Backlog -> Essa página se destina a elaboração das histórias do backlog<br><br>
+3 - Atividades -> Nessa página podemos gerar as atividades das histórias do backlog.<br><br>
+4 - Sprints -> Nessa pagina se faz a criação e seleção do Sprint.<br><br>
+5 - Sprints Backlog -> Nessa pagina se faz a seleção das histórias para o sprint selecionado.<br><br>
+6 - Kanban -> E finalmente quando já estivermos com todas as nossas histórias com suas atividades poderemos iniciar os trabalhos e ver o progresso através do quadro ágil.<br><br>
+  
+Seja bem vindo ao First Step In Agile e bom aprendizado.
 
-cd firststepinagile
+DEMO: 
+ - http://firststepinagile.herokuapp.com/
 
-mvn jetty:run
+Pre-requisitos: 
+ - Java, Maven e Git.
 
-acesse: 127.0.0.1:9999
 
-login: admin
-senha: admin
+INSTALAÇÃO:
+ - git clone git@github.com:tassiovirginio/firststepinagile.git
+ - cd firststepinagile
+ - mvn jetty:run
+ - acesse: 127.0.0.1:9999
+
+ - login: admin
+ - senha: admin
