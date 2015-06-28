@@ -11,6 +11,7 @@ import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 //import org.apache.wicket.behavior.SimpleAttributeModifier;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -192,7 +193,7 @@ public class StorysPage extends PageBase {
                 Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
 
                 WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
-//				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+                webContainer.add(new AttributeAppender("style", "background-color: #" +story.getColor()));
                 item.add(webContainer);
 
                 webContainer.add(lbName);

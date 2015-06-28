@@ -51,7 +51,8 @@ public class StoryModalPage extends WebPage {
 		TextArea tfDescription = new TextArea<String>("tfDescription", new PropertyModel<String>(this.story, "description"));
 		form.add(tfDescription);
 		form.add(new TextField("tfValue", new PropertyModel(this.story,"value")));
-		
+
+        form.add(new TextField("colorpicker", new PropertyModel(this.story,"color")));
 //		form.add(new ColorPickerTextField<String>("colorpicker", new PropertyModel<String>(this.story,"color")));
 	
 		

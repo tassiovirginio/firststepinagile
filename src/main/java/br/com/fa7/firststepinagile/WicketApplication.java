@@ -1,5 +1,6 @@
 package br.com.fa7.firststepinagile;
 
+import br.com.fa7.firststepinagile.pages.*;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.joda.time.DateTime;
@@ -18,7 +19,6 @@ import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
-import br.com.fa7.firststepinagile.pages.LoginPage;
 
 import java.util.Date;
 
@@ -66,6 +66,16 @@ public class WicketApplication extends WebApplication{
         getApplicationSettings().setInternalErrorPage(LoginPage.class);
 
         getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
+
+        //URL Amigaveis
+        mountPage("/projetos/", StartPage.class);
+        mountPage("/backlog/", StorysPage.class);
+        mountPage("/atividades/", TaskPage.class);
+        mountPage("/backlog_sprint/", SprintsPage.class);
+        mountPage("/sprints/", SprintsPage2.class);
+        mountPage("/kanban/", KanbanPage.class);
+
+        mountPage("/login", LoginPage.class);
 		
 //		criarDadosTeste();
 		
