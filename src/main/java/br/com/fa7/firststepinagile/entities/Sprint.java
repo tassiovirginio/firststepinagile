@@ -12,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
 @Entity
 public class Sprint implements Serializable{
 	
@@ -40,14 +37,11 @@ public class Sprint implements Serializable{
 	@ManyToOne
 	private Project project;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateCreation;
+	private Date dateCreation;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateStart;
+	private Date dateStart;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateEnd;
+	private Date dateEnd;
 	
 	@OneToMany(mappedBy = "sprint", targetEntity = Story.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Story> storys;
@@ -92,51 +86,51 @@ public class Sprint implements Serializable{
 		this.creator = creator;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
-	public DateTime getDateStart() {
+	public Date getDateStart() {
 		return dateStart;
 	}
 	
-	public void setDateStart(DateTime dateStart) {
+	public void setDateStart(Date dateStart) {
 		this.dateStart = dateStart;
 	}
 	
 	public Date getDateStart2() {
 		if(dateStart != null){
-			return dateStart.toDate();
+			return dateStart;
 		}else{
 			return null;	
 		}
 	}
 	
 	public void setDateStart2(Date dateStart) {
-		this.dateStart = new DateTime(dateStart);
+		this.dateStart = new Date();
 	}
 
-	public DateTime getDateEnd() {
+	public Date getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(DateTime dateEnd) {
+	public void setDateEnd(Date dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 	
 	public Date getDateEnd2() {
 		if(dateEnd != null){
-			return dateEnd.toDate();
+			return dateEnd;
 		}
 		return null;
 	}
 
 	public void setDateEnd2(Date dateEnd) {
-		this.dateEnd = new DateTime(dateEnd);
+		this.dateEnd = new Date();
 	}
 	
 	public Project getProject() {

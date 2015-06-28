@@ -2,6 +2,7 @@ package br.com.fa7.firststepinagile.business;
 
 import static org.hibernate.criterion.Order.desc;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
@@ -32,7 +33,7 @@ public class SprintBusiness {
 	
 	public void save(Sprint sprint){
 		if(sprint.getId() == null){
-			sprint.setDateCreation(new DateTime());
+			sprint.setDateCreation(new Date());
 		}
 		sprintDAO.save(sprint);
 	}

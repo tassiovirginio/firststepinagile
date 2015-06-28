@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.behavior.SimpleAttributeModifier;
+//import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -23,6 +23,7 @@ import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
+import org.joda.time.DateTime;
 
 @SuppressWarnings({ "serial", "deprecation","rawtypes"})
 public class SprintsPage extends PageBase {
@@ -117,11 +118,11 @@ public class SprintsPage extends PageBase {
 				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
-				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
+				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
 				
 				
 				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
-				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+//				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
 				item.add(webContainer);
 				
 				
@@ -200,10 +201,10 @@ public class SprintsPage extends PageBase {
 				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
 				lbDescription.setEscapeModelStrings(false);
 				Label lbId = new Label("lbId", story.getId().toString());
-				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
+				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
 				
 				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
-				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+//				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
 				item.add(webContainer);
 				
 				webContainer.add(lbName);

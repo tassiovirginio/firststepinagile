@@ -1,6 +1,7 @@
 package br.com.fa7.firststepinagile.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,9 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 @Entity
 public class Project implements Serializable{
@@ -31,8 +29,7 @@ public class Project implements Serializable{
 	@ManyToOne
 	private User creator;
 	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateCreation;
+	private Date dateCreation;
 	
 	@OneToMany(mappedBy = "project", targetEntity = Sprint.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Sprint> sprints = new HashSet<Sprint>();
@@ -72,11 +69,11 @@ public class Project implements Serializable{
 		this.creator = creator;
 	}
 
-	public DateTime getDateCreation() {
+	public Date getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

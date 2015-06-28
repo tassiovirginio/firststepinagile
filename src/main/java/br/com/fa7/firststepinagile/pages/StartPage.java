@@ -1,6 +1,7 @@
 package br.com.fa7.firststepinagile.pages;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
@@ -13,7 +14,6 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.joda.time.DateTime;
 
 import br.com.fa7.firststepinagile.business.ConviteBusiness;
 import br.com.fa7.firststepinagile.business.ProjectBusiness;
@@ -53,7 +53,7 @@ public class StartPage extends PageBase {
 			public void onSubmit() {
 				System.out.println(projectEditar.getName());
 				projectEditar.setCreator(user);
-				projectEditar.setDateCreation(new DateTime());
+				projectEditar.setDateCreation(new Date());
 				projectBusiness.save(projectEditar);
 				setResponsePage(new StartPage(user));
 			}

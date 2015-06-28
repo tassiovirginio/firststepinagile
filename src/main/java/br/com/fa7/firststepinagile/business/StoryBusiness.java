@@ -4,6 +4,7 @@ import static org.hibernate.criterion.Order.asc;
 import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.isNull;
 
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -30,7 +31,7 @@ public class StoryBusiness {
 	public void save(Story story){
 		if(story.getId() == null){
 			story.setPriority(nextStoryPriority(story.getProject()));
-			story.setDateCreation(new DateTime());
+			story.setDateCreation(new Date());
 		}
 		storyDAO.save(story);
 	}

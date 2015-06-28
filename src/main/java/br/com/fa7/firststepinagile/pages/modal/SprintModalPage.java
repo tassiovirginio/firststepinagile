@@ -48,9 +48,9 @@ public class SprintModalPage extends WebPage {
 		
 		if(sprintSelected != null){
 			if(sprintSelected.getDateStart()!=null)
-			dateStart = sprintSelected.getDateStart().toDate();
+			dateStart = sprintSelected.getDateStart();
 			if(sprintSelected.getDateEnd()!=null)
-			dateEnd = sprintSelected.getDateEnd().toDate();
+			dateEnd = sprintSelected.getDateEnd();
 		}else{
 			sprintSelected = new Sprint();
 		}
@@ -66,8 +66,8 @@ public class SprintModalPage extends WebPage {
 		form.add(new Button("btSalvar") {
 			@Override
 			public void onSubmit() {
-				sprintLocal.setDateStart(new DateTime(dateStart.getTime()));
-				sprintLocal.setDateEnd(new DateTime(dateEnd.getTime()));
+				sprintLocal.setDateStart(dateStart);
+				sprintLocal.setDateEnd(dateEnd);
 				sprintBusiness.save(sprintLocal);
 				setResponsePage(new SprintModalPage(pageRefOrigem, window, user, sprintLocal));
 			}

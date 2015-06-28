@@ -22,6 +22,8 @@ import br.com.fa7.firststepinagile.pages.StorysPage;
 import br.com.fa7.firststepinagile.pages.TaskPage;
 import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
 
+import java.util.Date;
+
 @SuppressWarnings({ "serial","rawtypes"})
 public class PageBase extends WebPage {
 	
@@ -167,7 +169,8 @@ public class PageBase extends WebPage {
         Label lbTimeBox = new Label("lbTimeBox",retorno);
 
         if(user.getSprint() != null){
-            DateTime endDate = user.getSprint().getDateEnd();
+            Date endDate2 = user.getSprint().getDateEnd();
+            DateTime endDate = new DateTime(endDate2);
             DateTime now = new DateTime();
 
             DateTime dateCalc = endDate.minus(now.getMillis());

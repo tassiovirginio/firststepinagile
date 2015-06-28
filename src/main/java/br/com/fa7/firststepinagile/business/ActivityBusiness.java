@@ -1,5 +1,6 @@
 package br.com.fa7.firststepinagile.business;
 
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -29,7 +30,7 @@ public class ActivityBusiness {
 	public void save(Activity activity){
 		if(activity.getId() == null){
 			activity.setPriority(nextActivityPriority());
-			activity.setDateCreation(new DateTime());
+			activity.setDateCreation(new Date());
 		}
 		activityDAO.save(activity);
 	}

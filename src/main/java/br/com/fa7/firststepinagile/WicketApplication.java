@@ -20,8 +20,10 @@ import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.LoginPage;
 
-import com.google.code.jqwicket.JQComponentOnBeforeRenderListener;
-import com.google.code.jqwicket.JQContributionConfig;
+import java.util.Date;
+
+//import com.google.code.jqwicket.JQComponentOnBeforeRenderListener;
+//import com.google.code.jqwicket.JQContributionConfig;
 
 @Component
 public class WicketApplication extends WebApplication{
@@ -55,8 +57,8 @@ public class WicketApplication extends WebApplication{
 		getRequestCycleSettings().setResponseRequestEncoding("UTF-8"); 
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
 		
-		JQContributionConfig config = new JQContributionConfig().withDefaultJQueryUi(); 
-		getComponentPreOnBeforeRenderListeners().add(new JQComponentOnBeforeRenderListener(config));
+//		JQContributionConfig config = new JQContributionConfig().withDefaultJQueryUi();
+//		getComponentPreOnBeforeRenderListeners().add(new JQComponentOnBeforeRenderListener(config));
 		
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getDebugSettings().setAjaxDebugModeEnabled(false);
@@ -65,7 +67,7 @@ public class WicketApplication extends WebApplication{
 
         getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
 		
-		criarDadosTeste();
+//		criarDadosTeste();
 		
 		// add your configuration here
 	}
@@ -87,14 +89,14 @@ public class WicketApplication extends WebApplication{
 		Project project1 = new Project();
 		project1.setName("Projeto 1");
 		project1.setDescription("Projeto 1");
-		project1.setDateCreation(new DateTime());
+		project1.setDateCreation(new Date());
 		project1.setCreator(userAdmin);
 		projectBusiness.save(project1);
 		
 		Project project2 = new Project();
 		project2.setName("Projeto 2");
 		project2.setDescription("Projeto 2");
-		project2.setDateCreation(new DateTime());
+		project2.setDateCreation(new Date());
 		project2.setCreator(userAdmin);
 		projectBusiness.save(project2);
 		
@@ -113,9 +115,9 @@ public class WicketApplication extends WebApplication{
 		
 		Sprint sprint1 = new Sprint();
 		sprint1.setCreator(userAdmin);
-		sprint1.setDateCreation(new DateTime());
-		sprint1.setDateStart(new DateTime());
-		sprint1.setDateEnd(new DateTime().plusDays(10));
+		sprint1.setDateCreation(new Date());
+		sprint1.setDateStart(new Date());
+		sprint1.setDateEnd(new Date());
 		sprint1.setDescription("Teste...");
 		sprint1.setName("Sprint Test01");
 		sprint1.setProject(project1);
@@ -123,9 +125,9 @@ public class WicketApplication extends WebApplication{
 		
 		Sprint sprint2 = new Sprint();
 		sprint2.setCreator(userAdmin);
-		sprint2.setDateCreation(new DateTime());
-		sprint2.setDateStart(new DateTime());
-		sprint2.setDateEnd(new DateTime().plusDays(10));
+		sprint2.setDateCreation(new Date());
+		sprint2.setDateStart(new Date());
+		sprint2.setDateEnd(new Date());
 		sprint2.setDescription("Teste...");
 		sprint2.setName("Sprint Test02");
 		sprint1.setProject(project2);

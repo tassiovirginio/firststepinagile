@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.behavior.SimpleAttributeModifier;
+//import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -25,6 +25,7 @@ import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
 import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
+import org.joda.time.DateTime;
 
 @SuppressWarnings({ "serial", "deprecation","rawtypes"})
 public class KanbanPage extends PageBase {
@@ -93,13 +94,13 @@ public class KanbanPage extends PageBase {
 				final Story story = (Story)item.getModelObject();
 				
 				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
-				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+//				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
 				item.add(webContainer);
 				
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbName = new Label("lbName", story.getName());
 //				Label lbDescription = new Label("lbDescription", story.getDescription());
-				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("HH:mm dd/MM/yyyy"));
+				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("HH:mm dd/MM/yyyy"));
 				
 				webContainer.add(lbId);
 				webContainer.add(lbName);
@@ -158,7 +159,7 @@ public class KanbanPage extends PageBase {
 				Label lbId = new Label("lbId", activity.getId().toString());
 				Label lbName = new Label("lbName", activity.getName());
 //				Label lbDescription = new Label("lbDescription", activity.getDescription());
-				Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("HH:mm dd/MM/yyyy"));
+				Label lbDateCreate = new Label("lbDateCreate", new DateTime(activity.getDateCreation()).toString("HH:mm dd/MM/yyyy"));
 				
 				item.add(lbId);
 				item.add(lbName);

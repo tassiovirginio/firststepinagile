@@ -17,7 +17,9 @@ import br.com.fa7.firststepinagile.business.StoryBusiness;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 
-import com.google.code.jqwicket.ui.colorpicker.ColorPickerTextField;
+import java.util.Date;
+
+//import com.google.code.jqwicket.ui.colorpicker.ColorPickerTextField;
 
 @SuppressWarnings({ "serial","rawtypes", "unchecked"})
 public class StoryModalPage extends WebPage {
@@ -33,11 +35,11 @@ public class StoryModalPage extends WebPage {
 		
 		if (story == null) {
 			this.story = new Story();
-			this.story.setDateCreation(new DateTime());
+			this.story.setDateCreation(new Date());
 			add(new Label("story.id", "Novo"));
 		} else if (story.getId() == null) {
 			this.story = story;
-			this.story.setDateCreation(new DateTime());
+			this.story.setDateCreation(new Date());
 			add(new Label("story.id", "Novo"));
 		} else {
 			this.story = story;
@@ -50,7 +52,7 @@ public class StoryModalPage extends WebPage {
 		form.add(tfDescription);
 		form.add(new TextField("tfValue", new PropertyModel(this.story,"value")));
 		
-		form.add(new ColorPickerTextField<String>("colorpicker", new PropertyModel<String>(this.story,"color"))); 
+//		form.add(new ColorPickerTextField<String>("colorpicker", new PropertyModel<String>(this.story,"color")));
 	
 		
 		form.add(new AjaxButton("ajax-button", form){
