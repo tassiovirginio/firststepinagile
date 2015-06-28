@@ -3,6 +3,8 @@ package br.com.fa7.firststepinagile.pages;
 import java.util.Date;
 import java.util.List;
 
+import br.com.fa7.firststepinagile.entities.Story;
+import br.com.fa7.firststepinagile.pages.provider.StoryProvider;
 import org.apache.wicket.extensions.yui.calendar.DateField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -12,6 +14,8 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -60,7 +64,8 @@ public class SprintsPage2 extends PageBase {
 		add(form);
 		
 		List<Sprint> listSprints = sprintBusiness.all(user.getProjectAtual());
-		
+
+
 		ListView<Sprint> listViewSprint = new ListView<Sprint>("listViewSprint", listSprints) {
 			@Override
 			protected void populateItem(ListItem<Sprint> item) {

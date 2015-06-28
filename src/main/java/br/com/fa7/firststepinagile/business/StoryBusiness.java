@@ -7,6 +7,7 @@ import static org.hibernate.criterion.Restrictions.isNull;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.criterion.Order;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -96,5 +97,13 @@ public class StoryBusiness {
 			save(story2);
 		}
 	}
+
+    public List<Story> find(Long first, Long count){
+        return storyDAO.findByCriteria(Order.asc("id"),first.intValue(),count.intValue());
+    }
+
+    public Story findById(Long id){
+        return storyDAO.findById(id);
+    }
 
 }

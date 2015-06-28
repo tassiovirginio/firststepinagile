@@ -3,6 +3,7 @@ package br.com.fa7.firststepinagile.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fa7.firststepinagile.pages.provider.StoryProvider;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -13,6 +14,9 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.fa7.firststepinagile.business.SprintBusiness;
@@ -108,71 +112,141 @@ public class SprintsPage extends PageBase {
 	
 	private void createPanelBacklog(final User user, final Sprint sprint) {
 		List<Story> listAllStory = storyBusiness.allOrderByAscPrioridade(user.getProjectAtual());
-		
-		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
-			@Override
-			protected void populateItem(ListItem<Story> item) {
-				final Story story = (Story)item.getModelObject();
-				Label lbName = new Label("lbName", story.getName());
-				Label lbDescription = new Label("lbDescription", story.getDescription());
-				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
-				lbDescription.setEscapeModelStrings(false);
-				Label lbId = new Label("lbId", story.getId().toString());
-				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
-				
-				
-				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
+
+        DataView<Story> dataView = new DataView<Story>("lvStory", new StoryProvider(storyBusiness, listAllStory,true)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(final Item<Story> item) {
+                final Story story = item.getModelObject();
+
+                Label lbName = new Label("lbName", story.getName());
+                Label lbDescription = new Label("lbDescription", story.getDescription());
+                Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
+                lbDescription.setEscapeModelStrings(false);
+                Label lbId = new Label("lbId", story.getId().toString());
+                Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
+
+
+                WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
 //				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
-				item.add(webContainer);
-				
-				
-				webContainer.add(lbName);
-				webContainer.add(lbDescription);
-				webContainer.add(lbActivitysSize);
-				webContainer.add(lbId);
-				webContainer.add(lbDateCreate);
-				
-				Link lkStorys = new Link("lkDelete") {
-					@Override
-					public void onClick() {
-						storyBusiness.delete(story);
-						setResponsePage(new SprintsPage(user));
-					}
-				};
-				webContainer.add(lkStorys);
-				
-				
-				webContainer.add(new AjaxLink<Void>("lkEdit") {
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						storyModal.setPageCreator(new ModalWindow.PageCreator() {
-							public Page createPage() {
-								return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
-							}
-						});
-						storyModal.show(target);
-					}
-				});
-				
-				AjaxLink lkRight = new AjaxLink("lkRight") {
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						if(sprint != null){
-							sprintBusiness.addStoryInSprint(story,sprint);
-							setResponsePage(new SprintsPage(user,sprint));
-						}else{
+                item.add(webContainer);
+
+
+                webContainer.add(lbName);
+                webContainer.add(lbDescription);
+                webContainer.add(lbActivitysSize);
+                webContainer.add(lbId);
+                webContainer.add(lbDateCreate);
+
+                Link lkStorys = new Link("lkDelete") {
+                    @Override
+                    public void onClick() {
+                        storyBusiness.delete(story);
+                        setResponsePage(new SprintsPage(user));
+                    }
+                };
+                webContainer.add(lkStorys);
+
+
+                webContainer.add(new AjaxLink<Void>("lkEdit") {
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        storyModal.setPageCreator(new ModalWindow.PageCreator() {
+                            public Page createPage() {
+                                return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
+                            }
+                        });
+                        storyModal.show(target);
+                    }
+                });
+
+                AjaxLink lkRight = new AjaxLink("lkRight") {
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        if(sprint != null){
+                            sprintBusiness.addStoryInSprint(story,sprint);
+                            setResponsePage(new SprintsPage(user,sprint));
+                        }else{
 //							notifier.create(target,"Selecione um Sprint","");
-						}
-					}
-				};
-				
-				lkRight.setEnabled(user.getSprint() != null);
-				
-				webContainer.add(lkRight);
-				
-			}
-		};
-		add(listViewStoryBacklog);
+                        }
+                    }
+                };
+
+                lkRight.setEnabled(user.getSprint() != null);
+
+                webContainer.add(lkRight);
+            }
+        };
+
+        dataView.setItemsPerPage(6L);
+        add(dataView);
+        add(new PagingNavigator("navigator2", dataView));
+		
+//		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
+//			@Override
+//			protected void populateItem(ListItem<Story> item) {
+//				final Story story = (Story)item.getModelObject();
+//				Label lbName = new Label("lbName", story.getName());
+//				Label lbDescription = new Label("lbDescription", story.getDescription());
+//				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
+//				lbDescription.setEscapeModelStrings(false);
+//				Label lbId = new Label("lbId", story.getId().toString());
+//				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
+//
+//
+//				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
+////				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+//				item.add(webContainer);
+//
+//
+//				webContainer.add(lbName);
+//				webContainer.add(lbDescription);
+//				webContainer.add(lbActivitysSize);
+//				webContainer.add(lbId);
+//				webContainer.add(lbDateCreate);
+//
+//				Link lkStorys = new Link("lkDelete") {
+//					@Override
+//					public void onClick() {
+//						storyBusiness.delete(story);
+//						setResponsePage(new SprintsPage(user));
+//					}
+//				};
+//				webContainer.add(lkStorys);
+//
+//
+//				webContainer.add(new AjaxLink<Void>("lkEdit") {
+//					@Override
+//					public void onClick(AjaxRequestTarget target) {
+//						storyModal.setPageCreator(new ModalWindow.PageCreator() {
+//							public Page createPage() {
+//								return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
+//							}
+//						});
+//						storyModal.show(target);
+//					}
+//				});
+//
+//				AjaxLink lkRight = new AjaxLink("lkRight") {
+//					@Override
+//					public void onClick(AjaxRequestTarget target) {
+//						if(sprint != null){
+//							sprintBusiness.addStoryInSprint(story,sprint);
+//							setResponsePage(new SprintsPage(user,sprint));
+//						}else{
+////							notifier.create(target,"Selecione um Sprint","");
+//						}
+//					}
+//				};
+//
+//				lkRight.setEnabled(user.getSprint() != null);
+//
+//				webContainer.add(lkRight);
+//
+//			}
+//		};
+//		add(listViewStoryBacklog);
 	}
 	
 	
@@ -191,62 +265,123 @@ public class SprintsPage extends PageBase {
 			sprintName = new Label("sprintName", "Não Selecionado");
 		}
 		add(sprintName);
-		
-		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStorySprint", listAllStory) {
-			@Override
-			protected void populateItem(ListItem<Story> item) {
-				final Story story = (Story)item.getModelObject();
-				Label lbName = new Label("lbName", story.getName());
-				Label lbDescription = new Label("lbDescription", story.getDescription());
-				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
-				lbDescription.setEscapeModelStrings(false);
-				Label lbId = new Label("lbId", story.getId().toString());
-				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
-				
-				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
+
+        DataView<Story> dataView = new DataView<Story>("lvStorySprint", new StoryProvider(storyBusiness, listAllStory,true)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(final Item<Story> item) {
+                final Story story = item.getModelObject();
+
+                Label lbName = new Label("lbName", story.getName());
+                Label lbDescription = new Label("lbDescription", story.getDescription());
+                Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
+                lbDescription.setEscapeModelStrings(false);
+                Label lbId = new Label("lbId", story.getId().toString());
+                Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
+
+                WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
 //				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
-				item.add(webContainer);
-				
-				webContainer.add(lbName);
-				webContainer.add(lbDescription);
-				webContainer.add(lbActivitysSize);
-				webContainer.add(lbId);
-				webContainer.add(lbDateCreate);
-				
-				Link lkStorys = new Link("lkDelete") {
-					@Override
-					public void onClick() {
-						sprintBusiness.delete(sprint);
-						setResponsePage(new SprintsPage(user,sprint));
-					}
-				};
-				webContainer.add(lkStorys);
-				
-				
-				webContainer.add(new AjaxLink<Void>("lkEdit") {
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						storyModal.setPageCreator(new ModalWindow.PageCreator() {
-							public Page createPage() {
-								return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
-							}
-						});
-						storyModal.show(target);
-					}
-				});
-				
-				webContainer.add(new Link("lkRight") {
-					@Override
-					public void onClick() {
-						story.setSprint(null);
-						sprintBusiness.removeStoryInSprint(story,sprint);
-						setResponsePage(new SprintsPage(user,sprint));
-					}
-				});
-				
-			}
-		};
-		add(listViewStoryBacklog);
+                item.add(webContainer);
+
+                webContainer.add(lbName);
+                webContainer.add(lbDescription);
+                webContainer.add(lbActivitysSize);
+                webContainer.add(lbId);
+                webContainer.add(lbDateCreate);
+
+                Link lkStorys = new Link("lkDelete") {
+                    @Override
+                    public void onClick() {
+                        sprintBusiness.delete(sprint);
+                        setResponsePage(new SprintsPage(user,sprint));
+                    }
+                };
+                webContainer.add(lkStorys);
+
+
+                webContainer.add(new AjaxLink<Void>("lkEdit") {
+                    @Override
+                    public void onClick(AjaxRequestTarget target) {
+                        storyModal.setPageCreator(new ModalWindow.PageCreator() {
+                            public Page createPage() {
+                                return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
+                            }
+                        });
+                        storyModal.show(target);
+                    }
+                });
+
+                webContainer.add(new Link("lkRight") {
+                    @Override
+                    public void onClick() {
+                        story.setSprint(null);
+                        sprintBusiness.removeStoryInSprint(story,sprint);
+                        setResponsePage(new SprintsPage(user,sprint));
+                    }
+                });
+            }
+        };
+
+        dataView.setItemsPerPage(6L);
+        add(dataView);
+        add(new PagingNavigator("navigator", dataView));
+		
+//		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStorySprint", listAllStory) {
+//			@Override
+//			protected void populateItem(ListItem<Story> item) {
+//				final Story story = (Story)item.getModelObject();
+//				Label lbName = new Label("lbName", story.getName());
+//				Label lbDescription = new Label("lbDescription", story.getDescription());
+//				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
+//				lbDescription.setEscapeModelStrings(false);
+//				Label lbId = new Label("lbId", story.getId().toString());
+//				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
+//
+//				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
+////				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+//				item.add(webContainer);
+//
+//				webContainer.add(lbName);
+//				webContainer.add(lbDescription);
+//				webContainer.add(lbActivitysSize);
+//				webContainer.add(lbId);
+//				webContainer.add(lbDateCreate);
+//
+//				Link lkStorys = new Link("lkDelete") {
+//					@Override
+//					public void onClick() {
+//						sprintBusiness.delete(sprint);
+//						setResponsePage(new SprintsPage(user,sprint));
+//					}
+//				};
+//				webContainer.add(lkStorys);
+//
+//
+//				webContainer.add(new AjaxLink<Void>("lkEdit") {
+//					@Override
+//					public void onClick(AjaxRequestTarget target) {
+//						storyModal.setPageCreator(new ModalWindow.PageCreator() {
+//							public Page createPage() {
+//								return new StoryModalPage(SprintsPage.this.getPageReference(), storyModal, user, story);
+//							}
+//						});
+//						storyModal.show(target);
+//					}
+//				});
+//
+//				webContainer.add(new Link("lkRight") {
+//					@Override
+//					public void onClick() {
+//						story.setSprint(null);
+//						sprintBusiness.removeStoryInSprint(story,sprint);
+//						setResponsePage(new SprintsPage(user,sprint));
+//					}
+//				});
+//
+//			}
+//		};
+//		add(listViewStoryBacklog);
 	}
 
 }

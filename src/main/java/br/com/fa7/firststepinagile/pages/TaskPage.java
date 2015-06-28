@@ -2,6 +2,7 @@ package br.com.fa7.firststepinagile.pages;
 
 import java.util.List;
 
+import br.com.fa7.firststepinagile.pages.provider.StoryProvider;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxEventBehavior;
@@ -16,6 +17,9 @@ import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -191,11 +195,14 @@ public class TaskPage extends PageBase {
 		}else if(filter == 3){
 			listAllStory = storyBusiness.getStoryBySprint(user.getSprint(),user.getProjectAtual());
 		}
-		
-		ListView<Story> listViewStoryBacklog = new ListView<Story>("lvStory", listAllStory) {
-			@Override
-			protected void populateItem(ListItem<Story> item) {
-				final Story story = (Story)item.getModelObject();
+
+        DataView<Story> dataView = new DataView<Story>("lvStory", new StoryProvider(storyBusiness, listAllStory,true)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(final Item<Story> item) {
+                final Story story = item.getModelObject();
+
 				Label lbName = new Label("lbName", story.getName());
 //				Label lbDescription = new Label("lbDescription", story.getDescription());
 				Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
@@ -261,7 +268,9 @@ public class TaskPage extends PageBase {
 				});
 			}
 		};
-		add(listViewStoryBacklog);
+        dataView.setItemsPerPage(6L);
+        add(dataView);
+        add(new PagingNavigator("navigator", dataView));
 	}
 	
 	
