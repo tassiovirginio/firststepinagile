@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.com.fa7.firststepinagile.pages.provider.ProjectProvider;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -12,6 +13,9 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -83,52 +87,103 @@ public class StartPage extends PageBase {
 		add(ListViewConvite);
 		
 		List<Project> projetosUser = new ArrayList<Project>(projectBusiness.listAllByUser(user));
-		
-		ListView<Project> listViewProjectUsers = new ListView<Project>("listViewProjectUsers", projetosUser) {
-			@Override
-			protected void populateItem(ListItem<Project> item) {
-				final Project project = item.getModelObject();
 
-				Label lbName = new Label("lbName", project.getName().trim());
-				item.add(lbName);
-				
-				Label lbSizeSprints = new Label("lbSizeSprints", project.getSprints().size()+"");
-				item.add(lbSizeSprints);
-				
-				Link lkSelect = new Link("lkSelect") {
-					@Override
-					public void onClick() {
-						user.setProjectAtual(project);
-						userBusiness.save(user);
-						setResponsePage(new StartPage(user));
-					}
-				};
-					
-				if(user.getProjectAtual() != null && user.getProjectAtual().equals(project)){
-					lkSelect.setEnabled(false);
-				}else{
-					lkSelect.setEnabled(true);
-				}
-				
-				item.add(lkSelect);
-				
-				item.add(new Link("lkEditor") {
-					@Override
-					public void onClick() {
-						setResponsePage(new StartPage(user,project));
-					}
-				});
-				
-				item.add(new Link("lkDelete") {
-					@Override
-					public void onClick() {
-						projectBusiness.delete(project);
-						setResponsePage(new StartPage(user));
-					}
-				});
-			}
-		};
-		add(listViewProjectUsers);
+        DataView<Project> dataView = new DataView<Project>("listViewProjectUsers", new ProjectProvider(projectBusiness, projetosUser,true)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(final Item<Project> item) {
+                final Project project = item.getModelObject();
+
+                Label lbName = new Label("lbName", project.getName().trim());
+                item.add(lbName);
+
+                Label lbSizeSprints = new Label("lbSizeSprints", project.getSprints().size()+"");
+                item.add(lbSizeSprints);
+
+                Link lkSelect = new Link("lkSelect") {
+                    @Override
+                    public void onClick() {
+                        user.setProjectAtual(project);
+                        userBusiness.save(user);
+                        setResponsePage(new StartPage(user));
+                    }
+                };
+
+                if(user.getProjectAtual() != null && user.getProjectAtual().equals(project)){
+                    lkSelect.setEnabled(false);
+                }else{
+                    lkSelect.setEnabled(true);
+                }
+
+                item.add(lkSelect);
+
+                item.add(new Link("lkEditor") {
+                    @Override
+                    public void onClick() {
+                        setResponsePage(new StartPage(user,project));
+                    }
+                });
+
+                item.add(new Link("lkDelete") {
+                    @Override
+                    public void onClick() {
+                        projectBusiness.delete(project);
+                        setResponsePage(new StartPage(user));
+                    }
+                });
+            }
+        };
+
+        dataView.setItemsPerPage(6L);
+        add(dataView);
+        add(new PagingNavigator("navigator", dataView));
+		
+//		ListView<Project> listViewProjectUsers = new ListView<Project>("listViewProjectUsers", projetosUser) {
+//			@Override
+//			protected void populateItem(ListItem<Project> item) {
+//				final Project project = item.getModelObject();
+//
+//				Label lbName = new Label("lbName", project.getName().trim());
+//				item.add(lbName);
+//
+//				Label lbSizeSprints = new Label("lbSizeSprints", project.getSprints().size()+"");
+//				item.add(lbSizeSprints);
+//
+//				Link lkSelect = new Link("lkSelect") {
+//					@Override
+//					public void onClick() {
+//						user.setProjectAtual(project);
+//						userBusiness.save(user);
+//						setResponsePage(new StartPage(user));
+//					}
+//				};
+//
+//				if(user.getProjectAtual() != null && user.getProjectAtual().equals(project)){
+//					lkSelect.setEnabled(false);
+//				}else{
+//					lkSelect.setEnabled(true);
+//				}
+//
+//				item.add(lkSelect);
+//
+//				item.add(new Link("lkEditor") {
+//					@Override
+//					public void onClick() {
+//						setResponsePage(new StartPage(user,project));
+//					}
+//				});
+//
+//				item.add(new Link("lkDelete") {
+//					@Override
+//					public void onClick() {
+//						projectBusiness.delete(project);
+//						setResponsePage(new StartPage(user));
+//					}
+//				});
+//			}
+//		};
+//		add(listViewProjectUsers);
 		
 		List<Project> projetosConvidados = new ArrayList<Project>(projectBusiness.listAllByConvite(user));
 		

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -57,4 +58,8 @@ public class ProjectBusiness {
 		}
 		return setProject;
 	}
+
+    public List<Project> find(Long first, Long count){
+        return projectDAO.findByCriteria(Order.asc("id"),first.intValue(),count.intValue());
+    }
 }

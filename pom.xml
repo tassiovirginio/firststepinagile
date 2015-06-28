@@ -39,16 +39,16 @@
             <artifactId>wicket-jquery-ui</artifactId>
             <version>${wicket.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.wicket-jquery-ui</groupId>
-            <artifactId>wicket-jquery-ui-theme-uilightness</artifactId>
-            <version>${wicket.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.wicket-jquery-ui</groupId>
-            <artifactId>wicket-kendo-ui-theme-default</artifactId>
-            <version>${wicket.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.googlecode.wicket-jquery-ui</groupId>-->
+            <!--<artifactId>wicket-jquery-ui-theme-uilightness</artifactId>-->
+            <!--<version>${wicket.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.googlecode.wicket-jquery-ui</groupId>-->
+            <!--<artifactId>wicket-kendo-ui-theme-default</artifactId>-->
+            <!--<version>${wicket.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-core</artifactId>
@@ -351,7 +351,7 @@
                     <scanIntervalSeconds>0</scanIntervalSeconds>
                     <connectors>
                         <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>8080</port>
+                            <port>9999</port>
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
                     </connectors>
