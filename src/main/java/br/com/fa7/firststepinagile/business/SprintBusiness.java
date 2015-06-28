@@ -5,6 +5,7 @@ import static org.hibernate.criterion.Order.desc;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +73,9 @@ public class SprintBusiness {
 		sprintDAO.save(sprint);
 		storyDAO.save(story);
 	}
+
+    public List<Sprint> find(Long first, Long count){
+        return sprintDAO.findByCriteria(Order.asc("id"),first.intValue(),count.intValue());
+    }
 
 }

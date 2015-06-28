@@ -3,7 +3,9 @@ package br.com.fa7.firststepinagile.pages;
 import java.util.Date;
 import java.util.List;
 
-import br.com.fa7.firststepinagile.entities.Story;
+import br.com.fa7.firststepinagile.entities.*;
+import br.com.fa7.firststepinagile.pages.provider.ProjectProvider;
+import br.com.fa7.firststepinagile.pages.provider.SprintProvider;
 import br.com.fa7.firststepinagile.pages.provider.StoryProvider;
 import org.apache.wicket.extensions.yui.calendar.DateField;
 import org.apache.wicket.markup.html.basic.Label;
@@ -14,15 +16,13 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.fa7.firststepinagile.business.SprintBusiness;
-import br.com.fa7.firststepinagile.entities.Activity;
-import br.com.fa7.firststepinagile.entities.Sprint;
-import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
 
 @SuppressWarnings({ "serial","rawtypes", "unchecked"})
@@ -65,11 +65,12 @@ public class SprintsPage2 extends PageBase {
 		
 		List<Sprint> listSprints = sprintBusiness.all(user.getProjectAtual());
 
+        DataView<Sprint> dataView = new DataView<Sprint>("listViewSprint", new SprintProvider(sprintBusiness, listSprints,true)) {
+            private static final long serialVersionUID = 1L;
 
-		ListView<Sprint> listViewSprint = new ListView<Sprint>("listViewSprint", listSprints) {
-			@Override
-			protected void populateItem(ListItem<Sprint> item) {
-				final Sprint sprint = (Sprint)item.getModelObject();
+            @Override
+            protected void populateItem(final Item<Sprint> item) {
+                final Sprint sprint = item.getModelObject();
 
                 String nameSprint = sprint.getName();
                 if(user.getSprint() != null && user.getSprint().getId() != null && user.getSprint().getId().equals(sprint.getId())){
@@ -112,7 +113,9 @@ public class SprintsPage2 extends PageBase {
 				
 			}
 		};
-		add(listViewSprint);
+        dataView.setItemsPerPage(6L);
+        add(dataView);
+        add(new PagingNavigator("navigator", dataView));
 
 	}
 }

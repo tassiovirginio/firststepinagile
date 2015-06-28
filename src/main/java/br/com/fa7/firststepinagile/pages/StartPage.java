@@ -139,58 +139,16 @@ public class StartPage extends PageBase {
         add(dataView);
         add(new PagingNavigator("navigator", dataView));
 		
-//		ListView<Project> listViewProjectUsers = new ListView<Project>("listViewProjectUsers", projetosUser) {
-//			@Override
-//			protected void populateItem(ListItem<Project> item) {
-//				final Project project = item.getModelObject();
-//
-//				Label lbName = new Label("lbName", project.getName().trim());
-//				item.add(lbName);
-//
-//				Label lbSizeSprints = new Label("lbSizeSprints", project.getSprints().size()+"");
-//				item.add(lbSizeSprints);
-//
-//				Link lkSelect = new Link("lkSelect") {
-//					@Override
-//					public void onClick() {
-//						user.setProjectAtual(project);
-//						userBusiness.save(user);
-//						setResponsePage(new StartPage(user));
-//					}
-//				};
-//
-//				if(user.getProjectAtual() != null && user.getProjectAtual().equals(project)){
-//					lkSelect.setEnabled(false);
-//				}else{
-//					lkSelect.setEnabled(true);
-//				}
-//
-//				item.add(lkSelect);
-//
-//				item.add(new Link("lkEditor") {
-//					@Override
-//					public void onClick() {
-//						setResponsePage(new StartPage(user,project));
-//					}
-//				});
-//
-//				item.add(new Link("lkDelete") {
-//					@Override
-//					public void onClick() {
-//						projectBusiness.delete(project);
-//						setResponsePage(new StartPage(user));
-//					}
-//				});
-//			}
-//		};
-//		add(listViewProjectUsers);
-		
+
 		List<Project> projetosConvidados = new ArrayList<Project>(projectBusiness.listAllByConvite(user));
+
+        DataView<Project> dataView2 = new DataView<Project>("listViewProjectConvites", new ProjectProvider(projectBusiness, projetosConvidados,true)) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            protected void populateItem(final Item<Project> item) {
+                final Project project = item.getModelObject();
 		
-		ListView<Project> listViewProjectConvites = new ListView<Project>("listViewProjectConvites", projetosConvidados) {
-			@Override
-			protected void populateItem(ListItem<Project> item) {
-				final Project project = item.getModelObject();
 
 				Label lbName = new Label("lbName", project.getName().trim());
 				item.add(lbName);
@@ -213,7 +171,9 @@ public class StartPage extends PageBase {
 				item.add(lkSelect);
 			}
 		};
-		add(listViewProjectConvites);
+        dataView2.setItemsPerPage(6L);
+        add(dataView2);
+        add(new PagingNavigator("navigator2", dataView2));
 		
 		super.linkStart.setEnabled(false);
 	}
