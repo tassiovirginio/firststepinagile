@@ -7,6 +7,7 @@ import static org.hibernate.criterion.Restrictions.isNull;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,7 @@ public class StoryBusiness {
 	public void save(Story story){
 		if(story.getId() == null){
 			story.setPriority(nextStoryPriority(story.getProject()));
-			story.setDateCreation(new DateTime());
+			story.setDateCreation(new LocalDateTime());
 		}
 		storyDAO.save(story);
 	}

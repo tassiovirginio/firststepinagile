@@ -3,6 +3,7 @@ package br.com.fa7.firststepinagile.business;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class ActivityBusiness {
 	public void save(Activity activity){
 		if(activity.getId() == null){
 			activity.setPriority(nextActivityPriority());
-			activity.setDateCreation(new DateTime());
+			activity.setDateCreation(new LocalDateTime());
 		}
 		activityDAO.save(activity);
 	}

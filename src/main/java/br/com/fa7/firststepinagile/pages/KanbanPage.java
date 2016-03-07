@@ -3,10 +3,10 @@ package br.com.fa7.firststepinagile.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -25,6 +25,8 @@ import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
 import br.com.fa7.firststepinagile.pages.modal.ActivityModalPage;
 import br.com.fa7.firststepinagile.pages.modal.StoryModalPage;
+
+import javax.swing.text.SimpleAttributeSet;
 
 @SuppressWarnings({ "serial", "deprecation","rawtypes"})
 public class KanbanPage extends PageBase {
@@ -93,7 +95,8 @@ public class KanbanPage extends PageBase {
 				final Story story = (Story)item.getModelObject();
 				
 				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
-				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+                webContainer.add(AttributeModifier.replace("style","background-color: #" +story.getColor()));
+
 				item.add(webContainer);
 				
 				Label lbId = new Label("lbId", story.getId().toString());

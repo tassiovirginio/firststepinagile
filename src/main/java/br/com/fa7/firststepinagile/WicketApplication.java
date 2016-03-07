@@ -1,8 +1,11 @@
 package br.com.fa7.firststepinagile;
 
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.response.filter.AjaxServerAndClientTimeFilter;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.apache.wicket.util.time.Duration;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,8 +23,7 @@ import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.LoginPage;
 
-import com.google.code.jqwicket.JQComponentOnBeforeRenderListener;
-import com.google.code.jqwicket.JQContributionConfig;
+import java.util.logging.Logger;
 
 @Component
 public class WicketApplication extends WebApplication{
@@ -49,23 +51,39 @@ public class WicketApplication extends WebApplication{
 		return LoginPage.class;
 	}
 
+    static Logger log = Logger.getLogger(WicketApplication.class.getName());
+
 	@Override
 	public void init(){
-		
-		getRequestCycleSettings().setResponseRequestEncoding("UTF-8"); 
+
+        log.info("\n" +
+                "********************************************************************\n" +
+                "***                      Carregando o Sistema                    ***\n" +
+                "********************************************************************");
+
+        getResourceSettings().setResourcePollFrequency(Duration.ONE_SECOND);
+
+        getApplicationSettings().setUploadProgressUpdatesEnabled(true);
+
+        getRequestCycleSettings().addResponseFilter(new AjaxServerAndClientTimeFilter());
+
+        getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+
+        getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
-		
-		JQContributionConfig config = new JQContributionConfig().withDefaultJQueryUi(); 
-		getComponentPreOnBeforeRenderListeners().add(new JQComponentOnBeforeRenderListener(config));
-		
-		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-		getDebugSettings().setAjaxDebugModeEnabled(false);
 
-        getApplicationSettings().setInternalErrorPage(LoginPage.class);
+        getDebugSettings().setAjaxDebugModeEnabled(false);
 
-        getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
+        // don't throw exceptions for missing translations
+        getResourceSettings().setThrowExceptionOnMissingResource(false);
+
+        // enable ajax debug etc.
+        getDebugSettings().setDevelopmentUtilitiesEnabled(true);
+
+        // make markup friendly as in deployment-mode
+        getMarkupSettings().setStripWicketTags(true);
 		
-		criarDadosTeste();
+//		criarDadosTeste();
 		
 		// add your configuration here
 	}
@@ -87,14 +105,14 @@ public class WicketApplication extends WebApplication{
 		Project project1 = new Project();
 		project1.setName("Projeto 1");
 		project1.setDescription("Projeto 1");
-		project1.setDateCreation(new DateTime());
+		project1.setDateCreation(new LocalDateTime());
 		project1.setCreator(userAdmin);
 		projectBusiness.save(project1);
 		
 		Project project2 = new Project();
 		project2.setName("Projeto 2");
 		project2.setDescription("Projeto 2");
-		project2.setDateCreation(new DateTime());
+		project2.setDateCreation(new LocalDateTime());
 		project2.setCreator(userAdmin);
 		projectBusiness.save(project2);
 		
@@ -113,9 +131,9 @@ public class WicketApplication extends WebApplication{
 		
 		Sprint sprint1 = new Sprint();
 		sprint1.setCreator(userAdmin);
-		sprint1.setDateCreation(new DateTime());
-		sprint1.setDateStart(new DateTime());
-		sprint1.setDateEnd(new DateTime().plusDays(10));
+		sprint1.setDateCreation(new LocalDateTime());
+		sprint1.setDateStart(new LocalDateTime());
+		sprint1.setDateEnd(new LocalDateTime().plusDays(10));
 		sprint1.setDescription("Teste...");
 		sprint1.setName("Sprint Test01");
 		sprint1.setProject(project1);
@@ -123,9 +141,9 @@ public class WicketApplication extends WebApplication{
 		
 		Sprint sprint2 = new Sprint();
 		sprint2.setCreator(userAdmin);
-		sprint2.setDateCreation(new DateTime());
-		sprint2.setDateStart(new DateTime());
-		sprint2.setDateEnd(new DateTime().plusDays(10));
+		sprint2.setDateCreation(new LocalDateTime());
+		sprint2.setDateStart(new LocalDateTime());
+		sprint2.setDateEnd(new LocalDateTime().plusDays(10));
 		sprint2.setDescription("Teste...");
 		sprint2.setName("Sprint Test02");
 		sprint1.setProject(project2);

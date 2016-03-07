@@ -22,6 +22,7 @@ import br.com.fa7.firststepinagile.entities.Convite;
 import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
+import org.joda.time.LocalDateTime;
 
 @SuppressWarnings({"serial","rawtypes"})
 public class StartPage extends PageBase {
@@ -53,7 +54,7 @@ public class StartPage extends PageBase {
 			public void onSubmit() {
 				System.out.println(projectEditar.getName());
 				projectEditar.setCreator(user);
-				projectEditar.setDateCreation(new DateTime());
+				projectEditar.setDateCreation(new LocalDateTime());
 				projectBusiness.save(projectEditar);
 				setResponsePage(new StartPage(user));
 			}

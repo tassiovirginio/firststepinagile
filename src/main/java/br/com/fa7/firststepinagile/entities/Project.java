@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class Project implements Serializable{
@@ -30,9 +31,9 @@ public class Project implements Serializable{
 	
 	@ManyToOne
 	private User creator;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateCreation;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateCreation;
 	
 	@OneToMany(mappedBy = "project", targetEntity = Sprint.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Sprint> sprints = new HashSet<Sprint>();
@@ -72,11 +73,11 @@ public class Project implements Serializable{
 		this.creator = creator;
 	}
 
-	public DateTime getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(LocalDateTime dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

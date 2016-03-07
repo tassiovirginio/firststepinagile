@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 /**
  * @author tassio
@@ -37,15 +38,15 @@ public class Activity implements Serializable{
 	
 	@ManyToOne
 	private User creator;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateCreation;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateStart;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateEnd;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateCreation;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateStart;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateEnd;
 	
 	private int duration;
 	
@@ -113,27 +114,27 @@ public class Activity implements Serializable{
 		this.creator = creator;
 	}
 
-	public DateTime getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(LocalDateTime dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
-	public DateTime getDateStart() {
+	public LocalDateTime getDateStart() {
 		return dateStart;
 	}
 
-	public void setDateStart(DateTime dateStart) {
+	public void setDateStart(LocalDateTime dateStart) {
 		this.dateStart = dateStart;
 	}
 
-	public DateTime getDateEnd() {
+	public LocalDateTime getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(DateTime dateEnd) {
+	public void setDateEnd(LocalDateTime dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 

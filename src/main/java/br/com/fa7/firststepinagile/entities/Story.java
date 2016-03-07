@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class Story implements Serializable{
@@ -39,9 +40,9 @@ public class Story implements Serializable{
 	
 	@ManyToOne
 	private User creator;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateCreation;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateCreation;
 	
 	@OneToMany(mappedBy = "story", targetEntity = Activity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Activity> activitys;
@@ -118,11 +119,11 @@ public class Story implements Serializable{
 		this.creator = creator;
 	}
 
-	public DateTime getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(LocalDateTime dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

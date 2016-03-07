@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class Sprint implements Serializable{
@@ -39,15 +40,15 @@ public class Sprint implements Serializable{
 	
 	@ManyToOne
 	private Project project;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateCreation;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateStart;
-	
-	@Type(type="org.joda.time.contrib.hibernate.PersistentDateTime")
-	private DateTime dateEnd;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateCreation;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateStart;
+
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+	private LocalDateTime dateEnd;
 	
 	@OneToMany(mappedBy = "sprint", targetEntity = Story.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Story> storys;
@@ -92,19 +93,19 @@ public class Sprint implements Serializable{
 		this.creator = creator;
 	}
 
-	public DateTime getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(DateTime dateCreation) {
+	public void setDateCreation(LocalDateTime dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
-	public DateTime getDateStart() {
+	public LocalDateTime getDateStart() {
 		return dateStart;
 	}
 	
-	public void setDateStart(DateTime dateStart) {
+	public void setDateStart(LocalDateTime dateStart) {
 		this.dateStart = dateStart;
 	}
 	
@@ -117,14 +118,14 @@ public class Sprint implements Serializable{
 	}
 	
 	public void setDateStart2(Date dateStart) {
-		this.dateStart = new DateTime(dateStart);
+		this.dateStart = new LocalDateTime(dateStart);
 	}
 
-	public DateTime getDateEnd() {
+	public LocalDateTime getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(DateTime dateEnd) {
+	public void setDateEnd(LocalDateTime dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 	
@@ -136,7 +137,7 @@ public class Sprint implements Serializable{
 	}
 
 	public void setDateEnd2(Date dateEnd) {
-		this.dateEnd = new DateTime(dateEnd);
+		this.dateEnd = new LocalDateTime(dateEnd);
 	}
 	
 	public Project getProject() {

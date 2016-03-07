@@ -3,10 +3,10 @@ package br.com.fa7.firststepinagile.pages;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -121,7 +121,7 @@ public class SprintsPage extends PageBase {
 				
 				
 				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
-				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+                webContainer.add(AttributeModifier.replace("style", "background-color: #" + story.getColor()));
 				item.add(webContainer);
 				
 				
@@ -203,7 +203,7 @@ public class SprintsPage extends PageBase {
 				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
 				
 				WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
-				webContainer.add(new SimpleAttributeModifier("style","background-color: #" +story.getColor()));
+                webContainer.add(AttributeModifier.replace("style","background-color: #" +story.getColor()));
 				item.add(webContainer);
 				
 				webContainer.add(lbName);
