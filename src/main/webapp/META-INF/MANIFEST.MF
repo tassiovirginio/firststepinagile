@@ -1,0 +1,2 @@
+Class-Path: WEB-INF/classes
+Main-Class: br.com.fa7.firststepinagile.Start
