@@ -41,7 +41,6 @@ public class Story implements Serializable{
 	@ManyToOne
 	private User creator;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateCreation;
 	
 	@OneToMany(mappedBy = "story", targetEntity = Activity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)

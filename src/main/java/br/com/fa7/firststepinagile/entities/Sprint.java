@@ -41,13 +41,10 @@ public class Sprint implements Serializable{
 	@ManyToOne
 	private Project project;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateCreation;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateStart;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateEnd;
 	
 	@OneToMany(mappedBy = "sprint", targetEntity = Story.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -39,13 +39,10 @@ public class Activity implements Serializable{
 	@ManyToOne
 	private User creator;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateCreation;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateStart;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateEnd;
 	
 	private int duration;

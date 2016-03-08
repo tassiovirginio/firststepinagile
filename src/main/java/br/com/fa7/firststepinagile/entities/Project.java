@@ -32,7 +32,6 @@ public class Project implements Serializable{
 	@ManyToOne
 	private User creator;
 
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime dateCreation;
 	
 	@OneToMany(mappedBy = "project", targetEntity = Sprint.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)

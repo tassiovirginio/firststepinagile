@@ -26,7 +26,8 @@ public class User implements Serializable{
 	
 	@OneToOne
 	private Sprint sprint;
-	
+
+    @OneToOne
 	private Project projectAtual;
 	
 	public Project getProjectAtual() {
