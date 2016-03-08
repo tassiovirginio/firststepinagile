@@ -1,7 +1,6 @@
 package br.com.fa7.firststepinagile.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 @Entity
 public class Story implements Serializable{
@@ -37,8 +40,8 @@ public class Story implements Serializable{
 	
 	@ManyToOne
 	private User creator;
-	
-	private Date dateCreation;
+
+	private LocalDateTime dateCreation;
 	
 	@OneToMany(mappedBy = "story", targetEntity = Activity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Activity> activitys;
@@ -115,11 +118,11 @@ public class Story implements Serializable{
 		this.creator = creator;
 	}
 
-	public Date getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(Date dateCreation) {
+	public void setDateCreation(LocalDateTime dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 

@@ -1,6 +1,6 @@
-dea/
-FirstStepInAgile.iml
-target/
+*.iml
 .idea/
 db/
+target/
+
 

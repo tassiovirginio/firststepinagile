@@ -18,6 +18,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.joda.time.DateTime;
 
 import br.com.fa7.firststepinagile.business.ConviteBusiness;
 import br.com.fa7.firststepinagile.business.ProjectBusiness;
@@ -26,6 +27,7 @@ import br.com.fa7.firststepinagile.entities.Convite;
 import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.User;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
+import org.joda.time.LocalDateTime;
 
 @SuppressWarnings({"serial","rawtypes"})
 public class StartPage extends PageBase {
@@ -57,7 +59,7 @@ public class StartPage extends PageBase {
 			public void onSubmit() {
 				System.out.println(projectEditar.getName());
 				projectEditar.setCreator(user);
-				projectEditar.setDateCreation(new Date());
+				projectEditar.setDateCreation(new LocalDateTime());
 				projectBusiness.save(projectEditar);
 				setResponsePage(new StartPage(user));
 			}

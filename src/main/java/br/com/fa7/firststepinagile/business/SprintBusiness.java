@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +35,7 @@ public class SprintBusiness {
 	
 	public void save(Sprint sprint){
 		if(sprint.getId() == null){
-			sprint.setDateCreation(new Date());
+			sprint.setDateCreation(new LocalDateTime());
 		}
 		sprintDAO.save(sprint);
 	}

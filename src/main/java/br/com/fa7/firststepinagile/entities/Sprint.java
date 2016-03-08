@@ -12,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+
 @Entity
 public class Sprint implements Serializable{
 	
@@ -36,12 +40,12 @@ public class Sprint implements Serializable{
 	
 	@ManyToOne
 	private Project project;
-	
-	private Date dateCreation;
-	
-	private Date dateStart;
-	
-	private Date dateEnd;
+
+	private LocalDateTime dateCreation;
+
+	private LocalDateTime dateStart;
+
+	private LocalDateTime dateEnd;
 	
 	@OneToMany(mappedBy = "sprint", targetEntity = Story.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Story> storys;
@@ -86,51 +90,51 @@ public class Sprint implements Serializable{
 		this.creator = creator;
 	}
 
-	public Date getDateCreation() {
+	public LocalDateTime getDateCreation() {
 		return dateCreation;
 	}
 
-	public void setDateCreation(Date dateCreation) {
+	public void setDateCreation(LocalDateTime dateCreation) {
 		this.dateCreation = dateCreation;
 	}
 
-	public Date getDateStart() {
+	public LocalDateTime getDateStart() {
 		return dateStart;
 	}
 	
-	public void setDateStart(Date dateStart) {
+	public void setDateStart(LocalDateTime dateStart) {
 		this.dateStart = dateStart;
 	}
 	
 	public Date getDateStart2() {
 		if(dateStart != null){
-			return dateStart;
+			return dateStart.toDate();
 		}else{
 			return null;	
 		}
 	}
 	
 	public void setDateStart2(Date dateStart) {
-		this.dateStart = new Date();
+		this.dateStart = new LocalDateTime(dateStart);
 	}
 
-	public Date getDateEnd() {
+	public LocalDateTime getDateEnd() {
 		return dateEnd;
 	}
 
-	public void setDateEnd(Date dateEnd) {
+	public void setDateEnd(LocalDateTime dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 	
 	public Date getDateEnd2() {
 		if(dateEnd != null){
-			return dateEnd;
+			return dateEnd.toDate();
 		}
 		return null;
 	}
 
 	public void setDateEnd2(Date dateEnd) {
-		this.dateEnd = new Date();
+		this.dateEnd = new LocalDateTime(dateEnd);
 	}
 	
 	public Project getProject() {

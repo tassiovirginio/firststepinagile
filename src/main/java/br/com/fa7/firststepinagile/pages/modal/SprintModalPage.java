@@ -21,6 +21,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import java.util.Date;
 import java.util.List;
@@ -48,9 +49,9 @@ public class SprintModalPage extends WebPage {
 		
 		if(sprintSelected != null){
 			if(sprintSelected.getDateStart()!=null)
-			dateStart = sprintSelected.getDateStart();
+			dateStart = sprintSelected.getDateStart().toDate();
 			if(sprintSelected.getDateEnd()!=null)
-			dateEnd = sprintSelected.getDateEnd();
+			dateEnd = sprintSelected.getDateEnd().toDate();
 		}else{
 			sprintSelected = new Sprint();
 		}
@@ -66,8 +67,8 @@ public class SprintModalPage extends WebPage {
 		form.add(new Button("btSalvar") {
 			@Override
 			public void onSubmit() {
-				sprintLocal.setDateStart(dateStart);
-				sprintLocal.setDateEnd(dateEnd);
+				sprintLocal.setDateStart(new LocalDateTime(dateStart.getTime()));
+				sprintLocal.setDateEnd(new LocalDateTime(dateEnd.getTime()));
 				sprintBusiness.save(sprintLocal);
 				setResponsePage(new SprintModalPage(pageRefOrigem, window, user, sprintLocal));
 			}

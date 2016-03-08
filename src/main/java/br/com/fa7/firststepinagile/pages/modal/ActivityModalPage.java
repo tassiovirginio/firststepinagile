@@ -17,8 +17,7 @@ import br.com.fa7.firststepinagile.business.ActivityBusiness;
 import br.com.fa7.firststepinagile.entities.Activity;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
-
-import java.util.Date;
+import org.joda.time.LocalDateTime;
 
 @SuppressWarnings({ "serial","rawtypes", "unchecked"})
 public class ActivityModalPage extends WebPage {
@@ -34,14 +33,14 @@ public class ActivityModalPage extends WebPage {
 		
 		if (activity == null) {
 			this.activity = new Activity();
-			this.activity.setDateCreation(new Date());
+			this.activity.setDateCreation(new LocalDateTime());
 			this.activity.setCreator(user);
 			this.activity.setStory(story);
 			add(new Label("activity.id", "Novo"));
 			
 		} else if (activity.getId() == null) {
 			this.activity = activity;
-			this.activity.setDateCreation(new Date());
+			this.activity.setDateCreation(new LocalDateTime());
 			this.activity.setCreator(user);
 			this.activity.setStory(story);
 			add(new Label("activity.id", "Novo"));

@@ -21,8 +21,7 @@ import br.com.fa7.firststepinagile.pages.StartPage;
 import br.com.fa7.firststepinagile.pages.StorysPage;
 import br.com.fa7.firststepinagile.pages.TaskPage;
 import br.com.fa7.firststepinagile.pages.modal.UserModalPage;
-
-import java.util.Date;
+import org.joda.time.LocalDateTime;
 
 @SuppressWarnings({ "serial","rawtypes"})
 public class PageBase extends WebPage {
@@ -169,11 +168,11 @@ public class PageBase extends WebPage {
         Label lbTimeBox = new Label("lbTimeBox",retorno);
 
         if(user.getSprint() != null){
-            Date endDate2 = user.getSprint().getDateEnd();
-            DateTime endDate = new DateTime(endDate2);
-            DateTime now = new DateTime();
+            LocalDateTime endDate = user.getSprint().getDateEnd();
+            LocalDateTime now = new LocalDateTime();
 
-            DateTime dateCalc = endDate.minus(now.getMillis());
+            //TODO: Verificar isso ....
+            LocalDateTime dateCalc = endDate.minusMillis(now.getMillisOfSecond());
 
             if(dateCalc.getDayOfMonth() > 1){
             	retorno = retorno + "TimeBox: " + red(dateCalc.getDayOfMonth()+"") + " dias restantes";

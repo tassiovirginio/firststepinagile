@@ -1,9 +1,11 @@
 package br.com.fa7.firststepinagile;
 
-import br.com.fa7.firststepinagile.pages.*;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.response.filter.AjaxServerAndClientTimeFilter;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.apache.wicket.util.time.Duration;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,74 +21,78 @@ import br.com.fa7.firststepinagile.entities.Project;
 import br.com.fa7.firststepinagile.entities.Sprint;
 import br.com.fa7.firststepinagile.entities.Story;
 import br.com.fa7.firststepinagile.entities.User;
+import br.com.fa7.firststepinagile.pages.LoginPage;
 
-import java.util.Date;
-
-//import com.google.code.jqwicket.JQComponentOnBeforeRenderListener;
-//import com.google.code.jqwicket.JQContributionConfig;
+import java.util.logging.Logger;
 
 @Component
 public class WicketApplication extends WebApplication{
-	
+
 	@Autowired
 	private ActivityBusiness activityBusiness;
-	
+
 	@Autowired
 	private UserBusiness userBusiness;
-	
+
 	@Autowired
 	private StoryBusiness storyBusiness;
-	
+
 	@Autowired
 	private SprintBusiness sprintBusiness;
-	
+
 	@Autowired
 	private ProjectBusiness projectBusiness;
-	
+
 	@Autowired
 	private ConviteBusiness conviteBusiness;
-	
+
 	@Override
 	public Class<LoginPage> getHomePage(){
 		return LoginPage.class;
 	}
 
+    static Logger log = Logger.getLogger(WicketApplication.class.getName());
+
 	@Override
 	public void init(){
-		
-		getRequestCycleSettings().setResponseRequestEncoding("UTF-8"); 
+
+        log.info("\n" +
+                "********************************************************************\n" +
+                "***                      Carregando o Sistema                    ***\n" +
+                "********************************************************************");
+
+        getResourceSettings().setResourcePollFrequency(Duration.ONE_SECOND);
+
+        getApplicationSettings().setUploadProgressUpdatesEnabled(true);
+
+        getRequestCycleSettings().addResponseFilter(new AjaxServerAndClientTimeFilter());
+
+        getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+
+        getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
         getMarkupSettings().setDefaultMarkupEncoding("UTF-8");
-		
-//		JQContributionConfig config = new JQContributionConfig().withDefaultJQueryUi();
-//		getComponentPreOnBeforeRenderListeners().add(new JQComponentOnBeforeRenderListener(config));
-		
-		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-		getDebugSettings().setAjaxDebugModeEnabled(false);
 
-        getApplicationSettings().setInternalErrorPage(LoginPage.class);
+        getDebugSettings().setAjaxDebugModeEnabled(false);
 
-        getApplicationSettings().setPageExpiredErrorPage(LoginPage.class);
+        // don't throw exceptions for missing translations
+        getResourceSettings().setThrowExceptionOnMissingResource(false);
 
-        //URL Amigaveis
-        mountPage("/projetos/", StartPage.class);
-        mountPage("/backlog/", StorysPage.class);
-        mountPage("/atividades/", TaskPage.class);
-        mountPage("/backlog_sprint/", SprintsPage.class);
-        mountPage("/sprints/", SprintsPage2.class);
-        mountPage("/kanban/", KanbanPage.class);
+        // enable ajax debug etc.
+        getDebugSettings().setDevelopmentUtilitiesEnabled(true);
 
-        mountPage("/login", LoginPage.class);
-		
+        // make markup friendly as in deployment-mode
+        getMarkupSettings().setStripWicketTags(true);
+
 //		criarDadosTeste();
-		
+
 		// add your configuration here
 	}
-	
-	
+
+
 	private void criarDadosTeste(){
-		
+
 		User userAdmin = userBusiness.findForLogin("admin");
-		
+
 		if(userAdmin == null){
 			userAdmin = new User();
 			userAdmin.setName("Admin");
@@ -95,54 +101,54 @@ public class WicketApplication extends WebApplication{
 			userBusiness.save(userAdmin);
 		}
 
-		
+
 		Project project1 = new Project();
 		project1.setName("Projeto 1");
 		project1.setDescription("Projeto 1");
-		project1.setDateCreation(new Date());
+		project1.setDateCreation(new LocalDateTime());
 		project1.setCreator(userAdmin);
 		projectBusiness.save(project1);
-		
+
 		Project project2 = new Project();
 		project2.setName("Projeto 2");
 		project2.setDescription("Projeto 2");
-		project2.setDateCreation(new Date());
+		project2.setDateCreation(new LocalDateTime());
 		project2.setCreator(userAdmin);
 		projectBusiness.save(project2);
-		
+
 		Convite convite1 = new Convite();
 		convite1.setEmail("teste@teste.com");
 		convite1.setProject(project1);
 		conviteBusiness.save(convite1);
-		
+
 		Convite convite2 = new Convite();
 		convite2.setEmail("teste2@teste2.com");
 		convite2.setProject(project2);
 		conviteBusiness.save(convite2);
-		
+
 		userAdmin.setProjectAtual(project2);
 		userBusiness.save(userAdmin);
-		
+
 		Sprint sprint1 = new Sprint();
 		sprint1.setCreator(userAdmin);
-		sprint1.setDateCreation(new Date());
-		sprint1.setDateStart(new Date());
-		sprint1.setDateEnd(new Date());
+		sprint1.setDateCreation(new LocalDateTime());
+		sprint1.setDateStart(new LocalDateTime());
+		sprint1.setDateEnd(new LocalDateTime().plusDays(10));
 		sprint1.setDescription("Teste...");
 		sprint1.setName("Sprint Test01");
 		sprint1.setProject(project1);
 		sprintBusiness.save(sprint1);
-		
+
 		Sprint sprint2 = new Sprint();
 		sprint2.setCreator(userAdmin);
-		sprint2.setDateCreation(new Date());
-		sprint2.setDateStart(new Date());
-		sprint2.setDateEnd(new Date());
+		sprint2.setDateCreation(new LocalDateTime());
+		sprint2.setDateStart(new LocalDateTime());
+		sprint2.setDateEnd(new LocalDateTime().plusDays(10));
 		sprint2.setDescription("Teste...");
 		sprint2.setName("Sprint Test02");
 		sprint1.setProject(project2);
 		sprintBusiness.save(sprint2);
-		
+
 		Story story1 = new Story();
 		story1.setName("Historia 01");
 		story1.setCreator(userAdmin);
@@ -151,7 +157,7 @@ public class WicketApplication extends WebApplication{
 		story1.setColor("c2ceff");
 		story1.setProject(project1);
 		storyBusiness.save(story1);
-		
+
 		Story story2 = new Story();
 		story2.setName("Historia 02");
 		story2.setCreator(userAdmin);
@@ -160,7 +166,7 @@ public class WicketApplication extends WebApplication{
 		story2.setColor("c2ceff");
 		story2.setProject(project2);
 		storyBusiness.save(story2);
-		
+
 		Story story3 = new Story();
 		story3.setName("Historia 03");
 		story3.setCreator(userAdmin);
@@ -169,7 +175,7 @@ public class WicketApplication extends WebApplication{
 		story3.setColor("c2ceff");
 		story3.setProject(project1);
 		storyBusiness.save(story3);
-		
+
 		Activity activity01 = new Activity();
 		activity01.setName("Teste1");
 		activity01.setDescription("bla bla bla bla bla bla bla bla bla bla");
@@ -180,7 +186,7 @@ public class WicketApplication extends WebApplication{
 		activity01.setState(1);
 		activity01.setStory(story1);
 		activityBusiness.save(activity01);
-		
+
 		Activity activity01_2 = new Activity();
 		activity01_2.setName("Teste1");
 		activity01_2.setDescription("bla bla bla bla bla bla bla bla bla bla");
@@ -190,7 +196,7 @@ public class WicketApplication extends WebApplication{
 //		activity01_2.setPriority(1000.0);
 		activity01_2.setState(1);
 		activityBusiness.save(activity01_2);
-		
+
 		Activity activity01_3 = new Activity();
 		activity01_3.setName("Teste1");
 		activity01_3.setDescription("bla bla bla bla bla bla bla bla bla bla");
@@ -200,7 +206,7 @@ public class WicketApplication extends WebApplication{
 //		activity01_3.setPriority(1000.0);
 		activity01_3.setState(1);
 		activityBusiness.save(activity01_3);
-		
+
 		Activity activity02 = new Activity();
 		activity02.setName("Teste2");
 		activity02.setDescription("bla bla bla bla bla bla bla bla bla bla");
@@ -210,8 +216,8 @@ public class WicketApplication extends WebApplication{
 //		activity02.setPriority(1000.0);
 		activity02.setState(2);
 		activityBusiness.save(activity02);
-		
-		
+
+
 		Activity activity03 = new Activity();
 		activity03.setName("Teste3");
 		activity03.setDescription("bla bla bla bla bla bla bla bla bla bla");
@@ -221,20 +227,20 @@ public class WicketApplication extends WebApplication{
 //		activity03.setPriority(1000.0);
 		activity03.setState(3);
 		activityBusiness.save(activity03);
-		
-		
+
+
 		User userTest02 = new User();
 		userTest02.setName("userTest02");
 		userTest02.setLogin("userTest02@userTest02.com");
 		userTest02.setPassword("userTest02");
 		userBusiness.save(userTest02);
-		
+
 		User userTest03 = new User();
 		userTest03.setName("userTest03");
 		userTest03.setLogin("userTest03@userTest03.com");
 		userTest03.setPassword("userTest03");
 		userBusiness.save(userTest03);
-		
-		
+
+
 	}
 }
