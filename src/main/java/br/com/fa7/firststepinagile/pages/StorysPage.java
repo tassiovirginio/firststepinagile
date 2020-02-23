@@ -190,7 +190,9 @@ public class StorysPage extends PageBase {
                 Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
 //				lbDescription.setEscapeModelStrings(false);
                 Label lbId = new Label("lbId", story.getId().toString());
-                Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
+
+
+                Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
 
                 WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
                 webContainer.add(new AttributeAppender("style", "background-color: #" +story.getColor()));
@@ -202,7 +204,7 @@ public class StorysPage extends PageBase {
                 webContainer.add(lbId);
                 webContainer.add(lbDateCreate);
 
-                Link lkStorys = new Link("lkDelete") {
+                Link lkStorys = new Link<Void>("lkDelete") {
                     @Override
                     public void onClick() {
                         storyBusiness.delete(story);
@@ -224,7 +226,7 @@ public class StorysPage extends PageBase {
                     }
                 });
 
-                webContainer.add(new Link("lkUp") {
+                webContainer.add(new Link<Void>("lkUp") {
                     @Override
                     public void onClick() {
                         storyBusiness.upStoryPriority(story);
@@ -232,7 +234,7 @@ public class StorysPage extends PageBase {
                     }
                 });
 
-                webContainer.add(new Link("lkDown") {
+                webContainer.add(new Link<Void>("lkDown") {
                     @Override
                     public void onClick() {
                         storyBusiness.downStoryPriority(story);

@@ -55,7 +55,7 @@ public class LoginPage extends WebPage {
 
 		form.add(new FeedbackPanel("feedback"));
 		
-		Link lkCadastro = new Link("lkCadastro") {
+		Link lkCadastro = new Link<Void>("lkCadastro") {
 			@Override
 			public void onClick() {
 				setResponsePage(new CadastrarUsuarioPage());

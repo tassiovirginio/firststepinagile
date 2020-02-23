@@ -101,14 +101,14 @@ public class KanbanPage extends PageBase {
 				Label lbId = new Label("lbId", story.getId().toString());
 				Label lbName = new Label("lbName", story.getName());
 //				Label lbDescription = new Label("lbDescription", story.getDescription());
-				Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("HH:mm dd/MM/yyyy"));
+				Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("HH:mm dd/MM/yyyy"));
 				
 				webContainer.add(lbId);
 				webContainer.add(lbName);
 //				webContainer.add(lbDescription);
 				webContainer.add(lbDateCreate);
 				
-				Link lkStorys = new Link("lkDelete") {
+				Link lkStorys = new Link<Void>("lkDelete") {
 					@Override
 					public void onClick() {
 						storyBusiness.delete(story);
@@ -160,14 +160,14 @@ public class KanbanPage extends PageBase {
 				Label lbId = new Label("lbId", activity.getId().toString());
 				Label lbName = new Label("lbName", activity.getName());
 //				Label lbDescription = new Label("lbDescription", activity.getDescription());
-				Label lbDateCreate = new Label("lbDateCreate", new DateTime(activity.getDateCreation()).toString("HH:mm dd/MM/yyyy"));
+				Label lbDateCreate = new Label("lbDateCreate", activity.getDateCreation().toString("HH:mm dd/MM/yyyy"));
 				
 				item.add(lbId);
 				item.add(lbName);
 //				item.add(lbDescription);
 				item.add(lbDateCreate);
 				
-				item.add(new Link("lkDelete") {
+				item.add(new Link<Void>("lkDelete") {
 					@Override
 					public void onClick() {
 						activityBusiness.delete(activity);
@@ -187,7 +187,7 @@ public class KanbanPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkUp") {
+				item.add(new Link<Void>("lkUp") {
 					@Override
 					public void onClick() {
 						activityBusiness.upActivityPriority(activity,story,state);
@@ -195,7 +195,7 @@ public class KanbanPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkDown") {
+				item.add(new Link<Void>("lkDown") {
 					@Override
 					public void onClick() {
 						activityBusiness.downActivityPriority(activity,story,state);
@@ -203,7 +203,7 @@ public class KanbanPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkR") {
+				item.add(new Link<Void>("lkR") {
 					@Override
 					public void onClick() {
 						if(state+1 <= 4)
@@ -212,7 +212,7 @@ public class KanbanPage extends PageBase {
 					}
 				});
 				
-				item.add(new Link("lkL") {
+				item.add(new Link<Void>("lkL") {
 					@Override
 					public void onClick() {
 						if(state-1 >= 1)

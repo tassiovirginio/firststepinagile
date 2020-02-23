@@ -103,7 +103,7 @@ public class StartPage extends PageBase {
                 Label lbSizeSprints = new Label("lbSizeSprints", project.getSprints().size()+"");
                 item.add(lbSizeSprints);
 
-                Link lkSelect = new Link("lkSelect") {
+                Link lkSelect = new Link<Project>("lkSelect") {
                     @Override
                     public void onClick() {
                         user.setProjectAtual(project);
@@ -120,14 +120,14 @@ public class StartPage extends PageBase {
 
                 item.add(lkSelect);
 
-                item.add(new Link("lkEditor") {
+                item.add(new Link<Void>("lkEditor") {
                     @Override
                     public void onClick() {
                         setResponsePage(new StartPage(user,project));
                     }
                 });
 
-                item.add(new Link("lkDelete") {
+                item.add(new Link<Void>("lkDelete") {
                     @Override
                     public void onClick() {
                         projectBusiness.delete(project);
@@ -155,7 +155,7 @@ public class StartPage extends PageBase {
 				Label lbName = new Label("lbName", project.getName().trim());
 				item.add(lbName);
 				
-				Link lkSelect = new Link("lkSelect") {
+				Link lkSelect = new Link<Void>("lkSelect") {
 					@Override
 					public void onClick() {
 						user.setProjectAtual(project);
@@ -191,7 +191,7 @@ public class StartPage extends PageBase {
 				Label lbEmail = new Label("lbEmail", convite.getEmail().trim());
 				item.add(lbEmail);
 				
-				item.add(new Link("lkDelete") {
+				item.add(new Link<Void>("lkDelete") {
 					@Override
 					public void onClick() {
 						project.getConvites().remove(convite);

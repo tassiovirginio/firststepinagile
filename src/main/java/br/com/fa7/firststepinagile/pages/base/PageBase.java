@@ -50,7 +50,7 @@ public class PageBase extends WebPage {
 		
 		createUserModal(user);
 		
-		linkStart = new Link("lkStart") {
+		linkStart = new Link<Void>("lkStart") {
 			@Override
 			public void onClick() {
 				allEnable();
@@ -59,7 +59,7 @@ public class PageBase extends WebPage {
 		};
 		add(linkStart);
 
-		lkStorys = new Link("lkStorys") {
+		lkStorys = new Link<Void>("lkStorys") {
 			@Override
 			public void onClick() {
 				allEnable();
@@ -68,7 +68,7 @@ public class PageBase extends WebPage {
 		};
 		add(lkStorys);
 		
-		lkSprints2 = new Link("lkSprints2") {
+		lkSprints2 = new Link<Void>("lkSprints2") {
 			@Override
 			public void onClick() {
 				allEnable();
@@ -77,7 +77,7 @@ public class PageBase extends WebPage {
 		};
 		add(lkSprints2);
 		
-		lkSprints = new Link("lkSprints") {
+		lkSprints = new Link<Void>("lkSprints") {
 			@Override
 			public void onClick() {
 				allEnable();
@@ -86,7 +86,7 @@ public class PageBase extends WebPage {
 		};
 		add(lkSprints);
 		
-		lkTasks = new Link("lkTasks") {
+		lkTasks = new Link<Void>("lkTasks") {
 			@Override
 			public void onClick() {
 				allEnable();
@@ -95,7 +95,7 @@ public class PageBase extends WebPage {
 		};
 		add(lkTasks);
 		
-		linkKanban = new Link("lkKanban") {
+		linkKanban = new Link<Void>("lkKanban") {
 			@Override
 			public void onClick() {
 				allEnable();
@@ -104,7 +104,7 @@ public class PageBase extends WebPage {
 		};
 		add(linkKanban);
 
-		lkSobre = new Link("lkSobre") {
+		lkSobre = new Link<Void>("lkSobre") {
 			@Override
 			public void onClick() {
 				allEnable();
@@ -114,7 +114,7 @@ public class PageBase extends WebPage {
 		add(lkSobre);
 		
 		
-		Link lkExit = new Link("lkExit") {
+		Link lkExit = new Link<Void>("lkExit") {
 			@Override
 			public void onClick() {
 				getSession().invalidateNow();

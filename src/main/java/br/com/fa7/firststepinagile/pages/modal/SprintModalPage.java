@@ -8,7 +8,8 @@ import org.apache.wicket.PageReference;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.extensions.yui.calendar.DateField;
+//import org.apache.wicket.extensions.yui.calendar.DateField;
+import org.wicketstuff.datetime.extensions.yui.calendar.DateField;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -76,27 +77,27 @@ public class SprintModalPage extends WebPage {
 		
 		
 		form.add(new AjaxButton("btSelecionar", form) {
+
 			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+			protected void onSubmit(AjaxRequestTarget target) {
 				pageRefOrigem.getPage().getPageParameters().set("sprintId", sprintLocal.getId());
 				window.close(target);
 			}
 
 			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
+			protected void onError(AjaxRequestTarget target) {
 				window.close(target);
 			}
 		});
 		
 		add(form);
-		
-		
+
 		List<Sprint> listSprints = sprintBusiness.allOrderById();
 		
 		ListView<Sprint> listViewSprint = new ListView<Sprint>("listViewSprint", listSprints) {
 			@Override
 			protected void populateItem(ListItem<Sprint> item) {
-				final Sprint sprint = (Sprint)item.getModelObject();
+				final Sprint sprint = item.getModelObject();
 
                 String nameSprint = sprint.getName();
                 if(user.getSprint() != null && user.getSprint().getId() != null && user.getSprint().getId().equals(sprint.getId())){
@@ -107,16 +108,18 @@ public class SprintModalPage extends WebPage {
 				Label lbId = new Label("lbId", sprint.getId().toString());
 				item.add(lbName);
 				item.add(lbId);
-				
-				item.add(new Link("lkRight") {
+
+				Link lkRight = new Link<Sprint>("lkRight") {
 					@Override
 					public void onClick() {
 						sprintLocal = sprint;
 						setResponsePage(new SprintModalPage(pageRefOrigem, window, user, sprint));
 					}
-				});
+				};
 				
-				item.add(new Link("lkDelete") {
+				item.add(lkRight);
+				
+				item.add(new Link<Sprint>("lkDelete") {
 					@Override
 					public void onClick() {
 						sprintBusiness.delete(sprint);

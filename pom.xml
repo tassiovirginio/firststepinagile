@@ -43,8 +43,13 @@
             <version>${wicket.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.wicket-jquery-ui</groupId>
+        <groupId>com.googlecode.wicket-jquery-ui</groupId>
             <artifactId>wicket-jquery-ui</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicket-datetime</artifactId>
             <version>${wicket.version}</version>
         </dependency>
 

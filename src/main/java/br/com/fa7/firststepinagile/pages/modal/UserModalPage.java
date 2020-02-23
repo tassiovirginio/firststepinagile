@@ -36,13 +36,13 @@ public class UserModalPage extends WebPage {
 
 		form.add(new AjaxButton("ajax-button", form) {
 			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+			protected void onSubmit(AjaxRequestTarget target) {
 				userBusiness.save(userSelected);
 				window.close(target);
 			}
 
 			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
+			protected void onError(AjaxRequestTarget target) {
 				window.close(target);
 			}
 		});

@@ -126,7 +126,7 @@ public class SprintsPage extends PageBase {
                 Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
                 lbDescription.setEscapeModelStrings(false);
                 Label lbId = new Label("lbId", story.getId().toString());
-                Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
+                Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
 
 
                 WebMarkupContainer webContainer = new WebMarkupContainer("tableStory");
@@ -140,7 +140,7 @@ public class SprintsPage extends PageBase {
                 webContainer.add(lbId);
                 webContainer.add(lbDateCreate);
 
-                Link lkStorys = new Link("lkDelete") {
+                Link lkStorys = new Link<Void>("lkDelete") {
                     @Override
                     public void onClick() {
                         storyBusiness.delete(story);
@@ -162,7 +162,7 @@ public class SprintsPage extends PageBase {
                     }
                 });
 
-                AjaxLink lkRight = new AjaxLink("lkRight") {
+                AjaxLink lkRight = new AjaxLink<Void>("lkRight") {
                     @Override
                     public void onClick(AjaxRequestTarget target) {
                         if(sprint != null){
@@ -279,7 +279,7 @@ public class SprintsPage extends PageBase {
                 Label lbActivitysSize = new Label("lbActivitysSize", story.getActivitys().size()+"");
                 lbDescription.setEscapeModelStrings(false);
                 Label lbId = new Label("lbId", story.getId().toString());
-                Label lbDateCreate = new Label("lbDateCreate", new DateTime(story.getDateCreation()).toString("dd/MM/yyyy - HH:mm"));
+                Label lbDateCreate = new Label("lbDateCreate", story.getDateCreation().toString("dd/MM/yyyy - HH:mm"));
 
                 WebMarkupContainer webContainer = new WebMarkupContainer("tableStory2");
                 webContainer.add(new AttributeAppender("style", "background-color: #" +story.getColor()));
@@ -291,7 +291,7 @@ public class SprintsPage extends PageBase {
                 webContainer.add(lbId);
                 webContainer.add(lbDateCreate);
 
-                Link lkStorys = new Link("lkDelete") {
+                Link lkStorys = new Link<Void>("lkDelete") {
                     @Override
                     public void onClick() {
                         sprintBusiness.delete(sprint);
@@ -313,7 +313,7 @@ public class SprintsPage extends PageBase {
                     }
                 });
 
-                webContainer.add(new Link("lkRight") {
+                webContainer.add(new Link<Void>("lkRight") {
                     @Override
                     public void onClick() {
                         story.setSprint(null);

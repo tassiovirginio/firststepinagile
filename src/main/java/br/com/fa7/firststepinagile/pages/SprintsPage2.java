@@ -7,7 +7,7 @@ import br.com.fa7.firststepinagile.entities.*;
 import br.com.fa7.firststepinagile.pages.provider.ProjectProvider;
 import br.com.fa7.firststepinagile.pages.provider.SprintProvider;
 import br.com.fa7.firststepinagile.pages.provider.StoryProvider;
-import org.apache.wicket.extensions.yui.calendar.DateField;
+//import org.apache.wicket.extensions.yui.calendar.DateField;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -24,6 +24,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.fa7.firststepinagile.business.SprintBusiness;
 import br.com.fa7.firststepinagile.pages.base.PageBase;
+import org.wicketstuff.datetime.extensions.yui.calendar.DateField;
 
 @SuppressWarnings({ "serial","rawtypes", "unchecked"})
 public class SprintsPage2 extends PageBase {
@@ -82,7 +83,7 @@ public class SprintsPage2 extends PageBase {
 				item.add(lbName);
 				item.add(lbId);
 				
-				Link lkSelect = new Link("lkSelect") {
+				Link lkSelect = new Link<Sprint>("lkSelect") {
 					@Override
 					public void onClick() {
 						user.setSprint(sprint);
@@ -96,14 +97,14 @@ public class SprintsPage2 extends PageBase {
 				
 				item.add(lkSelect);
 				
-				item.add(new Link("lkRight") {
+				item.add(new Link<Sprint>("lkRight") {
 					@Override
 					public void onClick() {
 						setResponsePage(new SprintsPage2(user,sprint));
 					}
 				});
 				
-				item.add(new Link("lkDelete") {
+				item.add(new Link<Sprint>("lkDelete") {
 					@Override
 					public void onClick() {
 						sprintBusiness.delete(sprint);
